@@ -1,12 +1,24 @@
+/*
+ * Clase main para mandas a llamar la primera ventana
+ * 
+ * Fecha: 28/09/2024
+ * 
+ * @autor Aurora Morales
+ * 
+ * Version: 3
+ * */
+
 package application;
-	
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
-
+/*
+ * Metodo main
+ * */
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
