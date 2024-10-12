@@ -1,0 +1,35 @@
+/*Fondo cade*/ 
+.cuerpo{
+	-fx-background-color: #99521C;
+}
+
+/*Cafe claro de la primera capa*/
+.capa1{
+	-fx-background-color: #e3c9bd;
+}
+
+/*Boton redondo verde*/
+.boton{
+	-fx-border-radius: 10px;
+	-fx-background-color: #d0ffbe;
+}
+
+/*Boton redondo rojo*/
+.botonRojo{
+	-fx-border-radius: 15px;
+	-fx-background-color: #ffa080;
+	-fx-background-radius: 5px;
+}
+
+/*Boton con en forma de estrella*/
+.botonEstrella{
+	-fx-shape: "M 50,0 L 61,35 L 100,35 L 69,57 L 80,91 L 50,70 L 19,91 L 30,57 L 0,35 L 38,35 Z";
+    -fx-background-color: #818b8f;
+    -fx-text-fill: black;
+    -fx-padding: 0;  /* Elimina el padding para que la forma sea visible */
+}
+
+/*Espacio de texto*/
+.texto{
+	-fx-background-color: #ffeae1;
+}

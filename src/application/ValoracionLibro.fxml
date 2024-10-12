@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="cuerpo" stylesheets="@../../bin/application/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="79.0" prefWidth="600.0" styleClass="capa1" stylesheets="@../../bin/application/application.css">
+         <children>
+            <Text layoutX="221.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Favoritos">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="65.0" fitWidth="72.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../bin/application/image/WhatsApp%20Image%202024-10-04%20at%209.35.11%20PM.jpeg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <TableView layoutX="37.0" layoutY="172.0" prefHeight="200.0" prefWidth="523.0" styleClass="texto" stylesheets="@../../bin/application/application.css">
+        <columns>
+          <TableColumn prefWidth="206.0" text="Titulo" />
+          <TableColumn minWidth="0.0" prefWidth="199.0" text="Autor" />
+            <TableColumn prefWidth="117.0" text="Numero de reseñas" />
+        </columns>
+      </TableView>
+      <SplitMenuButton layoutX="42.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="514.0" style="-fx-background-color: #ffeae1;" styleClass="texto" text="Generos">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </SplitMenuButton>
+   </children>
+</AnchorPane>
