@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="934.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controladorInscripcion">
+   <top>
+      <AnchorPane fx:id="boton1" prefHeight="655.0" prefWidth="934.0" style="-fx-background-color: #e3c9bd;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Documents/libreria%20alyssum/Logos%20alyssum/logo%20de%20libreria.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="169.0" fitWidth="523.0" layoutX="181.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Documents/libreria%20alyssum/Pagina/proximoseventos.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="227.0" fitWidth="230.0" layoutX="35.0" layoutY="191.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Documents/libreria%20alyssum/Pagina/club%20de%20lectura.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="165.0" fitWidth="167.0" layoutX="112.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Documents/libreria%20alyssum/Pagina/firmadeLibros.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="392.0" fitWidth="242.0" layoutX="332.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Documents/libreria%20alyssum/Pagina/TallerEscritura.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="195.0" fitWidth="229.0" layoutX="600.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Documents/libreria%20alyssum/Pagina/feriadelnino.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="224.0" fitWidth="175.0" layoutX="677.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Documents/libreria%20alyssum/Pagina/tallerdedibujo.png" />
+               </image>
+            </ImageView>
+            <Button id="incripcion1" fx:id="btnInscCLec" layoutX="100.0" layoutY="326.0" mnemonicParsing="false" onAction="#InscripcionClubdeLectura" style="-fx-background-color: black;" text="INSCRIPCION" textFill="WHITE" />
+            <Button fx:id="btnInscTDib" layoutX="684.0" layoutY="302.0" mnemonicParsing="false" onAction="#InscripcionTallerdeDIbujo" prefHeight="23.0" prefWidth="88.0" style="-fx-background-color: black;" text="INSCRIPCION" textFill="WHITE" />
+            <Button fx:id="btnInsTEsc" layoutX="344.0" layoutY="542.0" mnemonicParsing="false" onAction="#InscripcionTallerdeLectura" style="-fx-background-color: black;" text="INSCRIPCION" textFill="WHITE" />
+         </children>
+         <effect>
+            <Blend />
+         </effect>
+      </AnchorPane>
+   </top>
+</BorderPane>
