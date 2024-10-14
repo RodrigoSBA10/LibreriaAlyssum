@@ -6,18 +6,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="393.0" styleClass="capa1" stylesheets="@application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="393.0" styleClass="capa1" stylesheets="@application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControllerAgregarReseña">
    <children>
-      <TextArea layoutX="24.0" layoutY="129.0" prefHeight="244.0" prefWidth="346.0" promptText="¿Qué te pareció el libro?" styleClass="texto" stylesheets="@application.css" />
-      <Button layoutX="83.0" layoutY="380.0" mnemonicParsing="false" styleClass="boton" stylesheets="@application.css" text="Agregar" />
-      <Button layoutX="239.0" layoutY="380.0" mnemonicParsing="false" styleClass="botonRojo" stylesheets="@application.css" text="Cancelar" />
+      <TextArea fx:id="textArea" layoutX="24.0" layoutY="129.0" prefHeight="244.0" prefWidth="346.0" promptText="¿Qué te pareció el libro?" styleClass="texto" stylesheets="@application.css" />
+      <Button fx:id="agregar" layoutX="83.0" layoutY="380.0" mnemonicParsing="false" onAction="#agregarReseña" styleClass="boton" stylesheets="@application.css" text="Agregar" />
+      <Button fx:id="cancelar" layoutX="239.0" layoutY="380.0" mnemonicParsing="false" onAction="#regresarBoton" styleClass="botonRojo" stylesheets="@application.css" text="Cancelar" />
       <Text layoutX="168.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Button layoutX="41.0" layoutY="74.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="42.0" styleClass="botonEstrella" stylesheets="@application.css" />
-      <Button layoutX="106.0" layoutY="74.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="42.0" styleClass="botonEstrella" stylesheets="@application.css" />
-      <Button layoutX="168.0" layoutY="74.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="42.0" styleClass="botonEstrella" stylesheets="@application.css" />
-      <Button layoutX="228.0" layoutY="74.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="42.0" styleClass="botonEstrella" stylesheets="@application.css" />
-      <Button layoutX="291.0" layoutY="74.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="42.0" styleClass="botonEstrella" stylesheets="@application.css" />
+      <Button fx:id="btn1" layoutX="41.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#ClickButton1" prefHeight="33.0" prefWidth="42.0" styleClass="botonEstrella" stylesheets="@application.css" />
+      <Button fx:id="btn2" layoutX="106.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#ClickButton2" prefHeight="33.0" prefWidth="42.0" styleClass="botonEstrella" stylesheets="@application.css" />
+      <Button fx:id="btn3" layoutX="168.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#ClickButton3" prefHeight="33.0" prefWidth="42.0" styleClass="botonEstrella" stylesheets="@application.css" />
+      <Button fx:id="btn4" layoutX="228.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#ClickButton4" prefHeight="33.0" prefWidth="42.0" styleClass="botonEstrella" stylesheets="@application.css" />
+      <Button fx:id="btn5" layoutX="291.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#ClickButton5" prefHeight="33.0" prefWidth="42.0" styleClass="botonEstrella" stylesheets="@application.css" />
       <Text layoutX="40.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calificación de estrellas:">
          <font>
             <Font size="24.0" />

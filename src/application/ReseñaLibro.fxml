@@ -5,13 +5,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="501.0" styleClass="cuerpo" stylesheets="@application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="501.0" styleClass="cuerpo" stylesheets="@application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControllerReseñaLibro">
    <children>
-      <Button layoutX="202.0" layoutY="327.0" mnemonicParsing="false" styleClass="boton" stylesheets="@application.css" text="Agregar reseña" />
+      <Button fx:id="agregar" layoutX="117.0" layoutY="326.0" mnemonicParsing="false" onAction="#aceptarButton" styleClass="boton" stylesheets="@application.css" text="Agregar reseña" />
       <TableView layoutX="10.0" layoutY="90.0" prefHeight="223.0" prefWidth="477.0" styleClass="texto" stylesheets="@application.css">
         <columns>
-          <TableColumn prefWidth="476.0" text="Reseñas" />
+          <TableColumn fx:id="reseñas" prefWidth="476.0" text="Reseñas" />
         </columns>
       </TableView>
+      <Button fx:id="regresar" layoutX="295.0" layoutY="326.0" mnemonicParsing="false" onAction="#regresarButton" styleClass="botonRojo" stylesheets="@application.css" text="Regresar" />
    </children>
 </AnchorPane>

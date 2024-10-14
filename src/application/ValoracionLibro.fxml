@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="cuerpo" stylesheets="@../../bin/application/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="cuerpo" stylesheets="@../../bin/application/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControllerValoracionLibro">
    <children>
       <AnchorPane prefHeight="79.0" prefWidth="600.0" styleClass="capa1" stylesheets="@../../bin/application/application.css">
          <children>
@@ -26,18 +26,40 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <TableView layoutX="37.0" layoutY="172.0" prefHeight="200.0" prefWidth="523.0" styleClass="texto" stylesheets="@../../bin/application/application.css">
+      <TableView fx:id="tablaDeLibros" layoutX="37.0" layoutY="172.0" prefHeight="200.0" prefWidth="523.0" styleClass="texto" stylesheets="@../../bin/application/application.css">
         <columns>
-          <TableColumn prefWidth="206.0" text="Titulo" />
-          <TableColumn minWidth="0.0" prefWidth="199.0" text="Autor" />
-            <TableColumn prefWidth="117.0" text="Numero de reseñas" />
+          <TableColumn fx:id="ColumnTitulo" prefWidth="206.0" text="Titulo" />
+          <TableColumn fx:id="ColumnAutor" minWidth="0.0" prefWidth="199.0" text="Autor" />
+            <TableColumn fx:id="ColumnNumReseñas" prefWidth="117.0" text="Numero de reseñas" />
         </columns>
       </TableView>
-      <SplitMenuButton layoutX="42.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="514.0" style="-fx-background-color: #ffeae1;" styleClass="texto" text="Generos">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-        </items>
-      </SplitMenuButton>
+      <MenuButton fx:id="miMenuButton" layoutX="37.0" layoutY="103.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="523.0" text="Genero">
+         <items>
+            <MenuItem fx:id="item1" mnemonicParsing="false" onAction="#precionarItem1" text="Novela historica" />
+            <MenuItem fx:id="item2" mnemonicParsing="false" text="Novela negra, thriller o suspense " />
+            <MenuItem fx:id="item3" mnemonicParsing="false" text="Ciencia Ficción" />
+            <MenuItem fx:id="item4" mnemonicParsing="false" text="Distopía" />
+            <MenuItem fx:id="item5" mnemonicParsing="false" text="Aventuras" />
+            <MenuItem fx:id="item6" mnemonicParsing="false" text="Fantasía" />
+            <MenuItem fx:id="item7" mnemonicParsing="false" text="Contemporáneo" />
+            <MenuItem fx:id="item8" mnemonicParsing="false" text="Terror" />
+            <MenuItem fx:id="item9" mnemonicParsing="false" text="Paranormal" />
+            <MenuItem fx:id="item10" mnemonicParsing="false" text="Poesía" />
+            <MenuItem fx:id="item11" mnemonicParsing="false" text="Juvenil" />
+            <MenuItem fx:id="item12" mnemonicParsing="false" text="Infantil" />
+            <MenuItem mnemonicParsing="false" text="Autoayuda y superación personal" />
+            <MenuItem mnemonicParsing="false" text="Salud y deporte" />
+            <MenuItem mnemonicParsing="false" text="Libros prácticos o manuales" />
+            <MenuItem mnemonicParsing="false" text="Memorias" />
+            <MenuItem mnemonicParsing="false" text="Biografías" />
+            <MenuItem mnemonicParsing="false" text="Cocina" />
+            <MenuItem mnemonicParsing="false" text="Viajes" />
+            <MenuItem mnemonicParsing="false" text="Libros técnicos y especialezados" />
+            <MenuItem mnemonicParsing="false" text="De consulta y referencia" />
+            <MenuItem mnemonicParsing="false" text="Divulgativos" />
+            <MenuItem mnemonicParsing="false" text="Libros de texto" />
+            <MenuItem mnemonicParsing="false" text="Arte" />
+         </items>
+      </MenuButton>
    </children>
 </AnchorPane>
