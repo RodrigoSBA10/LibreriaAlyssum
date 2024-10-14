@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffeae1;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="188.0" layoutY="14.0" prefHeight="331.0" prefWidth="225.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <ImageView fitHeight="61.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Documents/Alyssum_carrito/alyssum_logo.jpeg" />
+               </image>
+               <VBox.margin>
+                  <Insets left="80.0" />
+               </VBox.margin>
+            </ImageView>
+            <Pane prefHeight="64.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="-1.0" layoutY="-2.0" prefHeight="17.0" prefWidth="73.0" text="Emitido por:">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="137.0" layoutY="-2.0" prefHeight="17.0" prefWidth="80.0" text="Numero de factuta:">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="137.0" layoutY="31.0" text="Fecha de emicion:">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <TableView prefHeight="129.0" prefWidth="225.0" style="-fx-background-color: #ffebcd;">
+              <columns>
+                <TableColumn prefWidth="52.0" style="-fx-background-color: #99521c;" text="Descripcion" />
+                <TableColumn minWidth="3.0" prefWidth="27.0" style="-fx-background-color: #99513c;" text="Cantidad" />
+                  <TableColumn prefWidth="93.0" style="-fx-background-color: #99521c;" text="Precio unitario" />
+                  <TableColumn prefWidth="51.0" style="-fx-background-color: #99521c;" text="Total" />
+              </columns>
+            </TableView>
+            <Pane prefHeight="85.0" prefWidth="225.0">
+               <children>
+                  <Label text="INFORMACION DE PAGO">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="149.0" layoutY="52.0" text="Total:" />
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+      <Button layoutX="70.0" layoutY="340.0" mnemonicParsing="false" style="-fx-background-color: #99521c;" text="Imprimir" />
+      <Button layoutX="494.0" layoutY="340.0" mnemonicParsing="false" style="-fx-background-color: #99521c;" text="Enviar" />
+   </children>
+</Pane>
