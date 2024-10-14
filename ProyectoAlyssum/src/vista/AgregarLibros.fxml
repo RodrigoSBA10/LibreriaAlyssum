@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="357.0" style="-fx-background-color: E3C9BD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AgregarLibrosController">
+   <children>
+      <Pane layoutX="14.0" layoutY="85.0" prefHeight="310.0" prefWidth="198.0">
+         <children>
+            <TextField fx:id="txtTitulo" layoutY="2.0" prefHeight="25.0" prefWidth="191.0" promptText="Titulo: " style="-fx-background-radius: 15px; -fx-background-color: ffeae1;">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtAutor" layoutY="45.0" prefHeight="25.0" prefWidth="191.0" promptText="Autor:" style="-fx-background-radius: 15px; -fx-background-color: ffeae1;" />
+            <TextField fx:id="txtISBN" layoutY="84.0" prefHeight="25.0" prefWidth="191.0" promptText="ISBN:" style="-fx-background-radius: 15px; -fx-background-color: ffeae1;" />
+            <TextField fx:id="txtEditorial" layoutX="4.0" layoutY="124.0" prefHeight="25.0" prefWidth="191.0" promptText="Editorial:" style="-fx-background-radius: 15px; -fx-background-color: ffeae1;" />
+            <TextField fx:id="txtGenero" layoutX="4.0" layoutY="171.0" prefHeight="25.0" prefWidth="191.0" promptText="Genero:" style="-fx-background-radius: 15px; -fx-background-color: ffeae1;" />
+            <TextField fx:id="txtPrecio" layoutX="4.0" layoutY="214.0" prefHeight="25.0" prefWidth="191.0" promptText="Precio:" style="-fx-background-radius: 15px; -fx-background-color: ffeae1;" />
+         </children>
+      </Pane>
+      <Label layoutX="24.0" layoutY="14.0" prefHeight="49.0" prefWidth="140.0" text="Agregar Libro">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnAgregarLibros" layoutX="37.0" layoutY="414.0" mnemonicParsing="false" onAction="#GuardarNuevoLibro" style="-fx-background-color: D0FFBE;" text="Agregar Libro" />
+      <ImageView fitHeight="117.0" fitWidth="140.0" layoutX="229.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/LogoAlyssum.jpeg" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnCancelar" layoutX="212.0" layoutY="414.0" mnemonicParsing="false" onAction="#cancelar" style="-fx-background-color: D0FFBE;" text="Cancelar" />
+   </children>
+</AnchorPane>
