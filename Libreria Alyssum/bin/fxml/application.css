@@ -1,0 +1,37 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.contenedor{
+	-fx-background-color: #99521c;
+	-fx-padding: 20;
+	-fx-alignment: center;
+}
+.logo{
+	-fx-padding: 20;
+}
+
+.banner{
+	-fx-effect: dropshadow(gaussian, #000000, 10, 0.0, 0,0); 
+	-fx-background-color: #99521c;
+	-fx-border-color: white;
+	-fx-border-width: 1;
+}
+.textoBanner{
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+	-fx-text-fill: black;
+	-fx-padding: 10;
+}
+.primerBoton{
+	-fx-background-color: #d0ffbe;
+	-fx-text-fill: black;
+	-fx-font-size: 16px;
+	-fx-border-radius: 5;
+	-fx-background-radius: 5;
+	-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0.0,0,1) ;
+}
+.primerBoton:hover{
+	-fx-background-color: #e3c9bd;
+}
+.busc{
+	-fx-background-color: #ffeae1;
+	-fx-text-fill: black;
+}

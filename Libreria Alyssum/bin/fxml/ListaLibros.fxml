@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #99521C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ListaLibroController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="62.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #99521C;" styleClass="contenedor" stylesheets="@application.css">
+         <children>
+            <TextField fx:id="titulo" promptText="Buscar por titulo" styleClass="busc" stylesheets="@application.css">
+               <font>
+                  <Font name="Calibri Bold" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+               <effect>
+                  <DropShadow />
+               </effect></TextField>
+            <TextField fx:id="autor" promptText="Buscar por autor" styleClass="busc" stylesheets="@application.css">
+               <font>
+                  <Font name="Calibri Bold" size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect></TextField>
+            <TextField fx:id="isbn" promptText="Buscar por ISBN" styleClass="busc" stylesheets="@application.css">
+               <font>
+                  <Font name="Calibri Bold" size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect></TextField>
+            <ComboBox fx:id="categoria" prefHeight="26.0" prefWidth="175.0" promptText="Selecciona una categoria" style="-fx-background-color: #d0ffbe;">
+               <effect>
+                  <DropShadow />
+               </effect></ComboBox>
+            <Label text="Precio" textAlignment="CENTER">
+               <font>
+                  <Font name="Calibri Bold" size="15.0" />
+               </font></Label>
+            <VBox>
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" styleClass="contenedor" stylesheets="@application.css">
+                     <children>
+                        <Slider fx:id="sliderPrecio" majorTickUnit="100.0" max="5000.0" prefHeight="14.0" prefWidth="200.0">
+                           <effect>
+                              <InnerShadow />
+                           </effect>
+                        </Slider>
+                        <Label fx:id="valor" prefHeight="22.0" prefWidth="280.0">
+                           <font>
+                              <Font name="Calibri" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <CheckBox mnemonicParsing="false" text="Solo Disponibles">
+               <font>
+                  <Font name="Calibri" size="15.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect></CheckBox>
+            <Button mnemonicParsing="false" onAction="#buscarLibro" style="-fx-background-color: #d0ffbe;" stylesheets="@application.css" text="Buscar">
+               <font>
+                  <Font name="Calibri Bold" size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect></Button>
+         </children>
+         <opaqueInsets>
+            <Insets top="20.0" />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" top="20.0" />
+         </VBox.margin>
+      </HBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #e3c9bd;" styleClass="contenedor" stylesheets="@application.css">
+         <children>
+            <Label text="Categorias Populares">
+               <font>
+                  <Font name="Calibri Bold" size="25.0" />
+               </font></Label>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #e3c9bd;" styleClass="contenedor" stylesheets="@application.css">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#btnFiccion" style="-fx-background-color: #d0ffbe;" text="Ficcion">
+                     <font>
+                        <Font name="Calibri Bold" size="15.0" />
+                     </font>
+                     <effect>
+                        <InnerShadow />
+                     </effect></Button>
+                  <Button mnemonicParsing="false" onAction="#btnEducativo" style="-fx-background-color: #d0ffbe;" text="No Ficcion">
+                     <font>
+                        <Font name="Calibri Bold" size="15.0" />
+                     </font>
+                     <effect>
+                        <InnerShadow />
+                     </effect></Button>
+                  <Button mnemonicParsing="false" onAction="#btnInfantil" style="-fx-background-color: #d0ffbe;" text="Infantil">
+                     <font>
+                        <Font name="Calibri Bold" size="15.0" />
+                     </font>
+                     <effect>
+                        <InnerShadow />
+                     </effect></Button>
+               </children>
+            </HBox>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </VBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="200.0" styleClass="contenedor" stylesheets="@application.css">
+         <children>
+            <ImageView fitHeight="227.0" fitWidth="302.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/alyssumSF.jpg" />
+               </image>
+            </ImageView>
+            <VBox prefHeight="211.0" prefWidth="208.0" spacing="10.0" style="-fx-background-color: #99521C;" styleClass="contenedor" stylesheets="@application.css">
+               <children>
+                  <Label text="Carrito">
+                     <font>
+                        <Font name="Calibri Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="cartaImagne" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                     <image>
+                        <Image url="@../images/carrito2.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="0">
+                     <font>
+                        <Font name="Calibri Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets right="80.0" />
+               </padding>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </VBox>
+            <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #99521C;" styleClass="contenedor" stylesheets="@application.css">
+               <children>
+                  <Label alignment="CENTER" text="Mas vendidos">
+                     <font>
+                        <Font name="Calibri Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #99521C;" styleClass="contenedor" stylesheets="@application.css">
+                     <children>
+                        <ImageView fx:id="banner1" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </ImageView>
+                        <ImageView fx:id="banner2" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </ImageView>
+                        <ImageView fx:id="banner3" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </HBox>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="100.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+      <TableView fx:id="tablaDeLibros" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #e3c9bd; -fx-border-color: black;">
+        <columns>
+          <TableColumn fx:id="columnaTitulo" minWidth="100.0" prefWidth="255.0" style="-fx-font-size: 18; -fx-border-color: black;" text="Titulo" />
+          <TableColumn fx:id="columnaAutor" minWidth="100.0" prefWidth="255.0" style="-fx-font-size: 18; -fx-background-color: #d0ffbe; -fx-border-color: black;" text="Autor" />
+            <TableColumn fx:id="columnaEditorial" minWidth="100.0" prefWidth="255.0" style="-fx-font-size: 18; -fx-border-color: black;" text="Editorial" />
+            <TableColumn fx:id="columnaStock" minWidth="100.0" prefWidth="255.0" style="-fx-font-size: 18; -fx-background-color: #d0ffbe; -fx-border-color: black;" text="Stock" />
+            <TableColumn fx:id="columnaPrecio" minWidth="100.0" prefWidth="255.0" style="-fx-font-size: 18; -fx-border-color: black;" text="Precio" />
+            <TableColumn fx:id="columnaAcciones" minWidth="100.0" prefWidth="255.0" style="-fx-font-size: 18; -fx-background-color: #d0ffbe; -fx-border-color: black;" text="Acciones" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>
