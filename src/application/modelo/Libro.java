@@ -9,12 +9,12 @@
  * 
  * */
 
-package application;
+package application.modelo;
 
 /*Libro class
  * Return nada*/
 public class Libro {
-  //Constantes
+  //Varibles
   String titulo;
   String autor;
   String genero;

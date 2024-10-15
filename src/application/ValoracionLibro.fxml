@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -26,40 +27,39 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <TableView fx:id="tablaDeLibros" layoutX="37.0" layoutY="172.0" prefHeight="200.0" prefWidth="523.0" styleClass="texto" stylesheets="@../../bin/application/application.css">
-        <columns>
-          <TableColumn fx:id="ColumnTitulo" prefWidth="206.0" text="Titulo" />
-          <TableColumn fx:id="ColumnAutor" minWidth="0.0" prefWidth="199.0" text="Autor" />
-            <TableColumn fx:id="ColumnNumReseñas" prefWidth="117.0" text="Numero de reseñas" />
-        </columns>
-      </TableView>
-      <MenuButton fx:id="miMenuButton" layoutX="37.0" layoutY="103.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="523.0" text="Genero">
+      <MenuButton fx:id="miMenuButton" layoutX="39.0" layoutY="103.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="523.0" text="Genero">
          <items>
             <MenuItem fx:id="item1" mnemonicParsing="false" onAction="#precionarItem1" text="Novela historica" />
-            <MenuItem fx:id="item2" mnemonicParsing="false" text="Novela negra, thriller o suspense " />
-            <MenuItem fx:id="item3" mnemonicParsing="false" text="Ciencia Ficción" />
-            <MenuItem fx:id="item4" mnemonicParsing="false" text="Distopía" />
-            <MenuItem fx:id="item5" mnemonicParsing="false" text="Aventuras" />
-            <MenuItem fx:id="item6" mnemonicParsing="false" text="Fantasía" />
-            <MenuItem fx:id="item7" mnemonicParsing="false" text="Contemporáneo" />
-            <MenuItem fx:id="item8" mnemonicParsing="false" text="Terror" />
-            <MenuItem fx:id="item9" mnemonicParsing="false" text="Paranormal" />
-            <MenuItem fx:id="item10" mnemonicParsing="false" text="Poesía" />
-            <MenuItem fx:id="item11" mnemonicParsing="false" text="Juvenil" />
-            <MenuItem fx:id="item12" mnemonicParsing="false" text="Infantil" />
-            <MenuItem mnemonicParsing="false" text="Autoayuda y superación personal" />
-            <MenuItem mnemonicParsing="false" text="Salud y deporte" />
-            <MenuItem mnemonicParsing="false" text="Libros prácticos o manuales" />
-            <MenuItem mnemonicParsing="false" text="Memorias" />
-            <MenuItem mnemonicParsing="false" text="Biografías" />
-            <MenuItem mnemonicParsing="false" text="Cocina" />
-            <MenuItem mnemonicParsing="false" text="Viajes" />
-            <MenuItem mnemonicParsing="false" text="Libros técnicos y especialezados" />
-            <MenuItem mnemonicParsing="false" text="De consulta y referencia" />
-            <MenuItem mnemonicParsing="false" text="Divulgativos" />
-            <MenuItem mnemonicParsing="false" text="Libros de texto" />
-            <MenuItem mnemonicParsing="false" text="Arte" />
+            <MenuItem fx:id="item2" mnemonicParsing="false" onAction="#precionarItem2" text="Novela negra, thriller o suspense " />
+            <MenuItem fx:id="item3" mnemonicParsing="false" onAction="#precionarItem3" text="Ciencia Ficción" />
+            <MenuItem fx:id="item4" mnemonicParsing="false" onAction="#precionarItem4" text="Distopía" />
+            <MenuItem fx:id="item5" mnemonicParsing="false" onAction="#precionarItem5" text="Aventuras" />
+            <MenuItem fx:id="item6" mnemonicParsing="false" onAction="#precionarItem6" text="Fantasía" />
+            <MenuItem fx:id="item7" mnemonicParsing="false" onAction="#precionarItem7" text="Contemporáneo" />
+            <MenuItem fx:id="item8" mnemonicParsing="false" onAction="#precionarItem8" text="Terror" />
+            <MenuItem fx:id="item9" mnemonicParsing="false" onAction="#precionarItem9" text="Paranormal" />
+            <MenuItem fx:id="item10" mnemonicParsing="false" onAction="#precionarItem10" text="Poesía" />
+            <MenuItem fx:id="item11" mnemonicParsing="false" onAction="#precionarItem11" text="Juvenil" />
+            <MenuItem fx:id="item12" mnemonicParsing="false" onAction="#precionarItem12" text="Infantil" />
+            <MenuItem fx:id="item13" mnemonicParsing="false" onAction="#precionarItem13" text="Autoayuda y superación personal" />
+            <MenuItem fx:id="item14" mnemonicParsing="false" onAction="#precionarItem14" text="Salud y deporte" />
+            <MenuItem fx:id="item15" mnemonicParsing="false" onAction="#precionarItem15" text="Libros prácticos o manuales" />
+            <MenuItem fx:id="item16" mnemonicParsing="false" onAction="#precionarItem16" text="Memorias" />
+            <MenuItem fx:id="item17" mnemonicParsing="false" onAction="#precionarItem17" text="Biografías" />
+            <MenuItem fx:id="item18" mnemonicParsing="false" onAction="#precionarItem18" text="Cocina" />
+            <MenuItem fx:id="item19" mnemonicParsing="false" onAction="#precionarItem19" text="Viajes" />
+            <MenuItem fx:id="item20" mnemonicParsing="false" onAction="#precionarItem20" text="Libros técnicos y especialezados" />
+            <MenuItem fx:id="item21" mnemonicParsing="false" onAction="#precionarItem21" text="De consulta y referencia" />
+            <MenuItem fx:id="iitem22" mnemonicParsing="false" onAction="#precionarItem22" text="Divulgativos" />
+            <MenuItem fx:id="item23" mnemonicParsing="false" onAction="#precionarItem23" text="Libros de texto" />
+            <MenuItem fx:id="item24" mnemonicParsing="false" onAction="#precionarItem24" text="Arte" />
          </items>
       </MenuButton>
+      <ScrollPane layoutX="39.0" layoutY="165.0" prefHeight="200.0" prefWidth="523.0">
+         <content>
+            <TableView prefHeight="200.0" prefWidth="522.0" />
+         </content>
+      </ScrollPane>
+      <Button fx:id="provicional" layoutX="275.0" layoutY="365.0" mnemonicParsing="false" onAction="#push" text="Seguir" />
    </children>
 </AnchorPane>

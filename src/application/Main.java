@@ -25,7 +25,7 @@ public class Main extends Application {
   @Override
 public void start(Stage primaryStage) {
     try {
-      AnchorPane root = FXMLLoader.load(this.getClass().getResource("ReseñaLibro.fxml"));
+      AnchorPane root = FXMLLoader.load(this.getClass().getResource("ValoracionLibro.fxml"));
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
       primaryStage.setScene(scene);
@@ -34,13 +34,7 @@ public void start(Stage primaryStage) {
       e.printStackTrace();
     }
   }
-	
-  /*
-  * Metodo para 
-  * @param args algumento
-  * 
-  * @return no regresa nada
-  * */
+
   public static void main(String[] args) {
     launch(args);
   }
