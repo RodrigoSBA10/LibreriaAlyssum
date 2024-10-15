@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<SplitPane fx:id="spPrincipal" dividerPositions="0.7849117174959872" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="500.0" prefWidth="700.0" stylesheets="@css/application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PrincipalController">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+         <children>
+            <AnchorPane layoutX="86.0" layoutY="20.0" prefHeight="388.0" prefWidth="700.0" styleClass="fondo1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Pane layoutX="104.80000000000001" layoutY="4.8" prefHeight="357.0" prefWidth="494.0" styleClass="fondo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="102.0" AnchorPane.topAnchor="2.0">
+                     <children>
+                        <Text layoutX="144.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Devoluciones" />
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="53.0" prefWidth="598.0" style="-fx-background-color: #ffeae1;">
+         <children>
+            <HBox fx:id="hbPolitica" alignment="CENTER" layoutX="70.0" onMouseClicked="#mostrarPolitica" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="boton" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Política de Devoluciones" />
+               </children>
+            </HBox>
+            <HBox fx:id="hbDevolucion" alignment="CENTER" layoutX="270.0" onMouseClicked="#registrarDevolucion" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="boton" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Registrar una Devolución" />
+               </children>
+            </HBox>
+            <HBox fx:id="hbHistorial" alignment="CENTER" layoutX="470.0" onMouseClicked="#mostrarHistorial" prefHeight="100.0" prefWidth="180.0" spacing="10.0" styleClass="boton" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HIstorial de Devoluciones" />
+               </children>
+            </HBox>
+         </children></AnchorPane>
+  </items>
+</SplitPane>

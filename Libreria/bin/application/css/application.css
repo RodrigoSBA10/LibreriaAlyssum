@@ -1,0 +1,27 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.boton {
+	-fx-background-color: #d0ffbe;
+	-fx-border-color: #99521c;
+	-fx-border-width: 2;
+	-fx-border-radius: 15;
+	-fx-background-radius: 15;
+	-fx-font-size: 14;
+}
+
+.titulo {
+	-fx-font-family: 'Arial';
+	-fx-font-size: 34;
+}
+
+.fondo {
+	-fx-background-color: #ffeae1;
+	-fx-border-color: #99521c;
+	-fx-border-width: 2;
+}
+
+.fondo1 {
+	-fx-background-color: #e3c9bd;
+	-fx-border-color: #99521c;
+	-fx-border-width: 2;
+}
