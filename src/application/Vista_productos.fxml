@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="644.0" style="-fx-background-color: #fff4e3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller_Sistema">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="644.0" style="-fx-background-color: #fff4e3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller_productos">
    <children>
       <HBox prefHeight="65.0" prefWidth="644.0" style="-fx-background-color: #99521c;">
          <children>
@@ -19,10 +22,13 @@
                   <Insets top="10.0" />
                </HBox.margin>
             </ImageView>
-            <Label fx:id="Etiqueta_productos" onMouseClicked="#Cambio_Vistaproductos" onMouseEntered="#Cambiar_mouse" text="Productos">
+            <Label fx:id="Etiqueta_productos" onMouseEntered="#Cambiar_mouse" text="Productos" underline="true">
                <HBox.margin>
                   <Insets left="5.0" top="30.0" />
                </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Label>
             <ImageView fitHeight="45.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -32,7 +38,7 @@
                   <Insets left="5.0" top="10.0" />
                </HBox.margin>
             </ImageView>
-            <Label fx:id="Etiqueta_descuentos" onMouseClicked="#Cambio_Vistadescuentos" text="Descuentos">
+            <Label fx:id="Etiqueta_descuentos" onMouseClicked="#Cambio_Vistadescuentos" onMouseEntered="#Cambiar_mouse" text="Descuentos">
                <HBox.margin>
                   <Insets left="5.0" top="30.0" />
                </HBox.margin>
@@ -45,7 +51,7 @@
                   <Insets left="5.0" top="10.0" />
                </HBox.margin>
             </ImageView>
-            <Label fx:id="Etiqueta_usuarios" text="Usuarios">
+            <Label fx:id="Etiqueta_usuarios" onMouseEntered="#Cambiar_mouse" text="Usuarios">
                <HBox.margin>
                   <Insets left="5.0" top="30.0" />
                </HBox.margin>
@@ -58,12 +64,27 @@
                   <Insets left="5.0" top="10.0" />
                </HBox.margin>
             </ImageView>
-            <Label fx:id="Etiqueta_nueva_venta" onMouseClicked="#Cambio_Vistanuevaventa" text="Nueva venta">
+            <Label fx:id="Etiqueta_nueva_venta" onMouseClicked="#Cambio_Vistanuevaventa" onMouseEntered="#Cambiar_mouse" text="Nueva venta">
                <HBox.margin>
                   <Insets left="5.0" top="30.0" />
                </HBox.margin>
             </Label>
          </children>
       </HBox>
+      <Label layoutX="28.0" layoutY="91.0" text="Titulo:" />
+      <Label layoutX="28.0" layoutY="169.0" text="Autor:" />
+      <Label layoutX="227.0" layoutY="286.0" text="ISBN:" />
+      <Label layoutX="28.0" layoutY="286.0" text="Editoria:" />
+      <Label layoutX="215.0" layoutY="91.0" text="Cantidad:" />
+      <Label layoutX="223.0" layoutY="169.0" text="Precio:" />
+      <TextField layoutX="28.0" layoutY="108.0" />
+      <TextField layoutX="28.0" layoutY="188.0" />
+      <TextField layoutX="28.0" layoutY="303.0" />
+      <TextField layoutX="215.0" layoutY="108.0" />
+      <TextField layoutX="215.0" layoutY="188.0" />
+      <TextField layoutX="223.0" layoutY="303.0" />
+      <Button layoutX="504.0" layoutY="108.0" mnemonicParsing="false" text="Editar" />
+      <Button layoutX="504.0" layoutY="188.0" mnemonicParsing="false" text="Eliminar" />
+      <Button layoutX="504.0" layoutY="303.0" mnemonicParsing="false" text="Agregar" />
    </children>
 </Pane>
