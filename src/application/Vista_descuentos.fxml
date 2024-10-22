@@ -74,15 +74,15 @@
       <Label layoutX="32.0" layoutY="90.0" text="Codigo de cupón:" />
       <Label layoutX="35.0" layoutY="163.0" text="Porcentaje de Descuento:" />
       <Label layoutX="34.0" layoutY="244.0" text="Fecha de validez:" />
-      <TextField layoutX="28.0" layoutY="107.0" />
-      <TextField layoutX="35.0" layoutY="180.0" />
-      <TextField layoutX="59.0" layoutY="261.0" />
-      <TextField layoutX="275.0" layoutY="261.0" />
+      <TextField fx:id="textf_codigocupon" layoutX="28.0" layoutY="107.0" promptText="Ejemplo: AHORRO20" />
+      <TextField fx:id="txtf_porcentajedescuento" layoutX="35.0" layoutY="180.0" promptText="20% o $100" />
+      <TextField fx:id="txtf_fechadevalidezini" layoutX="59.0" layoutY="261.0" promptText="15/5/2024" />
+      <TextField fx:id="txtf_fechavalidezfin" layoutX="275.0" layoutY="261.0" promptText="20/6/2024" />
       <Label layoutX="223.0" layoutY="265.0" text="hasta:" />
       <Label layoutX="32.0" layoutY="265.0" text="De:" />
-      <Button layoutX="197.0" layoutY="331.0" mnemonicParsing="false" text="Agregar" />
-      <Button layoutX="349.0" layoutY="331.0" mnemonicParsing="false" text="Cancelar" />
-      <Label layoutX="476.0" layoutY="73.0" text="Historial de cupones creados" underline="true">
+      <Button fx:id="btn_agregarcupon" layoutX="197.0" layoutY="331.0" mnemonicParsing="false" onAction="#agregar_cupon" text="Agregar" />
+      <Button fx:id="btn_cancelar" layoutX="349.0" layoutY="331.0" mnemonicParsing="false" onAction="#Cancelar_cupon" text="Cancelar" />
+      <Label fx:id="txt_historialcupones" layoutX="476.0" layoutY="73.0" text="Historial de cupones creados" underline="true">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
