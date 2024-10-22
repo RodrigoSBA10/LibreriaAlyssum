@@ -13,7 +13,7 @@
          <children>
             <ImageView fitHeight="45.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Documents/Sistema%20ventas%20PSP1/img/agregar-producto.png" />
+                  <Image url="@../application_img/agregar-producto.png" />
                </image>
                <HBox.margin>
                   <Insets top="10.0" />
@@ -26,7 +26,7 @@
             </Label>
             <ImageView fitHeight="45.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Documents/Sistema%20ventas%20PSP1/img/descuento.png" />
+                  <Image url="@../application_img/descuento.png" />
                </image>
                <HBox.margin>
                   <Insets left="5.0" top="10.0" />
@@ -39,7 +39,7 @@
             </Label>
             <ImageView fitHeight="45.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Documents/Sistema%20ventas%20PSP1/img/usuario.png" />
+                  <Image url="@../application_img/usuario.png" />
                </image>
                <HBox.margin>
                   <Insets left="5.0" top="10.0" />
@@ -52,7 +52,7 @@
             </Label>
             <ImageView fitHeight="45.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Documents/Sistema%20ventas%20PSP1/img/comprar-casa.png" />
+                  <Image url="@../application_img/comprar-casa.png" />
                </image>
                <HBox.margin>
                   <Insets left="5.0" top="10.0" />
