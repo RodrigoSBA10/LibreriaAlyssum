@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff4e3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller_cupon">
+   <children>
+      <TableView fx:id="tabla_cupones" layoutX="135.0" layoutY="68.0" prefHeight="265.0" prefWidth="330.0">
+        <columns>
+          <TableColumn fx:id="Columna_codigo" prefWidth="75.0" text="Codigo" />
+          <TableColumn fx:id="Columna_descuento" prefWidth="75.0" text="Descuento" />
+            <TableColumn fx:id="Columna_ini" prefWidth="103.0" text="Validez inicio" />
+            <TableColumn fx:id="Columna_fin" prefWidth="75.0" text="Validez fin" />
+        </columns>
+      </TableView>
+      <Label layoutX="237.0" layoutY="14.0" text="CUPONES DISPONIBLES" />
+   </children>
+</AnchorPane>

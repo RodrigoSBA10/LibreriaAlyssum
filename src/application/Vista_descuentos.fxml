@@ -82,7 +82,7 @@
       <Label layoutX="32.0" layoutY="265.0" text="De:" />
       <Button fx:id="btn_agregarcupon" layoutX="197.0" layoutY="331.0" mnemonicParsing="false" onAction="#agregar_cupon" text="Agregar" />
       <Button fx:id="btn_cancelar" layoutX="349.0" layoutY="331.0" mnemonicParsing="false" onAction="#Cancelar_cupon" text="Cancelar" />
-      <Label fx:id="txt_historialcupones" layoutX="476.0" layoutY="73.0" text="Historial de cupones creados" underline="true">
+      <Label fx:id="txt_historialcupones" layoutX="476.0" layoutY="73.0" onMouseClicked="#Cambio_Vistacupones" text="Historial de cupones creados" underline="true">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
