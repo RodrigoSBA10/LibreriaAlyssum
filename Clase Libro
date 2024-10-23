@@ -1,0 +1,154 @@
+package application;
+
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.scene.Node;
+
+public class Libro {
+	 	private StringProperty titulo;
+	    private StringProperty autor;
+	    private StringProperty isbn;
+	    private StringProperty editorial;
+	    private StringProperty categoria;
+	    private StringProperty genero;
+	    private StringProperty anio;
+	    private DoubleProperty precio;
+	    private IntegerProperty stock;
+
+	    public Libro(String titulo, String autor, String isbn, String editorial, String categoria, String genero, String anio, double precio, int stock) {
+	        this.titulo = new SimpleStringProperty(titulo);
+	        this.autor = new SimpleStringProperty(autor);
+	        this.isbn = new SimpleStringProperty(isbn);
+	        this.editorial = new SimpleStringProperty(editorial);
+	        this.categoria = new SimpleStringProperty(categoria);
+	        this.genero = new SimpleStringProperty(genero);
+	        this.anio = new SimpleStringProperty(anio);
+	        this.precio = new SimpleDoubleProperty(precio);
+	        this.stock = new SimpleIntegerProperty(stock);
+	    }
+	    
+	    private final StringProperty año = new SimpleStringProperty(this, "año");
+
+	    public String getAño() {
+	        return año.get();
+	    }
+
+	    public void setAño(String value) {
+	        año.set(value);
+	    }
+
+	    public StringProperty añoProperty() {
+	        return año;
+	    }
+
+	    public String getTitulo() {
+	        return titulo.get();
+	    }
+
+	    public StringProperty tituloProperty() {
+	        return titulo;
+	    }
+
+	    public String getAutor() {
+	        return autor.get();
+	    }
+
+	    public StringProperty autorProperty() {
+	        return autor;
+	    }
+
+	    public String getISBN() {
+	        return isbn.get();
+	    }
+
+	    public StringProperty isbnProperty() {
+	        return isbn;
+	    }
+
+	    public String getEditorial() {
+	        return editorial.get();
+	    }
+
+	    public StringProperty editorialProperty() {
+	        return editorial;
+	    }
+
+	    public String getCategoria() {
+	        return categoria.get();
+	    }
+
+	    public StringProperty categoriaProperty() {
+	        return categoria;
+	    }
+
+	    public String getGenero() {
+	        return genero.get();
+	    }
+
+	    public StringProperty generoProperty() {
+	        return genero;
+	    }
+
+	    public String getAnio() {
+	        return anio.get();
+	    }
+
+	    public StringProperty anioProperty() {
+	        return anio;
+	    }
+
+	    public double getPrecio() {
+	        return precio.get();
+	    }
+
+	    public DoubleProperty precioProperty() {
+	        return precio;
+	    }
+
+	    public int getStock() {
+	        return stock.get();
+	    }
+
+	    public IntegerProperty stockProperty() {
+	        return stock;
+	    }
+
+		public Node getAnioPublicacion() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public void setTitulo(String text) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void setAutor(String text) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void setIsbn(String text) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void setEditorial(String text) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void setGenero(String text) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void setPrecio(double precio2) {
+			// TODO Auto-generated method stub
+			
+		}
+}
