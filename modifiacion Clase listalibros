@@ -1,0 +1,248 @@
+package application;
+
+import java.io.IOException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import javafx.scene.control.TableColumn;
+
+public class ListaLibros{
+
+    @FXML
+    private TextField txtTitulo;
+    @FXML
+    private TextField txtAutor;
+    @FXML
+    private TextField txtISBN;
+    @FXML
+    private TextField txtEditorial;
+    @FXML
+    private TextField txtPrecio;
+    @FXML
+    private TextField txtAnio;
+    @FXML
+    private ComboBox<String> cbGenero;
+    @FXML
+    private ComboBox<String> cbCategoria;
+    @FXML
+    private Slider sldPrecio;
+    @FXML
+    private TableView<Libro> jtTablaLibros;
+    @FXML
+    private Button btnBuscar; 
+    @FXML
+    private Button btnAgregar; 
+    @FXML
+    private Button btnBorrar; 
+    @FXML
+    private Button btnEditar;
+    @FXML
+    private TableColumn<Libro, String> colTitulo;
+    @FXML
+    private TableColumn<Libro, String> colAutor;
+    @FXML
+    private TableColumn<Libro, String> colIsbn;
+    @FXML
+    private TableColumn<Libro, String> colEditorial;
+    @FXML
+    private TableColumn<Libro, String> colGenero;
+    @FXML
+    private TableColumn<Libro, Double> colPrecio;
+    @FXML
+    private TableColumn<Libro, String> colCategoria;
+    @FXML
+    private TableColumn<Libro, Double> colAnioPublicacion;
+    //Lista observable para mostrar los libros
+    
+    private ObservableList<Libro> listaLibros;
+    private ObservableList<String> genero;
+    private ObservableList<String> categoria;
+    private Libro libroSeleccionado;
+
+    
+    @FXML
+    private void initialize() {
+        // Inicialización del controlador
+    	//Configuramos la tabla
+    	colTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+    	colAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
+    	colIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+    	colEditorial.setCellValueFactory(new PropertyValueFactory<>("editorial"));
+    	colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+    	colGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
+    	colAnioPublicacion.setCellValueFactory(new PropertyValueFactory<>("año"));
+    	colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+    	
+    	//Inicializamos la lista
+    	listaLibros = FXCollections.observableArrayList();
+    	//Asignamos la lista a la tabla
+    	jtTablaLibros.setItems(listaLibros);
+    	//inicializamos genero
+    	genero=FXCollections.observableArrayList();
+    	//agregamos las categorias a los generos
+    	genero.addAll("1.-Épico", "2.-Lírico", "3.-Dramático","4.-didáctico");
+    	//Mostramos los generos en el ComboBox
+    	cbGenero.setItems(genero);
+    	//inicializamos categoria
+    	categoria=FXCollections.observableArrayList();
+    	//agregamos las categorias
+    	categoria.addAll("1.-Ficcion","2.- Aventura", "3.-Romance","4.-No ficcion");
+    	//mostramos las categorias en el comboBox
+    	cbCategoria.setItems(categoria);
+    	
+    	sldPrecio.valueProperty().addListener((observable, oldValue, newValue) ->{
+    		txtPrecio.setText(String.format("%.02f", newValue.doubleValue()));
+    		}	
+    	);
+    	
+    }
+    
+    
+    @FXML
+    private void buscarLibros(ActionEvent event) {
+    	//Logica para buscar los libros
+    	try {
+	    	String titulo = txtTitulo.getText().toLowerCase();
+	    	String autor = txtAutor.getText().toLowerCase();
+	    	String isbn= txtISBN.getText().toLowerCase();
+	    	String editorial= txtEditorial.getText().toLowerCase();
+	    	String categoriaSeleccionada= cbCategoria.getValue();
+	    	String generoSeleccionado= cbGenero.getValue();
+	    	String anio= txtAnio.getText().toLowerCase();
+	    	Double precio = null;
+	    	
+	    	try {
+	    		precio=Double.parseDouble(txtPrecio.getText());
+	    		
+	    	}catch(NumberFormatException e){
+	    		Alert alerta=new Alert(AlertType.WARNING);
+	    		alerta.setTitle("Advertencia");
+	    		alerta.setContentText("El precio ingresado no es valido");
+	    		alerta.show();
+	    	}
+	    	//Vamos a filtrar los libros que coincidan con la busqueda
+	    	ObservableList<Libro> librosFiltrados = FXCollections.observableArrayList();
+	    	
+	    	for (Libro libro : listaLibros) {
+				boolean coincideTitulo= titulo.isEmpty()|| libro.getTitulo().toLowerCase().contains(titulo);
+				boolean coincideAutor= autor.isEmpty()|| libro.getAutor().toLowerCase().contains(autor);
+				boolean coincideISBN = isbn.isEmpty()||libro.getISBN().toLowerCase().contains(isbn);
+				boolean coincideEditorial= editorial.isEmpty()||libro.getEditorial().toLowerCase().contains(editorial);
+				boolean coincideGenero= generoSeleccionado==null||libro.getGenero().equalsIgnoreCase(generoSeleccionado);
+				boolean coincideCategoria = categoriaSeleccionada==null|| libro.getCategoria().equalsIgnoreCase(categoriaSeleccionada);
+				boolean coincideAnio= anio.isEmpty()||libro.getAnio().equalsIgnoreCase(anio);
+				boolean coincidePrecio=precio==null||libro.getPrecio()<= precio;
+				
+				if(coincideTitulo||coincideAutor||coincideISBN||coincideEditorial||coincideGenero||coincideCategoria||coincideAnio||coincidePrecio){
+					//si coincide al menos uno con la busqueda entonces lo agregamos
+					librosFiltrados.add(libro);
+				}
+			}
+	    	//Mostramos los libros que coincidan con la busqueda
+	    	jtTablaLibros.setItems(librosFiltrados);
+	    	jtTablaLibros.refresh();
+	    	
+    	}catch(Exception e) {
+    		Alert alerta=new Alert(AlertType.WARNING);
+    		alerta.setTitle("Advertencia");
+    		alerta.setContentText("Agregue valores en alguno de los campos para la busqueda");
+    		alerta.show();
+    	}
+    }
+	
+    @FXML
+    private void agregarLibro(ActionEvent event) {
+    	try {
+            // Cargar el archivo FXML de la nueva ventana
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/AgregarLibros.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el controlador de la nueva ventana
+            AgregarLibrosController agregarLibrosController = loader.getController();
+            
+            // Pasar la lista de libros al nuevo controlador
+            agregarLibrosController.setListaLibros(listaLibros);
+            
+            // Crear una nueva ventana (Stage) para la ventana de agregar libros
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Agregar Libro");
+            stage.show();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    	
+    }
+    
+    @FXML
+    private void borrarLibro(ActionEvent event) {
+    	//para seleccionar un libro a borrar
+    	libroSeleccionado= jtTablaLibros.getSelectionModel().getSelectedItem();
+    	//si el libro existe para borrar
+    	if(libroSeleccionado!= null) {
+    		//remueve el libro
+    		listaLibros.remove(libroSeleccionado);
+    		jtTablaLibros.refresh();
+    	}else {
+    		Alert alerta= new Alert(AlertType.CONFIRMATION);
+    		//si no existe manda una alerta 
+    		alerta.setContentText("No hay libro seleccionado para borrar");
+    		alerta.show();
+    		
+    	}
+    	
+    }
+    
+    @FXML
+    private void editarLibro(ActionEvent event) {
+        // Obtener el libro seleccionado
+        Libro libroSeleccionado = jtTablaLibros.getSelectionModel().getSelectedItem();
+
+        // Verificar si se ha seleccionado un libro
+        if (libroSeleccionado == null) {
+            Alert alerta = new Alert(AlertType.WARNING);
+            alerta.setTitle("Advertencia");
+            alerta.setContentText("Por favor, selecciona un libro para editar.");
+            alerta.show();
+            return; // Salir del método si no hay selección
+        }
+
+        try {
+            // Cargar el archivo FXML de la nueva ventana
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/EditarLibros.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el controlador de la nueva ventana
+            EditarLibrosController editarLibrosController = loader.getController();
+
+            // Pasar la lista de libros al nuevo controlador
+            editarLibrosController.setListaLibros(listaLibros);
+            // Pasar el libro que se va a editar
+            editarLibrosController.setLibro(libroSeleccionado);
+            editarLibrosController.setTableView(jtTablaLibros);
+
+            // Crear una nueva ventana (Stage) para la ventana de edición de libros
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Editar Libro");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }    
+}
