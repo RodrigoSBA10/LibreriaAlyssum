@@ -126,7 +126,7 @@ public class ControllerValoracionLibro extends Application{
   private MenuItem itemArte;  //Item de Arte
   
   @FXML
-  private MenuButton miMenuButton; //
+  private MenuButton miMenuButton; //Menu de botones
   
   @FXML
   public void initialize() {
