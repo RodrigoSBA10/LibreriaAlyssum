@@ -238,6 +238,7 @@ public class ControllerValoracionLibro extends Application{
 	    		      stage.initModality(Modality.APPLICATION_MODAL);
 	    		      stage.setScene(scene);
 	    		      stage.showAndWait();
+	    		      stage.setTitle("Reseñas");
 	    		    } catch (IOException e) {
 	    		      // TODO Auto-generated catch block
 	    		      e.printStackTrace();

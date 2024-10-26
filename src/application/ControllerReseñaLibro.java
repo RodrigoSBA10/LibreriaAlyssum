@@ -63,6 +63,7 @@ public class ControllerReseñaLibro {
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.setScene(scene);
       stage.showAndWait();
+      stage.setTitle("Agregar reseña");
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
