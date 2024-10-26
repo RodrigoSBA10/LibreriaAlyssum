@@ -61,4 +61,9 @@ public class Libro {
   public void setNumeroReseña(int numero_Reseña) {
     numReseña = numero_Reseña;
   }
+  
+  @Override
+  public String toString() {
+	  return this.titulo + "||" + this.autor + "||" + this.genero + "||" + this.numReseña;
+  }
 }

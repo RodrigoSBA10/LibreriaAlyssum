@@ -19,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -36,9 +37,21 @@ public class ControllerReseñaLibro {
 
   @FXML
   private TableColumn<Libro, String> reseñas;
-    
+  
   @FXML
-  private AnchorPane panel;
+  private TableColumn<?, ?> columnEstrellas;
+
+  @FXML
+  private TableColumn<?, ?> columnDescripcion;
+  
+  /*Metodo que inicializa los valores de la tabla
+   * */
+  public void initialize() {
+	//Liga la propiedad titulo de la clase Libro
+	  columnEstrellas.setCellValueFactory(new PropertyValueFactory<>("valoracion"));
+	//Liga la propiedad autor de la clase Libro
+	  columnDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+  }
 
   @FXML
   void aceptarButton(ActionEvent event) {

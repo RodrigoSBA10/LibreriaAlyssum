@@ -4,7 +4,7 @@
  * 
  * @autor Aurora Morales
  * 
- * Version: 1
+ * Version: 4
  * */
 
 package application;
@@ -46,6 +46,7 @@ public class ControllerAgregarReseña {
 
   @FXML
   private TextArea textArea; //Espacio de texto para escribir la reseña
+  
 
   @FXML
   void ClickButton1(MouseEvent event) {
