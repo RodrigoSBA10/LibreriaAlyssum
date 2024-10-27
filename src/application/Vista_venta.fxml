@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="644.0" style="-fx-background-color: #fff4e3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller_nuevaventa">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="675.0" style="-fx-background-color: #fff4e3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller_nuevaventa">
    <children>
-      <HBox prefHeight="65.0" prefWidth="644.0" style="-fx-background-color: #99521c;">
+      <HBox prefHeight="65.0" prefWidth="675.0" style="-fx-background-color: #99521c;">
          <children>
             <ImageView fitHeight="45.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -75,24 +75,25 @@
       </HBox>
       <Label layoutX="21.0" layoutY="91.0" text="DATOS DEL CLIENTE" />
       <Label layoutX="21.0" layoutY="200.0" text="DATOS DEL PRODUCTO" />
-      <TableView layoutX="203.0" layoutY="87.0" prefHeight="260.0" prefWidth="441.0">
+      <TableView fx:id="tabla_venta" layoutX="231.0" layoutY="87.0" prefHeight="260.0" prefWidth="441.0">
         <columns>
           <TableColumn prefWidth="75.0" text="No" />
-          <TableColumn prefWidth="75.0" text="Producto" />
-            <TableColumn prefWidth="75.0" text="Codigo" />
-            <TableColumn prefWidth="75.0" text="Precio" />
-            <TableColumn prefWidth="75.0" text="Cantidad" />
-            <TableColumn prefWidth="75.0" text="Total" />
+          <TableColumn fx:id="columna_libro" prefWidth="75.0" text="Producto" />
+            <TableColumn fx:id="columna_codigo" prefWidth="75.0" text="Codigo" />
+            <TableColumn fx:id="columna_precio" prefWidth="75.0" text="Precio" />
+            <TableColumn fx:id="columna_cantidad" prefWidth="75.0" text="Cantidad" />
+            <TableColumn fx:id="columna_total" prefWidth="75.0" text="Total" />
         </columns>
       </TableView>
-      <TextField layoutX="21.0" layoutY="108.0" promptText="Nombre del cliente" />
-      <TextField layoutX="21.0" layoutY="150.0" promptText="ID" />
-      <TextField layoutX="21.0" layoutY="226.0" promptText="Nombre del producto" />
-      <TextField layoutX="21.0" layoutY="263.0" promptText="Codigo" />
-      <TextField layoutX="21.0" layoutY="298.0" promptText="Precio" />
-      <TextField layoutX="21.0" layoutY="335.0" promptText="Cantidad" />
-      <Button layoutX="40.0" layoutY="367.0" mnemonicParsing="false" text="Agregar producto" />
-      <Button layoutX="322.0" layoutY="355.0" mnemonicParsing="false" onAction="#Forma_depago" text="Generar venta" />
-      <Button layoutX="451.0" layoutY="355.0" mnemonicParsing="false" text="Cancelar venta" />
+      <TextField fx:id="txtf_nombrecliente" layoutX="21.0" layoutY="108.0" promptText="Nombre del cliente" />
+      <TextField fx:id="textf_idcliente" layoutX="21.0" layoutY="150.0" promptText="ID" />
+      <TextField fx:id="txtf_nombrelibro" layoutX="21.0" layoutY="226.0" promptText="Nombre del libro" />
+      <TextField fx:id="txtf_idlibro" layoutX="21.0" layoutY="263.0" promptText="Codigo" />
+      <TextField fx:id="txtf_precio" layoutX="21.0" layoutY="298.0" promptText="Precio" />
+      <TextField fx:id="txtf_cantidad" layoutX="21.0" layoutY="335.0" promptText="Cantidad" />
+      <Button fx:id="boton_agregarproducto" layoutX="40.0" layoutY="367.0" mnemonicParsing="false" text="Agregar producto" />
+      <Button layoutX="361.0" layoutY="355.0" mnemonicParsing="false" onAction="#Forma_depago" text="Generar venta" />
+      <Button layoutX="489.0" layoutY="355.0" mnemonicParsing="false" text="Cancelar venta" />
+      <Button fx:id="btn_buscacodigo" layoutX="170.0" layoutY="263.0" mnemonicParsing="false" onAction="#busca_libroid" text="Buscar" />
    </children>
 </Pane>

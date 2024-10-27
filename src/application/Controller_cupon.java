@@ -1,16 +1,13 @@
 package application;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -70,8 +67,7 @@ public class Controller_cupon extends Application{
             Statement statement = connection.createStatement();
             String query = "SELECT CODIGO, DESCUENTO, FECHA_INICIO, FECHA_FIN FROM CUPON";  // Cambia por tu consulta real
             ResultSet resultSet = statement.executeQuery(query);
-            System.out.println(resultSet);
-            System.out.println(resultSet);
+           
 
             // Recorrer los resultados y añadirlos a la lista
             while (resultSet.next()) {

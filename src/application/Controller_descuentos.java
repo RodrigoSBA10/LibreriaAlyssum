@@ -1,5 +1,9 @@
 package application;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -129,6 +133,36 @@ public class Controller_descuentos {
 		String fechafin = txtf_fechavalidezfin.getText();
 		if (!codigo.isEmpty() && !descuento.isEmpty() && !fechaini.isEmpty() && !fechafin.isEmpty()) {
 			Descuento nuevo = new Descuento(codigo, descuento, fechaini, fechafin);
+			String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
+	        String username = "SYSTEM";
+	        String password = "Admin-2812";
+	        // Consulta SQL para insertar un registro
+	        String sql = "INSERT INTO CUPON (CODIGO, DESCUENTO, FECHA_INICIO, FECHA_FIN) VALUES (?, ?, ?, ?)";
+	        try {
+	            // Establecer conexión con la base de datos
+	            Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
+
+	            // Preparar el statement
+	            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	            
+	            // Asignar valores a los placeholders (los símbolos ? en el SQL)
+	            preparedStatement.setString(1, nuevo.getCodigo()); // Valor para CODIGO
+	            preparedStatement.setString(2, nuevo.getDescuento());       // Valor para DESCUENTO
+	            preparedStatement.setString(3, nuevo.getFecha_Validesini()); // Valor para FECHA_INICIO
+	            preparedStatement.setString(4, nuevo.getFecha_Validesfin()); // Valor para FECHA_FIN
+
+	            // Ejecutar la inserción
+	            int rowsInserted = preparedStatement.executeUpdate();
+
+	            if (rowsInserted > 0) {
+	                System.out.println("¡Inserción exitosa! Se ha agregado un nuevo cupón.");
+	            }
+
+	            // Cerrar la conexión
+	            connection.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Alerta");
