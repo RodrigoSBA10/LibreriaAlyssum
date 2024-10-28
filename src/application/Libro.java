@@ -19,6 +19,11 @@ public class Libro {
   String autor;
   String genero;
   int numReseña;
+  
+  
+  public Libro() {
+	  
+  }
 
   /*
   * Constructor para recibir la informacion del libro...
@@ -59,7 +64,7 @@ public class Libro {
   }
 
   public void setNumeroReseña(int numero_Reseña) {
-    numReseña = numero_Reseña;
+    numReseña += numero_Reseña;
   }
   
   @Override

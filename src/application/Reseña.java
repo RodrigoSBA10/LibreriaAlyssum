@@ -16,7 +16,7 @@ public class Reseña {
 	String descripcion;
 	int valoracion;
 	
-	public Reseña(String descripcion, int valoracion) {
+	public Reseña(int valoracion, String descripcion) {
 		this.descripcion = descripcion;
 		this.valoracion = valoracion;
 	}

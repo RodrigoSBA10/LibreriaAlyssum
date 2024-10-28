@@ -11,6 +11,16 @@
 package application;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +29,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -34,15 +45,22 @@ public class ControllerReseñaLibro {
 
   @FXML
   private Button regresar;
-
-  @FXML
-  private TableColumn<Libro, String> reseñas;
   
   @FXML
   private TableColumn<?, ?> columnEstrellas;
 
   @FXML
   private TableColumn<?, ?> columnDescripcion;
+  
+  @FXML
+  private TableView<?> tablaResena;
+
+  
+  private ObservableList<Reseña> lista  = FXCollections.observableArrayList();
+  
+  private Libro lib = new Libro();
+  
+  int id;
   
   /*Metodo que inicializa los valores de la tabla
    * */
@@ -51,6 +69,59 @@ public class ControllerReseñaLibro {
 	  columnEstrellas.setCellValueFactory(new PropertyValueFactory<>("valoracion"));
 	//Liga la propiedad autor de la clase Libro
 	  columnDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+	  
+	  ObservableList<Reseña> colum = agregarTabla();
+	  //Imprimir(colum);
+	  //tablaResena.setItems(colum);
+  }
+  
+  
+  public void setLibro(Libro lib) {
+	  this.lib = lib;
+  }
+  
+  public ObservableList<Reseña> agregarTabla() {
+	  ObservableList<Reseña> columnas = FXCollections.observableArrayList();
+	    
+	    //Informacion de mi base de datos
+	    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
+		String usuario = "System";
+		String contraseña = "aurelio666";
+		
+		try {
+        // Establecer conexión con la base de datos
+        Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+
+        // Crear el statement y ejecutar la consulta
+        Statement statement = connection.createStatement();
+        String sql = "SELECT ID_LIBRO FROM LIBRO WHERE TITULO = '" + lib.getTitulo()+ "' ";
+        ResultSet resultado = statement.executeQuery(sql);
+        
+        // Recorrer los resultados y añadirlos a la lista
+        while (resultado.next()) {
+            id = resultado.getInt("ID_LIBRO"); 
+            System.out.println(id + " ");
+        }
+        
+        String sql2 = "SELECT R.VALORACION AS ESTRELLAS, R.DESCRIPCION AS DESCRIPCION FROM LIBRO L JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO";
+        ResultSet resultado2 = statement.executeQuery(sql2);
+        while(resultado2.next()) {
+      	  int val = resultado2.getInt("ESTRELLAS");
+      	  String descrip = resultado2.getString("DESCRIPCION");
+      	  
+      	  columnas.add(new Reseña(val, descrip));
+      	  System.out.println(val + "||" + descrip);
+        }
+     // Cerrar la conexión
+        connection.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+		return columnas;
+  }
+  
+  public void listaReseña(List<Reseña> lis) {
+	  lista.addAll(lis);
   }
 
   @FXML

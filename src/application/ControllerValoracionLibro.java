@@ -5,7 +5,7 @@
  * 
  * @autor Aurora Morales
  * 
- * Version: 8
+ * Version: 12
  * */
 
 package application;
@@ -15,6 +15,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,15 +32,16 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
-/*
- * Cuerpo de la clase ControllerValoracionLibro
- * @author Aurora Morales
+/*Cuerpo de la clase ControllerValoracionLibro
  * */
+
 public class ControllerValoracionLibro extends Application{
 
   @FXML
@@ -137,29 +141,81 @@ public class ControllerValoracionLibro extends Application{
   private Button buttonIrSiguiente;  //Boton para ver lsa imagenes hacia ademante
   
   @FXML
-  private ImageView marcoImagen;  //Espacio para ver las imagenes de las portadas de imagenes
+  private ImageView marcoImagen;  //Espacio para ver las imagenes de las portadas de libros
   
+  //Lista de imagenes de las portadas de los libros
+private List<Image> listaImagenes = List.of(
+		  new Image(getClass().getResourceAsStream("/image/ElNombreDeLaRosa.jpg")), 
+		  new Image(getClass().getResourceAsStream("/image/ElClanDelOsoCavernario.jpg")), 
+		  new Image(getClass().getResourceAsStream("/image/ElEspejismo.jpg")),
+		  new Image(getClass().getResourceAsStream("/image/ElHombreIlustrado.jpg")),
+		  new Image(getClass().getResourceAsStream("/image/ElAñoDeGracia.jpg")),
+		  new Image(getClass().getResourceAsStream("/image/LaHeredera.jpg")),
+		  new Image(getClass().getResourceAsStream("/image/ChoqueDeReyes.jpg")),
+		  new Image(getClass().getResourceAsStream("/image/LasModernas.jpg")),
+		  new Image(getClass().getResourceAsStream("/image/Dracula.jpg")),
+		  new Image(getClass().getResourceAsStream("/image/Immaturi.jpg")),
+		  new Image(getClass().getResourceAsStream("/image/LibroDePoemas.jpg")),
+		  new Image(getClass().getResourceAsStream("/image/LaSerpienteYLasAlasDeLaNoche.jpg")),
+		  new Image(getClass().getResourceAsStream("/image/SeAmableContigoMismo.jpg")),
+		  new Image(getClass().getResourceAsStream("/image/GranDiccionario.jpg")),
+		  new Image(getClass().getResourceAsStream("/image/ElPrincipito.jpg")));
+  
+  //Contador para ir reccorriendo la lista de las portadas de los libros
+  private int indice = 0;
+  
+  //Metodo para cargar la primera imagen
+  public void cargarImagen(int indice) {
+  marcoImagen.setImage(listaImagenes.get(indice));
+  }
+  
+  //Metodo para ir a la siguiente imagen
+  private void siguienteImagen() {
+      indice = (indice + 1) % listaImagenes.size(); // Bucle al inicio si es el final
+      cargarImagen(indice);
+  }
+  
+  //Metodo para ir a la imagen anterior
+  private void anteriorImagen() {
+      indice = (indice - 1 + listaImagenes.size()) % listaImagenes.size(); // Bucle al final si es el inicio
+      cargarImagen(indice);
+  }
+  
+  /*Metodo qie inicializa las funciones de toda la ventana
+   * */
   @FXML
   public void initialize() {
-	    //Liga la propiedad titulo de la clase Libro
-	  	ColumnTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
-	    //Liga la propiedad autor de la clase Libro
-	    ColumnAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
+	//Carga la primera imagen
+	cargarImagen(indice);
+	  
+	// Configurar temporizador para cambio automático cada 3 segundos
+    Timeline temporizador = new Timeline(new KeyFrame(Duration.seconds(3), event -> siguienteImagen()));
+    temporizador.setCycleCount(Timeline.INDEFINITE);
+    temporizador.play();
+      
+    // Configurar botones para cambiar de imagen manualmente
+    buttonIrSiguiente.setOnAction(event -> siguienteImagen());
+    buttonIrAnterior.setOnAction(event -> anteriorImagen());
+    
+	//Liga la propiedad titulo de la clase Libro
+	ColumnTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+	//Liga la propiedad autor de la clase Libro
+	ColumnAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
 	    
-	    ColumnGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
+	ColumnGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
 
-	    //Liga la propiedad numero de reseñas de la clase Libro
-	    ColumnNumReseñas.setCellValueFactory(new PropertyValueFactory<>("NumeroReseña"));
+	//Liga la propiedad numero de reseñas de la clase Libro
+	ColumnNumReseñas.setCellValueFactory(new PropertyValueFactory<>("NumeroReseña"));
 	    
-	    ObservableList<Libro> colum = agregarLibroBD();
-	    //Imprimir(colum);
-	    tablaDeLibros.setItems(colum);
+	ObservableList<Libro> colum = agregarLibroBD();
+	//Imprimir(colum);
+	tablaDeLibros.setItems(colum);
 	    
-	    /*Busca en toda la lista de libros los libros por el genero Novela negra thiller,
-	    thriller o suspense */
-	    itemNovela_Negra.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemNovela_NegraBuscar(event));
-	    });
+    /*Busca en toda la lista de libros los libros por el genero Novela negra thiller,
+	thriller o suspense */
+	itemNovela_Negra.setOnAction(event ->{
+	   tablaDeLibros.setItems(itemNovela_NegraBuscar(event));
+	});
 	    itemArte.setOnAction(event ->{
 	    	tablaDeLibros.setItems(itemArteBuscar(event));
 	    });
@@ -233,23 +289,26 @@ public class ControllerValoracionLibro extends Application{
 	    		try {
 	    		      FXMLLoader loader = new FXMLLoader(getClass().getResource("ReseñaLibro.fxml"));
 	    		      Parent root = loader.load();
+	    		      ControllerReseñaLibro cotrolador = new ControllerReseñaLibro();
+	    		      Libro libroSeleccionado = tablaDeLibros.getSelectionModel().getSelectedItem();
+	    		      cotrolador.setLibro(libroSeleccionado);
 	    		      Scene scene = new Scene(root);
 	    		      Stage stage = new Stage();
 	    		      stage.initModality(Modality.APPLICATION_MODAL);
 	    		      stage.setScene(scene);
 	    		      stage.showAndWait();
 	    		      stage.setTitle("Reseñas");
+	    		      
 	    		    } catch (IOException e) {
 	    		      // TODO Auto-generated catch block
 	    		      e.printStackTrace();
 	    		    }
+	    		
 	    	}
 	    });
   }
-  
 
-
-  /*Metodo para agregar las columanas de la tabla 
+/*Metodo para agregar las columanas de la tabla 
    * */
   public ObservableList<Libro> agregarLibroBD() {
 	    //Crea una lista observable de listas de libros
@@ -297,12 +356,10 @@ public class ControllerValoracionLibro extends Application{
   public void start(Stage stage) throws Exception {
       // Cargar el archivo FXML
       Parent root = FXMLLoader.load(getClass().getResource("ValoracionLibro.fxml"));
-
       Scene scene = new Scene(root);
       stage.setScene(scene);
-      stage.setTitle("Cupones");
+      stage.setTitle("Libros");
       stage.show();
-      
       stage.setFullScreen(true);
   }
   

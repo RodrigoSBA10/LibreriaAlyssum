@@ -9,6 +9,8 @@
 
 package application;
 
+import java.util.List;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -47,10 +49,15 @@ public class ControllerAgregarReseña {
   @FXML
   private TextArea textArea; //Espacio de texto para escribir la reseña
   
-
+  public List<Reseña> lista;
+  
+  int valoracion = 0; //Variable para 
+  
+  private Libro lib = new Libro();
+  
   @FXML
   void ClickButton1(MouseEvent event) {
-    btn1.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
+    btn1.setStyle("fx-background-color: yellow; -fx-text-fill: black;");
   }
   
   @FXML
@@ -85,7 +92,11 @@ public class ControllerAgregarReseña {
     
   @FXML
   void agregarReseña(ActionEvent event) {
-    	
+      Reseña res = new Reseña( valoracion, textArea.getText());
+      lista.add(res);
+      lib.setNumeroReseña(1);
+      
+      
   }
   
   @FXML

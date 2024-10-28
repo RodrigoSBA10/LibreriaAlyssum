@@ -22,7 +22,7 @@
             </Text>
             <ImageView fitHeight="65.0" fitWidth="72.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../bin/application/image/WhatsApp%20Image%202024-10-04%20at%209.35.11%20PM.jpeg" />
+                  <Image url="@../../bin/image/WhatsApp%20Image%202024-10-04%20at%209.35.11%20PM.jpeg" />
                </image>
             </ImageView>
          </children>
@@ -63,8 +63,8 @@
             <MenuItem fx:id="itemArte" mnemonicParsing="false" onAction="#itemArteBuscar" text="Arte" />
          </items>
       </MenuButton>
-      <ImageView fx:id="marcoImagen" fitHeight="138.0" fitWidth="190.0" layoutX="252.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="buttonIrAnterior" layoutX="207.0" layoutY="120.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="25.0" text="&lt;" />
+      <ImageView fx:id="marcoImagen" fitHeight="140.0" fitWidth="104.0" layoutX="309.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="buttonIrAnterior" layoutX="236.0" layoutY="121.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="25.0" text="&lt;" />
       <Button fx:id="buttonIrSiguiente" layoutX="458.0" layoutY="120.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="25.0" text="&gt;" />
    </children>
 </AnchorPane>
