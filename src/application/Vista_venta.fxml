@@ -91,7 +91,7 @@
       <TextField fx:id="txtf_idlibro" layoutX="21.0" layoutY="263.0" promptText="Codigo" />
       <TextField fx:id="txtf_precio" layoutX="21.0" layoutY="298.0" promptText="Precio" />
       <TextField fx:id="txtf_cantidad" layoutX="21.0" layoutY="335.0" promptText="Cantidad" />
-      <Button fx:id="boton_agregarproducto" layoutX="40.0" layoutY="367.0" mnemonicParsing="false" text="Agregar producto" />
+      <Button fx:id="boton_agregarproducto" layoutX="40.0" layoutY="367.0" mnemonicParsing="false" onAction="#Agregar_libro_tabla" text="Agregar producto" />
       <Button layoutX="361.0" layoutY="355.0" mnemonicParsing="false" onAction="#Forma_depago" text="Generar venta" />
       <Button layoutX="489.0" layoutY="355.0" mnemonicParsing="false" text="Cancelar venta" />
       <Button fx:id="btn_buscacodigo" layoutX="170.0" layoutY="263.0" mnemonicParsing="false" onAction="#busca_libroid" text="Buscar" />
