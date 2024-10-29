@@ -57,7 +57,7 @@ public class ControllerAgregarReseña {
   
   @FXML
   void ClickButton1(MouseEvent event) {
-    btn1.setStyle("fx-background-color: yellow; -fx-text-fill: black;");
+    btn1.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
   }
   
   @FXML
@@ -95,8 +95,6 @@ public class ControllerAgregarReseña {
       Reseña res = new Reseña( valoracion, textArea.getText());
       lista.add(res);
       lib.setNumeroReseña(1);
-      
-      
   }
   
   @FXML

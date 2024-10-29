@@ -36,4 +36,8 @@ public class Reseña {
 	public void setValoracion(int valoracion) {
 		this.valoracion = valoracion;
 	}
+	
+	public String toString() {
+		return this.valoracion + "||" + this.descripcion + "\n";
+	}
 }

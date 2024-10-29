@@ -15,10 +15,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,8 +29,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -47,13 +44,13 @@ public class ControllerReseñaLibro {
   private Button regresar;
   
   @FXML
-  private TableColumn<?, ?> columnEstrellas;
+  private TableColumn<Reseña, Integer> columnEstrellas;
 
   @FXML
-  private TableColumn<?, ?> columnDescripcion;
+  private TableColumn<Reseña, String> columnDescripcion;
   
   @FXML
-  private TableView<?> tablaResena;
+  private TableView<Reseña> tabla;
 
   
   private ObservableList<Reseña> lista  = FXCollections.observableArrayList();
@@ -62,33 +59,40 @@ public class ControllerReseñaLibro {
   
   int id;
   
-  /*Metodo que inicializa los valores de la tabla
+  /*Metodo que inicializa las columnas de la tabla
    * */
   public void initialize() {
+	
 	//Liga la propiedad titulo de la clase Libro
-	  columnEstrellas.setCellValueFactory(new PropertyValueFactory<>("valoracion"));
+	columnEstrellas.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getValoracion()).asObject());
 	//Liga la propiedad autor de la clase Libro
-	  columnDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
-	  
-	  ObservableList<Reseña> colum = agregarTabla();
-	  //Imprimir(colum);
-	  //tablaResena.setItems(colum);
+	columnDescripcion.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDescripcion()));  
+	
+	ObservableList<Reseña> colum = agregarTabla();
+	
+	tabla.setItems(colum);
+	//Imprimir(colum); 
   }
   
+  public void inicio() {
+	  lista.clear();
+	  agregarTabla();
+  }
   
   public void setLibro(Libro lib) {
 	  this.lib = lib;
+	  inicio();
   }
   
   public ObservableList<Reseña> agregarTabla() {
 	  ObservableList<Reseña> columnas = FXCollections.observableArrayList();
 	    
-	    //Informacion de mi base de datos
-	    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
-		String usuario = "System";
-		String contraseña = "aurelio666";
+	  //Informacion de mi base de datos
+	  String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
+      String usuario = "System";
+	  String contraseña = "aurelio666";
 		
-		try {
+	  try {
         // Establecer conexión con la base de datos
         Connection connection = DriverManager.getConnection(url, usuario, contraseña);
 
@@ -98,19 +102,21 @@ public class ControllerReseñaLibro {
         ResultSet resultado = statement.executeQuery(sql);
         
         // Recorrer los resultados y añadirlos a la lista
-        while (resultado.next()) {
+      while (resultado.next()) {
             id = resultado.getInt("ID_LIBRO"); 
-            System.out.println(id + " ");
-        }
+            //System.out.println(id + " ");
+      }
         
-        String sql2 = "SELECT R.VALORACION AS ESTRELLAS, R.DESCRIPCION AS DESCRIPCION FROM LIBRO L JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO";
+        String sql2 = "SELECT VALORACION, DESCRIPCION FROM RESENA WHERE ID_LIBRO = " + id;
         ResultSet resultado2 = statement.executeQuery(sql2);
         while(resultado2.next()) {
-      	  int val = resultado2.getInt("ESTRELLAS");
+      	  int val = resultado2.getInt("VALORACION");
       	  String descrip = resultado2.getString("DESCRIPCION");
+      	  Reseña re = new Reseña(val, descrip);
       	  
-      	  columnas.add(new Reseña(val, descrip));
-      	  System.out.println(val + "||" + descrip);
+      	  columnas.add(re);
+      	  lista.add(re);
+      	  System.out.println(re.toString());
         }
      // Cerrar la conexión
         connection.close();

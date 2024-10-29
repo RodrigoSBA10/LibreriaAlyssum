@@ -201,24 +201,23 @@ private List<Image> listaImagenes = List.of(
 	ColumnTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
 	//Liga la propiedad autor de la clase Libro
 	ColumnAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
-	    
+	//Liga la propiedad genero de la clase Libro
 	ColumnGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
-
 	//Liga la propiedad numero de reseñas de la clase Libro
 	ColumnNumReseñas.setCellValueFactory(new PropertyValueFactory<>("NumeroReseña"));
 	    
 	ObservableList<Libro> colum = agregarLibroBD();
-	//Imprimir(colum);
-	tablaDeLibros.setItems(colum);
+	
+	tablaDeLibros.setItems(colum); //Inserta la lista de los libros a la tabla
 	    
     /*Busca en toda la lista de libros los libros por el genero Novela negra thiller,
 	thriller o suspense */
 	itemNovela_Negra.setOnAction(event ->{
 	   tablaDeLibros.setItems(itemNovela_NegraBuscar(event));
 	});
-	    itemArte.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemArteBuscar(event));
-	    });
+	itemArte.setOnAction(event ->{
+	   tablaDeLibros.setItems(itemArteBuscar(event));
+	});
 	    itemAutoayuda.setOnAction(event ->{
 	    	tablaDeLibros.setItems(itemAutoayudaBuscar(event));
 	    });
