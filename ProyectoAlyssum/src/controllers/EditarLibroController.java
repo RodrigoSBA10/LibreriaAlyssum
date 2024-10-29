@@ -75,7 +75,7 @@ public class EditarLibroController {
         txtAutorE.setText(libro.getAutor());
         txtISBNE.setText(libro.getIsbn());
         txtEditorialE.setText(libro.getEditorial());
-        txtAnioE.setText(libro.getAnio()); // Asegúrate de cargar el año
+        txtAnioE.setText(libro.getAnio()); 
         txtPrecioE.setText(Double.toString(libro.getPrecio()));
         // Establecer el género y la categoría
         cbCategoriaE.setValue(libro.getCategoria());
@@ -95,10 +95,10 @@ public class EditarLibroController {
         // Limpiar los campos
         txtTituloE.clear();
         txtAutorE.clear();
-        txtISBNE.clear();
         txtEditorialE.clear();
         cbCategoriaE.setValue(null);
         cbGeneroE.setValue(null);
+        txtAnioE.clear();
         txtPrecioE.clear();
     }
 
@@ -135,7 +135,7 @@ public class EditarLibroController {
                 double precio = Double.parseDouble(precioTexto);
                 libroSeleccionado.setPrecio(precio);
             } else {
-                libroSeleccionado.setPrecio(0.0); // O según tu lógica
+                libroSeleccionado.setPrecio(0.0); // 
             }
 
             // Llamar al método para actualizar en la base de datos

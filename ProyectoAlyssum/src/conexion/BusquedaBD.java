@@ -102,10 +102,10 @@ public class BusquedaBD {
     }
  // Método para eliminar el libro de la base de datos
     public void eliminarLibro(Libro libro) {
-        String sql = "DELETE FROM libro WHERE isbn = ?"; // Suponiendo que ISBN es único
+        String sql = "DELETE FROM libro WHERE isbn = ?"; 
         try (Connection conection = con.ConectarBDOracle();
              PreparedStatement pstmt = conection.prepareStatement(sql)) {
-            pstmt.setString(1, libro.getIsbn()); // Asegúrate de tener un método getIsbn() en la clase Libro
+            pstmt.setString(1, libro.getIsbn()); 
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error al eliminar el libro de la base de datos: " + e.getMessage());
@@ -197,7 +197,7 @@ public class BusquedaBD {
             pstmt.setInt(5, libro.getIdCategoria());
             pstmt.setString(6, libro.getAnio());
             pstmt.setDouble(7, libro.getPrecio());
-            pstmt.setInt(8, libro.getStock()); // Si es necesario
+            pstmt.setInt(8, libro.getStock());
             pstmt.setString(9, libro.getIsbn()); // Usamos el ISBN como clave
 
             int rowsAffected = pstmt.executeUpdate();
