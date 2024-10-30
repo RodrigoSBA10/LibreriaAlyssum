@@ -42,7 +42,7 @@ import javafx.util.Duration;
 /*Cuerpo de la clase ControllerValoracionLibro
  * */
 
-public class ControllerValoracionLibro extends Application{
+public class ControllerValoracionLibro extends Application {
 
   @FXML
   private TableView<Libro> tablaDeLibros; //Tabla de libros
@@ -144,52 +144,53 @@ public class ControllerValoracionLibro extends Application{
   private ImageView marcoImagen;  //Espacio para ver las imagenes de las portadas de libros
   
   //Lista de imagenes de las portadas de los libros
-private List<Image> listaImagenes = List.of(
-		  new Image(getClass().getResourceAsStream("/image/ElNombreDeLaRosa.jpg")), 
-		  new Image(getClass().getResourceAsStream("/image/ElClanDelOsoCavernario.jpg")), 
-		  new Image(getClass().getResourceAsStream("/image/ElEspejismo.jpg")),
-		  new Image(getClass().getResourceAsStream("/image/ElHombreIlustrado.jpg")),
-		  new Image(getClass().getResourceAsStream("/image/ElAñoDeGracia.jpg")),
-		  new Image(getClass().getResourceAsStream("/image/LaHeredera.jpg")),
-		  new Image(getClass().getResourceAsStream("/image/ChoqueDeReyes.jpg")),
-		  new Image(getClass().getResourceAsStream("/image/LasModernas.jpg")),
-		  new Image(getClass().getResourceAsStream("/image/Dracula.jpg")),
-		  new Image(getClass().getResourceAsStream("/image/Immaturi.jpg")),
-		  new Image(getClass().getResourceAsStream("/image/LibroDePoemas.jpg")),
-		  new Image(getClass().getResourceAsStream("/image/LaSerpienteYLasAlasDeLaNoche.jpg")),
-		  new Image(getClass().getResourceAsStream("/image/SeAmableContigoMismo.jpg")),
-		  new Image(getClass().getResourceAsStream("/image/GranDiccionario.jpg")),
-		  new Image(getClass().getResourceAsStream("/image/ElPrincipito.jpg")));
+  private List<Image> listaImagenes = List.of(
+     new Image(getClass().getResourceAsStream("/image/ElNombreDeLaRosa.jpg")), 
+     new Image(getClass().getResourceAsStream("/image/ElClanDelOsoCavernario.jpg")), 
+     new Image(getClass().getResourceAsStream("/image/ElEspejismo.jpg")),
+     new Image(getClass().getResourceAsStream("/image/ElHombreIlustrado.jpg")),
+     new Image(getClass().getResourceAsStream("/image/ElAñoDeGracia.jpg")),
+     new Image(getClass().getResourceAsStream("/image/LaHeredera.jpg")),
+     new Image(getClass().getResourceAsStream("/image/ChoqueDeReyes.jpg")),
+     new Image(getClass().getResourceAsStream("/image/LasModernas.jpg")),
+     new Image(getClass().getResourceAsStream("/image/Dracula.jpg")),
+     new Image(getClass().getResourceAsStream("/image/Immaturi.jpg")),
+     new Image(getClass().getResourceAsStream("/image/LibroDePoemas.jpg")),
+     new Image(getClass().getResourceAsStream("/image/LaSerpienteYLasAlasDeLaNoche.jpg")),
+     new Image(getClass().getResourceAsStream("/image/SeAmableContigoMismo.jpg")),
+     new Image(getClass().getResourceAsStream("/image/GranDiccionario.jpg")),
+     new Image(getClass().getResourceAsStream("/image/ElPrincipito.jpg"))
+     );
   
   //Contador para ir reccorriendo la lista de las portadas de los libros
   private int indice = 0;
   
   //Metodo para cargar la primera imagen
   public void cargarImagen(int indice) {
-  marcoImagen.setImage(listaImagenes.get(indice));
+    marcoImagen.setImage(listaImagenes.get(indice));
   }
   
   //Metodo para ir a la siguiente imagen
   private void siguienteImagen() {
-      indice = (indice + 1) % listaImagenes.size(); // Bucle al inicio si es el final
-      cargarImagen(indice);
+    indice = (indice + 1) % listaImagenes.size(); // Bucle al inicio si es el final
+    cargarImagen(indice);
   }
   
   //Metodo para ir a la imagen anterior
   private void anteriorImagen() {
-      indice = (indice - 1 + listaImagenes.size()) % listaImagenes.size(); // Bucle al final si es el inicio
-      cargarImagen(indice);
+    //Bucle al final si es el inicio
+    indice = (indice - 1 + listaImagenes.size()) % listaImagenes.size(); 
+    cargarImagen(indice);
   }
   
-  /*Metodo qie inicializa las funciones de toda la ventana
+  /*Metodo que inicializa las funciones de toda la ventana
    * */
-  @FXML
   public void initialize() {
-	//Carga la primera imagen
-	cargarImagen(indice);
-	  
-	// Configurar temporizador para cambio automático cada 3 segundos
-    Timeline temporizador = new Timeline(new KeyFrame(Duration.seconds(3), event -> siguienteImagen()));
+    //Carga la primera imagen
+    cargarImagen(indice);
+    // Configurar temporizador para cambio automático cada 3 segundos
+    Timeline temporizador = new Timeline(new KeyFrame(Duration.seconds(3),
+        event -> siguienteImagen()));
     temporizador.setCycleCount(Timeline.INDEFINITE);
     temporizador.play();
       
@@ -197,345 +198,345 @@ private List<Image> listaImagenes = List.of(
     buttonIrSiguiente.setOnAction(event -> siguienteImagen());
     buttonIrAnterior.setOnAction(event -> anteriorImagen());
     
-	//Liga la propiedad titulo de la clase Libro
-	ColumnTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
-	//Liga la propiedad autor de la clase Libro
-	ColumnAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
-	//Liga la propiedad genero de la clase Libro
-	ColumnGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
-	//Liga la propiedad numero de reseñas de la clase Libro
-	ColumnNumReseñas.setCellValueFactory(new PropertyValueFactory<>("NumeroReseña"));
-	    
-	ObservableList<Libro> colum = agregarLibroBD();
+    //Liga la propiedad titulo de la clase Libro
+    ColumnTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+    //Liga la propiedad autor de la clase Libro
+    ColumnAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
+    //Liga la propiedad genero de la clase Libro
+    ColumnGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
+    //Liga la propiedad numero de reseñas de la clase Libro
+    ColumnNumReseñas.setCellValueFactory(new PropertyValueFactory<>("NumeroReseña"));
+
+    ObservableList<Libro> colum = agregarLibroBD();
 	
-	tablaDeLibros.setItems(colum); //Inserta la lista de los libros a la tabla
-	    
+    tablaDeLibros.setItems(colum); //Inserta la lista de los libros a la tabla
+
     /*Busca en toda la lista de libros los libros por el genero Novela negra thiller,
-	thriller o suspense */
-	itemNovela_Negra.setOnAction(event ->{
-	   tablaDeLibros.setItems(itemNovela_NegraBuscar(event));
-	});
-	itemArte.setOnAction(event ->{
-	   tablaDeLibros.setItems(itemArteBuscar(event));
-	});
-	    itemAutoayuda.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemAutoayudaBuscar(event));
-	    });
-	    itemAventura.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemAventuraBuscar(event));
-	    });
-	    itemBiografias.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemBiografiasBuscar(event));
-	    });
-	    itemCiencia_Ficciona.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemCiencia_FiccionBuscar(event));
-	    });
-	    itemCocina.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemCocinaBuscar(event));
-	    });
-	    itemConsulta_Referencia.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemConsulta_ReferenciaBuscar(event));
-	    });
-	    itemContemporaneo.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemContemporaneoBuscar(event));
-	    });
-	    itemDistopia.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemDistopiaBuscar(event));
-	    });
-	    itemDivulgativos.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemDivulgativosBuscar(event));
-	    });
-	    itemInfantil.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemInfantilBuscar(event));
-	    });
-	    itemJuvenil.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemJuvenilBuscar(event));
-	    });
-	    itemLibros_Practicos.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemLibros_PracticosBuscar(event));
-	    });
-	    itemLibros_Tecnicos.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemLibros_TecnicosBuscar(event));
-	    });
-	    itemLibros_Texto.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemLibros_TextoBuscar(event));
-	    });
-	    itemMemorias.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemMemoriasBuscar(event));
-	    });
-	    itemNovela_Historica.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemNovela_HistoricaBuscar(event));
-	    });
-	    itemParanormal.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemParanormalBuscar(event));
-	    });
-	    itemPoesia.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemPoesiaBuscar(event));
-	    });
-	    itemSalud.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemSaludBuscar(event));
-	    });
-	    itemTerror.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemTerrorBuscar(event));
-	    });
-	    itemViajes.setOnAction(event ->{
-	    	tablaDeLibros.setItems(itemViajesBuscar(event));
-	    });
-	    
-	    //Evento para seleccionar un libro
-	    tablaDeLibros.setOnMouseClicked( evento -> {
-	    	if(evento.getClickCount() == 2) {
-	    		try {
-	    		      FXMLLoader loader = new FXMLLoader(getClass().getResource("ReseñaLibro.fxml"));
-	    		      Parent root = loader.load();
-	    		      ControllerReseñaLibro cotrolador = new ControllerReseñaLibro();
-	    		      Libro libroSeleccionado = tablaDeLibros.getSelectionModel().getSelectedItem();
-	    		      cotrolador.setLibro(libroSeleccionado);
-	    		      Scene scene = new Scene(root);
-	    		      Stage stage = new Stage();
-	    		      stage.initModality(Modality.APPLICATION_MODAL);
-	    		      stage.setScene(scene);
-	    		      stage.showAndWait();
-	    		      stage.setTitle("Reseñas");
-	    		      
-	    		    } catch (IOException e) {
-	    		      // TODO Auto-generated catch block
-	    		      e.printStackTrace();
-	    		    }
-	    		
-	    	}
-	    });
+    thriller o suspense */
+    itemNovela_Negra.setOnAction(event -> {
+      tablaDeLibros.setItems(itemNovela_NegraBuscar(event));
+    });
+    itemArte.setOnAction(event -> {
+      tablaDeLibros.setItems(itemArteBuscar(event));
+    });
+    itemAutoayuda.setOnAction(event -> {
+      tablaDeLibros.setItems(itemAutoayudaBuscar(event));
+    });
+    itemAventura.setOnAction(event -> {
+      tablaDeLibros.setItems(itemAventuraBuscar(event));
+    });
+    itemBiografias.setOnAction(event -> {
+      tablaDeLibros.setItems(itemBiografiasBuscar(event));
+    });
+    itemCiencia_Ficciona.setOnAction(event -> {
+      tablaDeLibros.setItems(itemCiencia_FiccionBuscar(event));
+    });
+    itemCocina.setOnAction(event -> {
+      tablaDeLibros.setItems(itemCocinaBuscar(event));
+    });
+    itemConsulta_Referencia.setOnAction(event -> {
+      tablaDeLibros.setItems(itemConsulta_ReferenciaBuscar(event));
+    });
+    itemContemporaneo.setOnAction(event -> {
+      tablaDeLibros.setItems(itemContemporaneoBuscar(event));
+    });
+    itemDistopia.setOnAction(event -> {
+      tablaDeLibros.setItems(itemDistopiaBuscar(event));
+    });
+    itemDivulgativos.setOnAction(event -> {
+      tablaDeLibros.setItems(itemDivulgativosBuscar(event));
+    });
+    itemInfantil.setOnAction(event -> {
+      tablaDeLibros.setItems(itemInfantilBuscar(event));
+    });
+    itemJuvenil.setOnAction(event -> {
+      tablaDeLibros.setItems(itemJuvenilBuscar(event));
+    });
+    itemLibros_Practicos.setOnAction(event -> {
+      tablaDeLibros.setItems(itemLibros_PracticosBuscar(event));
+    });
+    itemLibros_Tecnicos.setOnAction(event -> {
+      tablaDeLibros.setItems(itemLibros_TecnicosBuscar(event));
+    });
+    itemLibros_Texto.setOnAction(event -> {
+      tablaDeLibros.setItems(itemLibros_TextoBuscar(event));
+    });
+    itemMemorias.setOnAction(event -> {
+      tablaDeLibros.setItems(itemMemoriasBuscar(event));
+    });
+    itemNovela_Historica.setOnAction(event -> {
+      tablaDeLibros.setItems(itemNovela_HistoricaBuscar(event));
+    });
+    itemParanormal.setOnAction(event -> {
+      tablaDeLibros.setItems(itemParanormalBuscar(event));
+    });
+    itemPoesia.setOnAction(event -> {
+      tablaDeLibros.setItems(itemPoesiaBuscar(event));
+    });
+    itemSalud.setOnAction(event -> {
+      tablaDeLibros.setItems(itemSaludBuscar(event));
+    });
+    itemTerror.setOnAction(event -> {
+      tablaDeLibros.setItems(itemTerrorBuscar(event));
+    });
+    itemViajes.setOnAction(event -> {
+      tablaDeLibros.setItems(itemViajesBuscar(event));
+    });
+
+    //Evento para seleccionar un libro
+    tablaDeLibros.setOnMouseClicked(evento ->  {
+      if (evento.getClickCount() == 2) {
+        try {
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("ReseñaLibro.fxml"));
+          Parent root = loader.load();
+          ControllerReseñaLibro cotrolador = new ControllerReseñaLibro();
+          Libro libroSeleccionado = tablaDeLibros.getSelectionModel().getSelectedItem();
+          cotrolador.setLibro(libroSeleccionado);
+          Scene scene = new Scene(root);
+          Stage stage = new Stage();
+          stage.initModality(Modality.APPLICATION_MODAL);
+          stage.setScene(scene);
+          stage.showAndWait();
+          stage.setTitle("Reseñas");
+
+        } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }	
+      }
+    });
   }
 
-/*Metodo para agregar las columanas de la tabla 
+  /*Metodo para agregar las columanas de la tabla 
    * */
   public ObservableList<Libro> agregarLibroBD() {
-	    //Crea una lista observable de listas de libros
-	    ObservableList<Libro> columnas = FXCollections.observableArrayList();
-	    
-	    //Informacion de mi base de datos
-	    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
-		String usuario = "System";
-		String contraseña = "aurelio666";
-		
-		try {
-            // Establecer conexión con la base de datos
-            Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+    //Crea una lista observable de listas de libros
+    ObservableList<Libro> columnas = FXCollections.observableArrayList();
 
-            // Crear el statement y ejecutar la consulta
-            Statement statement = connection.createStatement();
-            String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
+    //Informacion de mi base de datos
+    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
+    String usuario = "System";
+    String contraseña = "aurelio666";
+
+    try {
+      // Establecer conexión con la base de datos
+      Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+
+      // Crear el statement y ejecutar la consulta
+      Statement statement = connection.createStatement();
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
                     "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
                     "FROM LIBRO L " +
                     "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +
                     "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +
                     "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +
                     "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE";
-            ResultSet resultado = statement.executeQuery(sql);
-            // Recorrer los resultados y añadirlos a la lista
-            while (resultado.next()) {
-                String titulo = resultado.getString("TITULO");
-                String autor = resultado.getString("AUTOR");
-                String genero = resultado.getString("GENERO");
-                int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+      ResultSet resultado = statement.executeQuery(sql);
+      // Recorrer los resultados y añadirlos a la lista
+      while (resultado.next()) {
+        String titulo = resultado.getString("TITULO");
+        String autor = resultado.getString("AUTOR");
+        String genero = resultado.getString("GENERO");
+        int numReseña = resultado.getInt("NUMERO_RESEÑAS");
 
-                columnas.add(new Libro(titulo, autor,genero,numReseña));
-            }
+        columnas.add(new Libro(titulo, autor, genero, numReseña));
+      }
 
-         // Cerrar la conexión
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-		return columnas;
+      // Cerrar la conexión
+      connection.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return columnas;
   }
 
 
   @Override
   public void start(Stage stage) throws Exception {
-      // Cargar el archivo FXML
-      Parent root = FXMLLoader.load(getClass().getResource("ValoracionLibro.fxml"));
-      Scene scene = new Scene(root);
-      stage.setScene(scene);
-      stage.setTitle("Libros");
-      stage.show();
-      stage.setFullScreen(true);
+    // Cargar el archivo FXML
+    Parent root = FXMLLoader.load(getClass().getResource("ValoracionLibro.fxml"));
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.setTitle("Libros");
+    stage.show();
+    stage.setFullScreen(true);
   }
   
   @FXML
   ObservableList<Libro> itemArteBuscar(ActionEvent event) {
-	  
-	  miMenuButton.setText(itemArte.getText());
-	  
-	  ObservableList<Libro> columnas = FXCollections.observableArrayList();
-	  
-	//Informacion de mi base de datos
-	    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
-		String usuario = "System";
-		String contraseña = "aurelio666";
-		
-		try {
-          // Establecer conexión con la base de datos
-          Connection connection = DriverManager.getConnection(url, usuario, contraseña);
 
-          // Crear el statement y ejecutar la consulta
-          Statement statement = connection.createStatement();
-          String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
+    miMenuButton.setText(itemArte.getText());
+
+    ObservableList<Libro> columnas = FXCollections.observableArrayList();
+
+    //Informacion de mi base de datos
+    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
+    String usuario = "System";
+    String contraseña = "aurelio666";
+
+    try {
+      // Establecer conexión con la base de datos
+      Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+
+      // Crear el statement y ejecutar la consulta
+      Statement statement = connection.createStatement();
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
                   "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-                  "FROM LIBRO L " + 
-                  "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
-                  "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
-                  "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
-                  "WHERE G.NOMBRE = 'Arte' " +  
+                  "FROM LIBRO L " +
+                  "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +
+                  "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +
+                  "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +
+                  "WHERE G.NOMBRE = 'Arte' " +
                   "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
-          ResultSet resultado = statement.executeQuery(sql);
-          // Recorrer los resultados y añadirlos a la lista
-          while (resultado.next()) {
-              String titulo = resultado.getString("TITULO");
-              String autor = resultado.getString("AUTOR");
-              String genero = resultado.getString("GENERO");
-              int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+      ResultSet resultado = statement.executeQuery(sql);
 
-              columnas.add(new Libro(titulo, autor,genero,numReseña));
-          }
+      // Recorrer los resultados y añadirlos a la lista
+      while (resultado.next()) {
+        String titulo = resultado.getString("TITULO");
+        String autor = resultado.getString("AUTOR");
+        String genero = resultado.getString("GENERO");
+        int numReseña = resultado.getInt("NUMERO_RESEÑAS");
 
-       // Cerrar la conexión
-          connection.close();
-      } catch (Exception e) {
-          e.printStackTrace();
+        columnas.add(new Libro(titulo, autor, genero, numReseña));
       }
-		return columnas;
+
+      // Cerrar la conexión
+      connection.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return columnas;
   }
 
   @FXML
   ObservableList<Libro> itemAutoayudaBuscar(ActionEvent event) {
-	  miMenuButton.setText(itemAutoayuda.getText());
-	  
-	  ObservableList<Libro> columnas = FXCollections.observableArrayList();
-	  
-		//Informacion de mi base de datos
-		    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
-			String usuario = "System";
-			String contraseña = "aurelio666";
-			
-			try {
-	          // Establecer conexión con la base de datos
-	          Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+    miMenuButton.setText(itemAutoayuda.getText());
 
-	          // Crear el statement y ejecutar la consulta
-	          Statement statement = connection.createStatement();
-	          String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
-	                  "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-	                  "FROM LIBRO L " + 
-	                  "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
-	                  "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
-	                  "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
-	                  "WHERE G.NOMBRE = 'Autoayuda y superación' " +  
-	                  "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
-	          ResultSet resultado = statement.executeQuery(sql);
-	          // Recorrer los resultados y añadirlos a la lista
-	          while (resultado.next()) {
-	              String titulo = resultado.getString("TITULO");
-	              String autor = resultado.getString("AUTOR");
-	              String genero = resultado.getString("GENERO");
-	              int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+    ObservableList<Libro> columnas = FXCollections.observableArrayList();
 
-	              columnas.add(new Libro(titulo, autor,genero,numReseña));
-	          }
+    //Informacion de mi base de datos
+    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
+    String usuario = "System";
+    String contraseña = "aurelio666";
 
-	       // Cerrar la conexión
-	          connection.close();
-	      } catch (Exception e) {
-	          e.printStackTrace();
-	      }
-			return columnas;
+    try {
+      // Establecer conexión con la base de datos
+      Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+
+      // Crear el statement y ejecutar la consulta
+      Statement statement = connection.createStatement();
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
+                    "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
+                    "FROM LIBRO L " + 
+                    "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
+                    "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
+                    "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
+                    "WHERE G.NOMBRE = 'Autoayuda y superación' " +  
+                    "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
+      ResultSet resultado = statement.executeQuery(sql);
+      // Recorrer los resultados y añadirlos a la lista
+      while (resultado.next()) {
+        String titulo = resultado.getString("TITULO");
+        String autor = resultado.getString("AUTOR");
+        String genero = resultado.getString("GENERO");
+        int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+
+        columnas.add(new Libro(titulo, autor, genero, numReseña));
+      }
+
+      // Cerrar la conexión
+      connection.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return columnas;
   }
 
   @FXML
   ObservableList<Libro> itemAventuraBuscar(ActionEvent event) {
-	  miMenuButton.setText(this.itemAventura.getText());
-	  ObservableList<Libro> columnas = FXCollections.observableArrayList();
-	  
-		//Informacion de mi base de datos
-		    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
-			String usuario = "System";
-			String contraseña = "aurelio666";
-			
-			try {
-	          // Establecer conexión con la base de datos
-	          Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+    miMenuButton.setText(this.itemAventura.getText());
+    ObservableList<Libro> columnas = FXCollections.observableArrayList();
 
-	          // Crear el statement y ejecutar la consulta
-	          Statement statement = connection.createStatement();
-	          String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
-	                  "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-	                  "FROM LIBRO L " + 
-	                  "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
-	                  "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
-	                  "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
-	                  "WHERE G.NOMBRE = 'Aventuras' " +  
-	                  "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
-	          ResultSet resultado = statement.executeQuery(sql);
-	          // Recorrer los resultados y añadirlos a la lista
-	          while (resultado.next()) {
-	              String titulo = resultado.getString("TITULO");
-	              String autor = resultado.getString("AUTOR");
-	              String genero = resultado.getString("GENERO");
-	              int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+    //Informacion de mi base de datos
+    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
+    String usuario = "System";
+    String contraseña = "aurelio666";
 
-	              columnas.add(new Libro(titulo, autor,genero,numReseña));
-	          }
+    try {
+      // Establecer conexión con la base de datos
+      Connection connection = DriverManager.getConnection(url, usuario, contraseña);
 
-	       // Cerrar la conexión
-	          connection.close();
-	      } catch (Exception e) {
-	          e.printStackTrace();
-	      }
-			return columnas;
+      // Crear el statement y ejecutar la consulta
+      Statement statement = connection.createStatement();
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
+                   "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
+                   "FROM LIBRO L " + 
+                   "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
+                   "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
+                   "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
+                   "WHERE G.NOMBRE = 'Aventuras' " +  
+                   "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
+      ResultSet resultado = statement.executeQuery(sql);
+      // Recorrer los resultados y añadirlos a la lista
+      while (resultado.next()) {
+        String titulo = resultado.getString("TITULO");
+        String autor = resultado.getString("AUTOR");
+        String genero = resultado.getString("GENERO");
+        int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+
+        columnas.add(new Libro(titulo, autor, genero, numReseña));
+      }
+
+      // Cerrar la conexión
+      connection.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return columnas;
   }
 
   @FXML
   ObservableList<Libro> itemBiografiasBuscar(ActionEvent event) {
-	  miMenuButton.setText(this.itemBiografias.getText());
-	  
-	  ObservableList<Libro> columnas = FXCollections.observableArrayList();
-	  
-		//Informacion de mi base de datos
-		    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
-			String usuario = "System";
-			String contraseña = "aurelio666";
-			
-			try {
-	          // Establecer conexión con la base de datos
-	          Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+    miMenuButton.setText(this.itemBiografias.getText());
+    
+	ObservableList<Libro> columnas = FXCollections.observableArrayList();
 
-	          // Crear el statement y ejecutar la consulta
-	          Statement statement = connection.createStatement();
-	          String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
-	                  "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-	                  "FROM LIBRO L " + 
-	                  "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
-	                  "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
-	                  "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
-	                  "WHERE G.NOMBRE = 'Biografías' " +  
-	                  "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
-	          ResultSet resultado = statement.executeQuery(sql);
-	          // Recorrer los resultados y añadirlos a la lista
-	          while (resultado.next()) {
-	              String titulo = resultado.getString("TITULO");
-	              String autor = resultado.getString("AUTOR");
-	              String genero = resultado.getString("GENERO");
-	              int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+    //Informacion de mi base de datos
+    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
+    String usuario = "System";
+    String contraseña = "aurelio666";
 
-	              columnas.add(new Libro(titulo, autor,genero,numReseña));
-	          }
+    try {
+      // Establecer conexión con la base de datos
+      Connection connection = DriverManager.getConnection(url, usuario, contraseña);
 
-	       // Cerrar la conexión
-	          connection.close();
-	      } catch (Exception e) {
-	          e.printStackTrace();
-	      }
-			return columnas;
+      // Crear el statement y ejecutar la consulta
+      Statement statement = connection.createStatement();
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
+                   "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
+                   "FROM LIBRO L " + 
+                   "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
+                   "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
+                   "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
+                   "WHERE G.NOMBRE = 'Biografías' " +  
+                   "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
+      ResultSet resultado = statement.executeQuery(sql);
+      // Recorrer los resultados y añadirlos a la lista
+      while (resultado.next()) {
+        String titulo = resultado.getString("TITULO");
+        String autor = resultado.getString("AUTOR");
+        String genero = resultado.getString("GENERO");
+        int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+
+        columnas.add(new Libro(titulo, autor, genero, numReseña));
+      }
+
+      //Cerrar la conexión
+      connection.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return columnas;
   }
 
   @FXML

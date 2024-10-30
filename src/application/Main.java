@@ -17,15 +17,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /*
- * Metodo main con la extencion Appication
- * @return se espera la ejecucion de la ventana
- * */
-public class Main extends Application {
+* Metodo main con la extencion Appication
+* 
+* @param primaryStage paramtro del argumento
+* */
 
+public class Main extends Application {
   @Override
 public void start(Stage primaryStage) {
     try {
-      AnchorPane root = FXMLLoader.load(this.getClass().getResource("ValoracionLibro.fxml"));
+      AnchorPane root = FXMLLoader.load(this.getClass().getResource("ReseñaLibro.fxml"));
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
       primaryStage.setScene(scene);
@@ -35,7 +36,7 @@ public void start(Stage primaryStage) {
       e.printStackTrace();
     }
   }
-	
+
   /*
   * Metodo para 
   * @param args algumento

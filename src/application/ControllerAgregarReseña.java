@@ -56,38 +56,43 @@ public class ControllerAgregarReseña {
   private Libro lib = new Libro();
   
   @FXML
-  void ClickButton1(MouseEvent event) {
-    btn1.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
+  void ClickButton1(ActionEvent event) {
+	  btn1.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
+	  valoracion = 1;
   }
   
   @FXML
-  void ClickButton2(MouseEvent event) {
-    btn2.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
-    btn1.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
+  void ClickButton2(ActionEvent event) {
+	  btn1.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
+	  btn2.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
+	  valoracion = 2;
   }
     
   @FXML
-  void ClickButton3(MouseEvent event) {
+  void ClickButton3(ActionEvent event) {
     btn3.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
     btn2.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
     btn1.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
+    valoracion = 3;
   }
     
   @FXML
-  void ClickButton4(MouseEvent event) {
+  void ClickButton4(ActionEvent event) {
     btn4.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
     btn3.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
     btn2.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
     btn1.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
+    valoracion = 4;
   }
     
   @FXML
-  void ClickButton5(MouseEvent event) {
+  void ClickButton5(ActionEvent event) {
     btn5.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
     btn4.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
     btn3.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
     btn2.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
     btn1.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
+    valoracion = 5;
   }
     
   @FXML
