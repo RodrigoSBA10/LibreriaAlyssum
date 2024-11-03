@@ -14,9 +14,10 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /*
@@ -97,9 +98,23 @@ public class ControllerAgregarReseña {
     
   @FXML
   void agregarReseña(ActionEvent event) {
+	  if(textArea.getText() == null) {
+		  Alert alert = new Alert(AlertType.ERROR, "Debe ingresar el contenido de la reseña");
+	      alert.showAndWait();
+	  }
       Reseña res = new Reseña( valoracion, textArea.getText());
-      lista.add(res);
+      Alert alert = new Alert(AlertType.CONFIRMATION, "Su reseña fue guardada");
+      alert.showAndWait();
+      System.out.println(res.toString());
       lib.setNumeroReseña(1);
+      ControllerReseñaLibro control =new ControllerReseñaLibro();
+      control.agregar(res);
+      
+      //Se cierra la ventana 
+      Node source = (Node)event.getSource();
+      Stage stage = (Stage)source.getScene().getWindow();
+      stage.close();
+
   }
   
   @FXML

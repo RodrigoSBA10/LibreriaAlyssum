@@ -46,8 +46,6 @@ public class ControllerReseñaLibro {
 
     @FXML
     private TableView<Reseña> tabla;
-    
-    
 
     private ObservableList<Reseña> lista = FXCollections.observableArrayList();
     private Libro lib = new Libro();
@@ -57,6 +55,10 @@ public class ControllerReseñaLibro {
     public void initialize() {
         System.out.println("Tabla es null? " + (tabla == null));
         configurarColumnas();
+    }
+    
+    public void agregar(Reseña res) {
+    	lista.add(res);
     }
 
     public void configurarColumnas() {
