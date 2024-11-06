@@ -1,2 +1,7 @@
 /application/
+/controladores/
+/image/
+/modelo/
+/css/
+/fxml/
 /module-info.class

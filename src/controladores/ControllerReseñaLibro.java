@@ -8,13 +8,14 @@
  * Version: 19
  * */
 
-package application;
+package controladores;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -30,6 +31,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import modelo.Libro;
+import modelo.Reseña;
 
 public class ControllerReseñaLibro {
     @FXML
@@ -53,8 +56,8 @@ public class ControllerReseñaLibro {
 
     @FXML
     public void initialize() {
-        System.out.println("Tabla es null? " + (tabla == null));
-        configurarColumnas();
+       System.out.println("Tabla es null? " + (tabla == null));
+       configurarColumnas();
     }
     
     public void agregar(Reseña res) {
@@ -119,7 +122,7 @@ public class ControllerReseñaLibro {
     @FXML
     void aceptarButton(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AgregarReseña.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AgregarReseña.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = new Stage();

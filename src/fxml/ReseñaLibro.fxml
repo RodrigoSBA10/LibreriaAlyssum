@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="638.0" styleClass="cuerpo" stylesheets="@application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControllerReseñaLibro">
+<AnchorPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="638.0" styleClass="cuerpo" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.ControllerReseñaLibro">
    <children>
-      <Button fx:id="agregar" layoutX="127.0" layoutY="468.0" mnemonicParsing="false" onAction="#aceptarButton" styleClass="boton" stylesheets="@application.css" text="Agregar reseña" />
-      <Button fx:id="regresar" layoutX="423.0" layoutY="468.0" mnemonicParsing="false" onAction="#regresarButton" styleClass="botonRojo" stylesheets="@application.css" text="Regresar" />
-      <AnchorPane prefHeight="79.0" prefWidth="638.0" styleClass="capa1" stylesheets="@../../bin/application/application.css">
+      <Button fx:id="agregar" layoutX="127.0" layoutY="468.0" mnemonicParsing="false" onAction="#aceptarButton" styleClass="boton" stylesheets="@../css/application.css" text="Agregar reseña" />
+      <Button fx:id="regresar" layoutX="423.0" layoutY="468.0" mnemonicParsing="false" onAction="#regresarButton" styleClass="botonRojo" stylesheets="@../css/application.css" text="Regresar" />
+      <AnchorPane prefHeight="79.0" prefWidth="638.0" styleClass="capa1" stylesheets="@../css/application.css">
          <children>
             <Label layoutX="204.0" layoutY="16.0" style="-fx-background-color: fffff;" text="Titulo del libro">
                <font>

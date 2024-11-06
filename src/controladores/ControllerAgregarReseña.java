@@ -7,7 +7,7 @@
  * Version: 4
  * */
 
-package application;
+package controladores;
 
 import java.util.List;
 
@@ -19,6 +19,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import modelo.Libro;
+import modelo.Reseña;
 
 /*
  * Inicio de metodo ControllerAgregarReseña

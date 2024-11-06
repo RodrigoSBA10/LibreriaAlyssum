@@ -9,7 +9,7 @@
  * 
  * */
 
-package application;
+package modelo;
 
 public class Reseña {
 	

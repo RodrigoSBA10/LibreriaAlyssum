@@ -26,9 +26,9 @@ public class Main extends Application {
   @Override
 public void start(Stage primaryStage) {
     try {
-      AnchorPane root = FXMLLoader.load(this.getClass().getResource("ValoracionLibro.fxml"));
+      AnchorPane root = FXMLLoader.load(this.getClass().getResource("/fxml/ValoracionLibro.fxml"));
       Scene scene = new Scene(root);
-      scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+      scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
       primaryStage.setScene(scene);
       primaryStage.show();
       primaryStage.setTitle("Favoritos");

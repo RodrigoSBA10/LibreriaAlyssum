@@ -8,7 +8,7 @@
  * Version: 12
  * */
 
-package application;
+package controladores;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -16,6 +16,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -37,6 +38,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import modelo.Libro;
 
 
 /*Cuerpo de la clase ControllerValoracionLibro
@@ -287,11 +289,12 @@ public class ControllerValoracionLibro extends Application {
     tablaDeLibros.setOnMouseClicked(evento ->  {
       if (evento.getClickCount() == 2) {
         try {
-          FXMLLoader loader = new FXMLLoader(getClass().getResource("ReseñaLibro.fxml"));
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ReseñaLibro.fxml"));
           Parent root = loader.load();
-          ControllerReseñaLibro cotrolador = new ControllerReseñaLibro();
+          ControllerReseñaLibro cotrolador = loader.getController();
           Libro libroSeleccionado = tablaDeLibros.getSelectionModel().getSelectedItem();
           cotrolador.setLibro(libroSeleccionado);
+          cotrolador.agregarTabla();
           Scene scene = new Scene(root);
           Stage stage = new Stage();
           stage.initModality(Modality.APPLICATION_MODAL);
@@ -354,7 +357,7 @@ public class ControllerValoracionLibro extends Application {
   @Override
   public void start(Stage stage) throws Exception {
     // Cargar el archivo FXML
-    Parent root = FXMLLoader.load(getClass().getResource("ValoracionLibro.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("/fxml/ValoracionLibro.fxml"));
     Scene scene = new Scene(root);
     stage.setScene(scene);
     stage.setTitle("Libros");
@@ -1428,7 +1431,7 @@ public class ControllerValoracionLibro extends Application {
 	  		
 	  		if(evento.getClickCount() == 2) {
 	  			try {
-	  		      FXMLLoader loader = new FXMLLoader(getClass().getResource("ReseñaLibro.fxml"));
+	  		      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ReseñaLibro.fxml"));
 	  		      Parent root = loader.load();
 	  		      Scene scene = new Scene(root);
 	  		      Stage stage = new Stage();

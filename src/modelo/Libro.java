@@ -9,7 +9,7 @@
  * 
  * */
 
-package application;
+package modelo;
 
 /*Libro class
  * Return nada*/
