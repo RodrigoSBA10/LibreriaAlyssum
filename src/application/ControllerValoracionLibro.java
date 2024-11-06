@@ -541,90 +541,92 @@ public class ControllerValoracionLibro extends Application {
 
   @FXML
   ObservableList<Libro> itemCiencia_FiccionBuscar(ActionEvent event) {
-	  miMenuButton.setText(this.itemCiencia_Ficciona.getText());
-	  
-	  ObservableList<Libro> columnas = FXCollections.observableArrayList();
-	  
-		//Informacion de mi base de datos
-		    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
-			String usuario = "System";
-			String contraseña = "aurelio666";
-			
-			try {
-	          // Establecer conexión con la base de datos
-	          Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+    miMenuButton.setText(this.itemCiencia_Ficciona.getText());
 
-	          // Crear el statement y ejecutar la consulta
-	          Statement statement = connection.createStatement();
-	          String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
-	                  "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-	                  "FROM LIBRO L " + 
-	                  "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
-	                  "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
-	                  "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
-	                  "WHERE G.NOMBRE = 'Ciencia Ficción' " +  
-	                  "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
-	          ResultSet resultado = statement.executeQuery(sql);
-	          // Recorrer los resultados y añadirlos a la lista
-	          while (resultado.next()) {
-	              String titulo = resultado.getString("TITULO");
-	              String autor = resultado.getString("AUTOR");
-	              String genero = resultado.getString("GENERO");
-	              int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+    ObservableList<Libro> columnas = FXCollections.observableArrayList();
 
-	              columnas.add(new Libro(titulo, autor,genero,numReseña));
-	          }
+    //Informacion de mi base de datos
+    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
+    String usuario = "System";
+    String contraseña = "aurelio666";
 
-	       // Cerrar la conexión
-	          connection.close();
-	      } catch (Exception e) {
-	          e.printStackTrace();
-	      }
-			return columnas;
+    try {
+      // Establecer conexión con la base de datos
+      Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+
+      // Crear el statement y ejecutar la consulta
+      Statement statement = connection.createStatement();
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
+                   "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
+                   "FROM LIBRO L " + 
+                   "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
+                   "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
+                   "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
+                   "WHERE G.NOMBRE = 'Ciencia Ficción' " +  
+                   "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
+      ResultSet resultado = statement.executeQuery(sql);
+
+      // Recorrer los resultados y añadirlos a la lista
+      while (resultado.next()) {
+        String titulo = resultado.getString("TITULO");
+        String autor = resultado.getString("AUTOR");
+        String genero = resultado.getString("GENERO");
+        int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+
+        columnas.add(new Libro(titulo, autor, genero, numReseña));
+      }
+
+      // Cerrar la conexión
+      connection.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return columnas;
   }
 
   @FXML
   ObservableList<Libro> itemCocinaBuscar(ActionEvent event) {
-	  miMenuButton.setText(this.itemCocina.getText());
-	  
-	  ObservableList<Libro> columnas = FXCollections.observableArrayList();
-	  
-		//Informacion de mi base de datos
-		    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
-			String usuario = "System";
-			String contraseña = "aurelio666";
-			
-			try {
-	          // Establecer conexión con la base de datos
-	          Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+    miMenuButton.setText(this.itemCocina.getText());
 
-	          // Crear el statement y ejecutar la consulta
-	          Statement statement = connection.createStatement();
-	          String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
-	                  "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-	                  "FROM LIBRO L " + 
-	                  "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
-	                  "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
-	                  "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
-	                  "WHERE G.NOMBRE = 'Cocina' " +  
-	                  "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
-	          ResultSet resultado = statement.executeQuery(sql);
-	          // Recorrer los resultados y añadirlos a la lista
-	          while (resultado.next()) {
-	              String titulo = resultado.getString("TITULO");
-	              String autor = resultado.getString("AUTOR");
-	              String genero = resultado.getString("GENERO");
-	              int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+    ObservableList<Libro> columnas = FXCollections.observableArrayList();
 
-	              columnas.add(new Libro(titulo, autor,genero,numReseña));
-	          }
+    //Informacion de mi base de datos
+    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
+    String usuario = "System";
+    String contraseña = "aurelio666";
+    
+    try {
+      // Establecer conexión con la base de datos
+      Connection connection = DriverManager.getConnection(url, usuario, contraseña);
 
-	       // Cerrar la conexión
-	          connection.close();
-	      } catch (Exception e) {
-	          e.printStackTrace();
-	      }
-			return columnas;
+      // Crear el statement y ejecutar la consulta
+      Statement statement = connection.createStatement();
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
+                   "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
+                   "FROM LIBRO L " + 
+                   "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
+                   "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
+                   "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
+                   "WHERE G.NOMBRE = 'Cocina' " +  
+                   "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
+      ResultSet resultado = statement.executeQuery(sql);
+        
+      // Recorrer los resultados y añadirlos a la lista
+      while (resultado.next()) {
+        String titulo = resultado.getString("TITULO");
+        String autor = resultado.getString("AUTOR");
+        String genero = resultado.getString("GENERO");
+        int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+
+        columnas.add(new Libro(titulo, autor, genero, numReseña));
+      }
+
+      // Cerrar la conexión
+      connection.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return columnas;
   }
 
   @FXML

@@ -5,7 +5,7 @@
  * 
  * @autor Aurora Morales
  * 
- * Version: 5
+ * Version: 19
  * */
 
 package application;
@@ -66,14 +66,8 @@ public class ControllerReseñaLibro {
         columnDescripcion.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDescripcion()));
     }
 
-    public void inicio() {
-        lista.clear();
-        agregarTabla();
-    }
-
     public void setLibro(Libro lib) {
         this.lib = lib;
-        inicio();
     }
 
     public void agregarTabla() {
