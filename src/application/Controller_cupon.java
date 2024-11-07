@@ -1,14 +1,17 @@
 package application;
 
 import javafx.fxml.FXML;
-
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
@@ -33,6 +36,8 @@ public class Controller_cupon extends Application{
 
     @FXML
     private TableView<Descuento> tabla_cupones;
+    @FXML
+    private Button btn_atras;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -87,6 +92,23 @@ public class Controller_cupon extends Application{
 
         return cupones;
     }
+	
+	 @FXML
+	    void atras(ActionEvent event) {
+		 try {
+				Pane root = FXMLLoader.load(this.getClass().getResource("Vista_descuentos.fxml"));
+				Scene scene = new Scene(root);
+				Stage stage = new Stage();
+				// scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				stage.setScene(scene);
+				stage.show();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			Stage currentStage = (Stage) tabla_cupones.getScene().getWindow();
+			currentStage.close();
+
+	    }
 		
 	}
 

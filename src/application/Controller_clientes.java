@@ -4,50 +4,53 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class Controller_Sistema {
+public class Controller_clientes {
 
-	@FXML
-	private Label Etiqueta_descuentos;
+    @FXML
+    private Label Etiqueta_descuentos;
 
-	@FXML
-	private Label Etiqueta_nueva_venta;
+    @FXML
+    private Label Etiqueta_nueva_venta;
 
-	@FXML
-	private Label Etiqueta_productos;
+    @FXML
+    private Label Etiqueta_productos;
 
-	@FXML
-	private Label Etiqueta_usuarios;
-	
-	//Texto de prueba
+    @FXML
+    private Label Etiqueta_usuarios;
 
-	@FXML
-	void Cambiar_mouse(MouseEvent event) {
-		Etiqueta_descuentos.setCursor(Cursor.HAND);
+    @FXML
+    private Button btn_agregar;
+
+    @FXML
+    private Button btn_cancelar;
+
+    @FXML
+    private Label txt_listaclientes;
+
+    @FXML
+    private TextField txtf_correocliente;
+
+    @FXML
+    private TextField txtf_nombrecliente;
+
+    @FXML
+    private TextField txtf_telefonocliente;
+
+    @FXML
+    void Cambiar_mouse(MouseEvent event) {
+    	Etiqueta_descuentos.setCursor(Cursor.HAND);
 		Etiqueta_nueva_venta.setCursor(Cursor.HAND);
 		Etiqueta_productos.setCursor(Cursor.HAND);
 		Etiqueta_usuarios.setCursor(Cursor.HAND);
-	}
+    }
 
-	@FXML
-	void Cambio_Vistaproductos(MouseEvent event) {
-		try {
-			Pane root = FXMLLoader.load(this.getClass().getResource("Vista_productos.fxml"));
-			Scene scene = new Scene(root);
-			Stage stage = new Stage();
-			// scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			stage.setScene(scene);
-			stage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
-		currentStage.close();
-	}
     @FXML
     void Cambio_Vistadescuentos(MouseEvent event) {
     	try {
@@ -62,6 +65,7 @@ public class Controller_Sistema {
 		}
 		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
 		currentStage.close();
+
     }
 
     @FXML
@@ -78,13 +82,13 @@ public class Controller_Sistema {
 		}
 		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
 		currentStage.close();
+
     }
-    
-  
+
     @FXML
-    void Cambio_viistacli(MouseEvent event) {
+    void Cambio_Vistaproductos(MouseEvent event) {
     	try {
-			Pane root = FXMLLoader.load(this.getClass().getResource("Vista_agregarClientes.fxml"));
+			Pane root = FXMLLoader.load(this.getClass().getResource("Vista_productos.fxml"));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
 			// scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

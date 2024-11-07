@@ -77,7 +77,9 @@ public class Controller_nuevaventa {
 	private TextField txtf_precio;
 	@FXML
 	private Button btn_buscacodigo;
-	
+	@FXML
+	private TextField total_txtf;
+
 	private ObservableList<Tabla_venta> tl_venta = FXCollections.observableArrayList();
 
 	@FXML
@@ -119,6 +121,22 @@ public class Controller_nuevaventa {
 		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
 		currentStage.close();
 	}
+	@FXML
+    void Cambio_viistacli(MouseEvent event) {
+    	try {
+			Pane root = FXMLLoader.load(this.getClass().getResource("Vista_agregarClientes.fxml"));
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			// scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			stage.setScene(scene);
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
+		currentStage.close();
+
+    }
 
 	@FXML
 	void Cambio_Vistanuevaventa(MouseEvent event) {
@@ -208,67 +226,55 @@ public class Controller_nuevaventa {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
-    void initialize() {
-        // Configura las columnas solo una vez, por ejemplo, en el método initialize
-        columna_libro.setCellValueFactory(new PropertyValueFactory<>("Producto"));
-        columna_codigo.setCellValueFactory(new PropertyValueFactory<>("Codigo"));
-        columna_precio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
-        columna_cantidad.setCellValueFactory(new PropertyValueFactory<>("Cantidad"));
-        columna_total.setCellValueFactory(new PropertyValueFactory<>("Total"));
-
-        // Establece la lista en el TableView
-        tabla_venta.setItems(tl_venta);
-    }
-	
-	 @FXML
-	    void Agregar_libro_tabla(ActionEvent event) {
-	        // Agrega el libro a la lista persistente
-	        agregarLibro();
-	    }
-	 
-	 public void agregarLibro() {
-	        String pro = txtf_nombrelibro.getText();
-	        String co = txtf_idlibro.getText();
-	        Float pre = Float.parseFloat(txtf_precio.getText());
-	        int cant = Integer.parseInt(txtf_cantidad.getText());
-	        
-	        Tabla_venta nuevoLibro = new Tabla_venta(pro, co, pre, cant);
-	        tl_venta.add(nuevoLibro); // Agrega el nuevo libro a la lista persistente
-	    }
-
-/*	@FXML
-	void Agregar_libro_tabla(ActionEvent event) {
-
+	void initialize() {
+		// Configura las columnas solo una vez, por ejemplo, en el método initialize
 		columna_libro.setCellValueFactory(new PropertyValueFactory<>("Producto"));
 		columna_codigo.setCellValueFactory(new PropertyValueFactory<>("Codigo"));
 		columna_precio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
 		columna_cantidad.setCellValueFactory(new PropertyValueFactory<>("Cantidad"));
 		columna_total.setCellValueFactory(new PropertyValueFactory<>("Total"));
 
-		tl_venta = agregarLibro();
+		// Establece la lista en el TableView
 		tabla_venta.setItems(tl_venta);
-
 	}
 
-	public ObservableList<Tabla_venta> agregarLibro() {
-		ObservableList<Tabla_venta> tb = FXCollections.observableArrayList();
+	@FXML
+	void Agregar_libro_tabla(ActionEvent event) {
+		// Agrega el libro a la lista persistente
+		agregarLibro();
+		calcularTotal();
+	}
+
+	public void agregarLibro() {
 		String pro = txtf_nombrelibro.getText();
-		System.out.println(pro);
 		String co = txtf_idlibro.getText();
-		System.out.println(co);
 		Float pre = Float.parseFloat(txtf_precio.getText());
-		System.out.println(pre);
 		int cant = Integer.parseInt(txtf_cantidad.getText());
-		System.out.println(cant);
+
 		Tabla_venta nuevoLibro = new Tabla_venta(pro, co, pre, cant);
-		System.out.println(nuevoLibro.getProducto());
-		tb.add(nuevoLibro); // Añade el renglón al TableView
-		
+		tl_venta.add(nuevoLibro); // Agrega el nuevo libro a la lista persistente
+	}
 
-		return tb;
+	@FXML
+	void cancelar_venta(ActionEvent event) {
+		tl_venta.clear();
+		calcularTotal();
+		tabla_venta.refresh();
+	}
+	
+	@FXML
+	void calcularTotal() {
+	    float sumaTotal = 0;
 
-	} */
+	    // Recorre cada elemento en la lista de datos del TableView
+	    for (Tabla_venta item : tabla_venta.getItems()) {
+	        sumaTotal += item.getTotal(); // Suma el valor de la columna "total"
+	    }
+
+	    // Muestra el resultado en el TextField
+	    total_txtf.setText(String.format("%.2f", sumaTotal));
+	}
 
 }

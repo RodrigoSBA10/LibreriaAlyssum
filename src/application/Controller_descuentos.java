@@ -124,6 +124,23 @@ public class Controller_descuentos {
 			Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
 			currentStage.close();
 	    }
+	 
+	 @FXML
+	    void Cambio_viistacli(MouseEvent event) {
+	    	try {
+				Pane root = FXMLLoader.load(this.getClass().getResource("Vista_agregarClientes.fxml"));
+				Scene scene = new Scene(root);
+				Stage stage = new Stage();
+				// scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				stage.setScene(scene);
+				stage.show();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
+			currentStage.close();
+
+	    }
 
 	@FXML
 	void agregar_cupon(ActionEvent event) {
