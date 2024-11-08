@@ -5,6 +5,7 @@ module Libreria {
 	requires javafx.graphics;
 	requires javafx.base;
 	requires java.sql;
+	requires javafx.media;
 	
 	opens application to javafx.graphics, javafx.fxml, javafx.base;
 	opens controladores to javafx.graphics, javafx.fxml, javafx.base;
