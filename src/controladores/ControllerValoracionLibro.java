@@ -284,6 +284,9 @@ public class ControllerValoracionLibro extends Application {
     itemViajes.setOnAction(event -> {
       tablaDeLibros.setItems(itemViajesBuscar(event));
     });
+    itemFantasia.setOnAction(event -> {
+    	tablaDeLibros.setItems(itemFantasiaBuscar(event));
+    });
 
     //Evento para seleccionar un libro
     tablaDeLibros.setOnMouseClicked(evento ->  {
@@ -291,10 +294,10 @@ public class ControllerValoracionLibro extends Application {
         try {
           FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ReseñaLibro.fxml"));
           Parent root = loader.load();
-          ControllerReseñaLibro cotrolador = loader.getController();
+          ControllerReseñaLibro controlador = loader.getController();
           Libro libroSeleccionado = tablaDeLibros.getSelectionModel().getSelectedItem();
-          cotrolador.setLibro(libroSeleccionado);
-          cotrolador.agregarTabla();
+          controlador.setLibro(libroSeleccionado);
+          controlador.agregarTabla();
           Scene scene = new Scene(root);
           Stage stage = new Stage();
           stage.initModality(Modality.APPLICATION_MODAL);
@@ -351,18 +354,6 @@ public class ControllerValoracionLibro extends Application {
       e.printStackTrace();
     }
     return columnas;
-  }
-
-
-  @Override
-  public void start(Stage stage) throws Exception {
-    // Cargar el archivo FXML
-    Parent root = FXMLLoader.load(getClass().getResource("/fxml/ValoracionLibro.fxml"));
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.setTitle("Libros");
-    stage.show();
-    stage.setFullScreen(true);
   }
   
   @FXML
@@ -1450,5 +1441,16 @@ public class ControllerValoracionLibro extends Application {
 	  for (Libro libro : dato) {
 		System.out.println(libro.toString());
 	}
+  }
+  
+  @Override
+  public void start(Stage stage) throws Exception {
+    // Cargar el archivo FXML
+    Parent root = FXMLLoader.load(getClass().getResource("/fxml/ValoracionLibro.fxml"));
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.setTitle("Libros");
+    stage.show();
+    stage.setFullScreen(true);
   }
 }

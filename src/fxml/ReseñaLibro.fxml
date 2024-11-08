@@ -7,23 +7,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="638.0" styleClass="cuerpo" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.ControllerReseñaLibro">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="784.0" styleClass="cuerpo" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.ControllerReseñaLibro">
    <children>
       <Button fx:id="agregar" layoutX="127.0" layoutY="468.0" mnemonicParsing="false" onAction="#aceptarButton" styleClass="boton" stylesheets="@../css/application.css" text="Agregar reseña" />
-      <Button fx:id="regresar" layoutX="423.0" layoutY="468.0" mnemonicParsing="false" onAction="#regresarButton" styleClass="botonRojo" stylesheets="@../css/application.css" text="Regresar" />
-      <AnchorPane prefHeight="79.0" prefWidth="638.0" styleClass="capa1" stylesheets="@../css/application.css">
+      <Button fx:id="regresar" layoutX="540.0" layoutY="468.0" mnemonicParsing="false" onAction="#regresarButton" styleClass="botonRojo" stylesheets="@../css/application.css" text="Regresar" />
+      <AnchorPane prefHeight="79.0" prefWidth="784.0" styleClass="capa1" stylesheets="@../css/application.css">
          <children>
-            <Label layoutX="204.0" layoutY="16.0" style="-fx-background-color: fffff;" text="Titulo del libro">
+            <Label fx:id="titulo" layoutX="277.0" layoutY="13.0" style="-fx-background-color: fffff;" text="Titulo del libro">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <TableView fx:id="tabla" layoutX="27.0" layoutY="100.0" prefHeight="351.0" prefWidth="582.0">
+      <TableView fx:id="tabla" layoutX="20.0" layoutY="99.0" prefHeight="351.0" prefWidth="745.0">
         <columns>
-          <TableColumn fx:id="columnEstrellas" prefWidth="298.0" text="Estrellas" />
-          <TableColumn fx:id="columnDescripcion" prefWidth="283.0" text="Descripcion" />
+          <TableColumn fx:id="columnEstrellas" prefWidth="73.0" text="Estrellas" />
+          <TableColumn fx:id="columnDescripcion" prefWidth="607.0" text="Descripcion" />
         </columns>
       </TableView>
    </children>
