@@ -10,11 +10,16 @@
 
 package controladores;
 
+import java.awt.Font;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import javax.swing.text.Document;
+
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -36,10 +41,10 @@ import modelo.Reseña;
 
 public class ControllerReseñaLibro {
     @FXML
-    private Button agregar;
+    private Button agregar;  //Boton para agregar una reseña
 
     @FXML
-    private Button regresar;
+    private Button regresar;  //Boton para regresar a la ventana anterior
 
     @FXML
     private TableColumn<Reseña, Integer> columnEstrellas;
@@ -49,6 +54,9 @@ public class ControllerReseñaLibro {
 
     @FXML
     private TableView<Reseña> tabla;
+    
+    @FXML
+    private Button generarPDF;
     
     @FXML
     private Label titulo;
@@ -77,6 +85,7 @@ public class ControllerReseñaLibro {
 
     public void setLibro(Libro lib) {
         this.lib = lib;
+        titulo.setText(lib.getTitulo()); //Optengo el titulo del libro y lo agrego a la etiqueta
     }
 
     public void agregarTabla() {
@@ -92,7 +101,7 @@ public class ControllerReseñaLibro {
         //Consulta para encontrar el libro seleccionado
         String sql = "SELECT ID_LIBRO FROM LIBRO WHERE TITULO = ?";
         //Consulta para encontrar la valoracion y descripcion del libro seleccionado
-        String sql2 = "SELECT VALORACION, DESCRIPCION FROM RESENA WHERE ID_LIBRO = ?";
+        String sql2 = "SELECT NOMBRE_USUARIO, VALORACION, DESCRIPCION FROM RESENA WHERE ID_LIBRO = ?";
 
         //Se conecta a la base de datos
         try (Connection connection = DriverManager.getConnection(url, usuario, contraseña);
@@ -118,11 +127,13 @@ public class ControllerReseñaLibro {
                 //Buscar con el identificador del libro en el resultado de la consulta
                 //para optener la descripcion y valoracion
                 while (resultado2.next()) {
+                	String nom = resultado2.getString("NOMBRE_USUARIO");
                     int val = resultado2.getInt("VALORACION");
                     String descrip = resultado2.getString("DESCRIPCION");
-                    Reseña re = new Reseña(val, descrip);
+                    Reseña re = new Reseña(nom, val, descrip);
                     columnas.add(re);
                     System.out.println("Reseña agregada: " + re);
+                    
                 }
             }
         } catch (Exception e) {
@@ -147,7 +158,6 @@ public class ControllerReseñaLibro {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
-            stage.setTitle("Agregar reseña");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -158,5 +168,9 @@ public class ControllerReseñaLibro {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+    }
+    
+    @FXML
+    void generarReporte(ActionEvent event) {
     }
 }

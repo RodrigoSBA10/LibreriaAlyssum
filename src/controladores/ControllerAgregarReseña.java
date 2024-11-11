@@ -13,9 +13,12 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -23,6 +26,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
@@ -60,9 +64,17 @@ public class ControllerAgregarReseña {
   @FXML
   private MediaView mediaView;  // Para mostrar el video
   
-  public List<Reseña> lista;
+  private MediaPlayer mediaPlayer;
+  
+  private ObservableList<Reseña> lista = FXCollections.observableArrayList();
   
   int valoracion = 0; //Variable para 
+  int id;
+  
+  @FXML  
+  private TextField nombreUsuario;
+  
+  private String nombre; //Variable para cantener el nombre del usuario
   
   private Libro lib = new Libro();
   
@@ -113,8 +125,12 @@ public class ControllerAgregarReseña {
 		  Alert alert = new Alert(AlertType.ERROR, "Debe ingresar el contenido de la reseña");
 	      alert.showAndWait();
 	  }
+	  if(nombreUsuario.getText().isEmpty()) {
+		  nombre = "Anonimo";
+		  nombreUsuario.setText(nombre);
+	  }
 	  
-      Reseña res = new Reseña( valoracion, textArea.getText());
+      Reseña res = new Reseña(nombreUsuario.getText(), valoracion, textArea.getText());
       guardarEnBaseDeDatos(res);
       
       Alert alert = new Alert(AlertType.CONFIRMATION, "Su reseña fue guardada");
@@ -132,26 +148,45 @@ public class ControllerAgregarReseña {
   }
   
   private void guardarEnBaseDeDatos(Reseña res) {
-	    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
-		String usuario = "System";
-		String contraseña = "aurelio666";
-	    
-	    String sql = "INSERT INTO reseñas (ID_LIBRO, VALORACION, DESCRIPCION) VALUES (?, ?, ?)";
-	    
-	    try (Connection connection = DriverManager.getConnection(url, usuario, contraseña);
-	         PreparedStatement statement = connection.prepareStatement(sql)) {
-	      
-	      statement.setInt(1, res.getValoracion());
-	      statement.setString(2, res.getDescripcion());
-	      
-	      int filasInsertadas = statement.executeUpdate();
-	      if (filasInsertadas > 0) {
-	          System.out.println("La reseña fue agregada correctamente a la base de datos.");
-	      }
-	    } catch (SQLException e) {
-	        System.err.println("Error al insertar la reseña en la base de datos.");
-	        e.printStackTrace();
-	    }
+        //Informacion para acceder a la base de datos
+        String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
+        String usuario = "System";
+        String contraseña = "aurelio666";
+
+        //Consultas
+        
+        //Consulta para encontrar el libro seleccionado
+        String sql = "SELECT ID_LIBRO FROM LIBRO WHERE TITULO = ?";
+        //Consulta para agregar reseñas
+        String sql2 = "INSERT INTO RESENA (NOMBRE_USUARIO, ID_LIBRO, VALORACION, DESCRIPCION) VALUES (?, ?, ?, ?)";
+
+        try (Connection connection = DriverManager.getConnection(url, usuario, contraseña)) {
+            // Obtener ID del libro a partir del título
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, lib.getTitulo());
+                ResultSet resultado = preparedStatement.executeQuery();
+
+                //Verifico si existe el libro
+                if (resultado.next()) {
+                    id = resultado.getInt("ID_LIBRO");
+       
+                } else {
+                    System.out.println("No se encontró el libro con el título: " + lib.getTitulo());
+                    return; // Salir si no se encuentra el libro
+                }
+            }
+
+            // Insertar la reseña en la base de datos
+            try (PreparedStatement insertStatement = connection.prepareStatement(sql2)) {
+                insertStatement.setString(1, res.getNombre()); // Nombre del usuario
+                insertStatement.setInt(2, id); // ID del libro
+                insertStatement.setInt(3, res.getValoracion()); // Valoración
+                insertStatement.setString(4, res.getDescripcion()); // Descripción
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 	  }
   
   /*Metodo para agregar videos o fotos
@@ -161,9 +196,10 @@ public class ControllerAgregarReseña {
 	  FileChooser fileChooser = new FileChooser();
 	    fileChooser.setTitle("Seleccionar archivo multimedia");
 	    fileChooser.getExtensionFilters().addAll(
-	    		new FileChooser.ExtensionFilter("Archivos Multimedia", "*.png", "*.jpg", "*.jpeg",
-	    				"*.mp4", "*.avi", "*.mov", "*.mkv", "*.flv", "*.wmv"),
-	    	    new FileChooser.ExtensionFilter("Todos los Archivos", "*.*")
+	    		new FileChooser.ExtensionFilter("Archivos Multimedia", "*.png",
+	    				"*.jpg", "*.jpeg", "*.mp4", "*.avi", "*.mov", "*.mkv",
+	    				"*.flv", "*.wmv"),
+	        new FileChooser.ExtensionFilter("Todos los Archivos", "*.*")
 	    );
 
 	    File file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
@@ -171,20 +207,22 @@ public class ControllerAgregarReseña {
 	        String filePath = file.toURI().toString();
 	        
 	        if (filePath.endsWith(".png") || filePath.endsWith(".jpg") || filePath.endsWith(".jpeg")) {
-	            // Cargar imagen en ImageView y agregar referencia en TextArea
+	            // Cargar imagen en ImageView y mostrarla
 	            Image image = new Image(filePath);
 	            imageView.setImage(image);
-	            mediaView.setMediaPlayer(null); // Limpiar MediaView si se cargó una imagen
 	            textArea.appendText("Imagen adjunta: " + file.getName() + "\n");
-	        } else if (filePath.endsWith(".mp4") || filePath.endsWith(".avi") || 
-	        		filePath.endsWith(".mov") || filePath.endsWith(".mkv")
-	        		|| filePath.endsWith(".flv")) {
-	            // Cargar video en MediaView y agregar referencia en TextArea
+	        } else if (filePath.endsWith(".mp4") || filePath.endsWith(".avi") 
+	        		|| filePath.endsWith(".mov") || filePath.endsWith(".flv") 
+	        		|| filePath.endsWith(".wmv") ||
+	        		filePath.endsWith(".mkv")) {
+	            // Configurar el MediaPlayer y el MediaView para reproducir el video
 	            Media media = new Media(filePath);
-	            MediaPlayer mediaPlayer = new MediaPlayer(media);
+	            if (mediaPlayer != null) {
+	                mediaPlayer.stop(); // Detener cualquier video anterior si está en reproducción
+	            }
+	            mediaPlayer = new MediaPlayer(media);
 	            mediaView.setMediaPlayer(mediaPlayer);
-	            mediaPlayer.play(); // Opcional: empezar a reproducir el video
-	            imageView.setImage(null); // Limpiar ImageView si se cargó un video
+	            mediaPlayer.play(); // Reproducir el video
 	            textArea.appendText("Video adjunto: " + file.getName() + "\n");
 	        }
 	    }

@@ -31,3 +31,12 @@
 .texto{
 	-fx-background-color: #ffeae1;
 }
+
+/* estilos.css */
+.bordered-pane {
+    -fx-border-color: black;       /* Color del borde */
+    -fx-border-width: 2;           /* Ancho del borde */
+    -fx-border-radius: 5;          /* Esquinas redondeadas opcionales */
+    -fx-border-style: solid;       /* Estilo del borde*/
+    -fx-padding: 10;               /* Opcional: agregar espacio interno dentro del borde */
+}

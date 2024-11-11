@@ -13,12 +13,22 @@ package modelo;
 
 public class Reseña {
 	
+	String nombre;
 	String descripcion;
 	int valoracion;
 	
-	public Reseña(int valoracion, String descripcion) {
+	public Reseña(String nombre, int valoracion, String descripcion) {
 		this.descripcion = descripcion;
 		this.valoracion = valoracion;
+		this.nombre = nombre;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getDescripcion() {
@@ -38,6 +48,6 @@ public class Reseña {
 	}
 	
 	public String toString() {
-		return this.valoracion + "||" + this.descripcion + "\n";
+		return this.nombre + "||" + this.valoracion + "||" + this.descripcion + "\n";
 	}
 }
