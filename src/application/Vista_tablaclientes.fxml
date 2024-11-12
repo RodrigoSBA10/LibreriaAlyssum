@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff4e3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller_tablaclientes">
+   <children>
+      <Label layoutX="237.0" layoutY="14.0" text="CLIENTES REGISTRADOS" />
+      <ScrollPane layoutX="135.0" layoutY="57.0" prefHeight="287.0" prefWidth="330.0">
+         <content>
+            <TableView fx:id="tabla_cupones" prefHeight="265.0" prefWidth="330.0">
+              <columns>
+                <TableColumn fx:id="Columna_nombre" prefWidth="111.0" text="Nombre" />
+                <TableColumn fx:id="Columna_correo" prefWidth="124.0" text="Correo" />
+                  <TableColumn fx:id="Columna_telefono" prefWidth="94.0" text="Telefono" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+      <Button fx:id="btn_atras" layoutX="30.0" layoutY="19.0" mnemonicParsing="false" onAction="#atras" text="&lt;-" />
+   </children>
+</AnchorPane>

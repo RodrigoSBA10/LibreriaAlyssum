@@ -74,9 +74,9 @@
       <TextField fx:id="txtf_nombrecliente" layoutX="67.0" layoutY="106.0" promptText="Nombre del cliente" />
       <TextField fx:id="txtf_correocliente" layoutX="67.0" layoutY="162.0" promptText="cliente@example.com" />
       <TextField fx:id="txtf_telefonocliente" layoutX="67.0" layoutY="213.0" promptText="55-47-21-94-93" />
-      <Button fx:id="btn_agregar" layoutX="190.0" layoutY="325.0" mnemonicParsing="false" text="agregar" />
-      <Button fx:id="btn_cancelar" layoutX="397.0" layoutY="325.0" mnemonicParsing="false" text="cancelar" />
-      <Label fx:id="txt_listaclientes" layoutX="516.0" layoutY="76.0" text="Lista de clientes" underline="true">
+      <Button fx:id="btn_agregar" layoutX="190.0" layoutY="325.0" mnemonicParsing="false" onAction="#agregar_cupon" text="agregar" />
+      <Button fx:id="btn_cancelar" layoutX="397.0" layoutY="325.0" mnemonicParsing="false" onAction="#Cancelar_cupon" text="cancelar" />
+      <Label fx:id="txt_listaclientes" layoutX="516.0" layoutY="76.0" onMouseClicked="#Cambio_vistaTablaclientes" text="Lista de clientes" underline="true">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

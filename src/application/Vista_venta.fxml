@@ -50,7 +50,7 @@
                   <Insets left="5.0" top="10.0" />
                </HBox.margin>
             </ImageView>
-            <Label fx:id="Etiqueta_usuarios" onMouseEntered="#Cambiar_mouse" text="Usuarios">
+            <Label fx:id="Etiqueta_usuarios" onMouseClicked="#Cambio_viistacli" onMouseEntered="#Cambiar_mouse" text="Usuarios">
                <HBox.margin>
                   <Insets left="5.0" top="30.0" />
                </HBox.margin>
