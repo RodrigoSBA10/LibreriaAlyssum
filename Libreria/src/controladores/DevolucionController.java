@@ -21,7 +21,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleGroup;
-import modelo.Devolucion;
+import modelo.Motivo;
 import modelo.Ticket;
 
 /**
@@ -51,7 +51,7 @@ public class DevolucionController {
     private Button btnRegistrar;
 
     @FXML
-    private ComboBox<String> comboBox = new ComboBox<String>();
+    private ComboBox<Motivo> comboBox = new ComboBox<Motivo>();
 
     @FXML
     private RadioButton rbNo;
@@ -89,12 +89,12 @@ public class DevolucionController {
     void registrarDevolucion(ActionEvent event) {
     	String numero = txfNumeroTicket.getText();
     	String detalle = areaTexto.getText();
-    	String motivo = comboBox.getValue();
     	String fecha = lbFecha.getText();
     	Alert alert;
     	if(!numero.equals("")) {
     		if(!detalle.equals("")) {
     			if(!(comboBox.getValue() == null)) {
+    				String motivo = comboBox.getValue().getNombre();
     				lista = DataBase.getElementsTicket();
     				int number = Integer.parseInt(numero);
     				if(existeTicket(number)) {
@@ -129,10 +129,7 @@ public class DevolucionController {
 	 */
     
     public void initialize() {
-    	comboBox.getItems().addAll("Defecto de fabrica", "Páginas en blaco", 
-    								"Mal encuadernamiento", "Portada errónea", 
-    								"Libro dañado", "Fallas de impresión", 
-    								"Número de paginas salteadas", "Otro");
+    	comboBox.setItems(DataBase.getMotivos()); // Agrega al comboBox los motivos de DataBase
     	lbFecha.setText(formatoFecha()); // Tiene como parametro un método.
     	soloNumeros();			// Se llama al método soloNumeros().
     }

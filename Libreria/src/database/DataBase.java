@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import modelo.Devolucion;
+import modelo.Motivo;
 import modelo.Ticket;
 
 public class DataBase {
@@ -73,9 +74,8 @@ public class DataBase {
 		return lista;
 	}
 
+	// Método que registra una devolución y actualiza la cantidad del libro que se regreso dependiendo del cambio
 	public static void registrarDevolucion(int numero, String fecha, String motivo, String detalles, String cambio) {
-		
-		//Arreglar esta consulta. Tiene que estar como se definio sus atributos de la Tabla Devolución.
 		
 		Connection conn = getConexion();
 		Alert alert;
@@ -87,6 +87,8 @@ public class DataBase {
                     + "TICKET T ON C.IDCLIENTE = T.IDCLIENTE WHERE T.NUMERO = ?), "
                     + "(SELECT TITULO FROM TICKET T JOIN LIBRO L ON T.IDLIBRO = L.IDLIBRO WHERE T.NUMERO = ?), "
                     + "TO_DATE(?, 'DD-MM-YY'), ?, ?, ?)";
+			String actualizar = "UPDATE LIBRO SET CANTIDAD = CANTIDAD + 1 WHERE TITULO = (SELECT TITULO FROM "
+					+ "TICKET T JOIN LIBRO L ON T.IDLIBRO = L.IDLIBRO WHERE T.NUMERO = ?)";
 			try {
 				PreparedStatement pstmt = conn.prepareStatement(query);
 	            pstmt.setInt(1, numero);
@@ -98,6 +100,13 @@ public class DataBase {
 	            pstmt.setString(7, cambio);
 
 				int exitoFila = pstmt.executeUpdate();
+				
+				if(!cambio.equalsIgnoreCase("NO")) {
+					PreparedStatement act = conn.prepareStatement(actualizar);
+					act.setInt(1, numero);
+					act.executeUpdate();
+				}
+				
 				closeConexion(conn);
 				alert = new Alert(Alert.AlertType.INFORMATION, "Se registró " + exitoFila + " devolución.");
 				alert.show();
@@ -112,7 +121,7 @@ public class DataBase {
 		}
 	}
 	
-	// Método para obtener los elementos de la tabla
+	// Método para obtener los elementos de la tabla Ticket
 	public static ObservableList<Ticket> getElementsTicket() {
 			ObservableList<Ticket> lista = FXCollections.observableArrayList();
 			Connection conn = getConexion();
@@ -140,4 +149,57 @@ public class DataBase {
 			}
 			return lista;
 		}
+	
+	// Método para extraer los motivos de la DataBase
+	public static ObservableList<Motivo> getMotivos(){
+		ObservableList<Motivo> lista = FXCollections.observableArrayList();
+		Connection conn = getConexion();
+		String query = "SELECT * FROM MOTIVO";
+		
+		try {
+			Statement declaracion = conn.createStatement();
+			ResultSet resultD = declaracion.executeQuery(query);
+
+			while (resultD.next()) {
+				Motivo datos = new Motivo(
+						resultD.getInt(1),
+						resultD.getString(2)
+						);
+				lista.add(datos);
+			}
+			closeConexion(conn);
+		} catch (SQLException e) {
+			System.out.println("Error en obtener elementos: " + e.getMessage());
+			closeConexion(conn);
+		}
+		
+		return lista;
+	}
+	
+	// Método que elimina una Devolución
+	public void eliminarDevolucion(Devolucion devolucion) {
+		int numero = devolucion.getNumTicket();
+		String query = "DELETE FROM DEVOLUCION WHERE NUMERO = ?";
+		Alert alert;
+		Connection conn = getConexion();
+		
+		try {
+			PreparedStatement pstm = conn.prepareStatement(query);
+			pstm.setInt(1, numero);
+			int fAfectada = pstm.executeUpdate();
+			
+			if(fAfectada > 0) {
+				alert = new Alert(Alert.AlertType.INFORMATION, "Ticket: " + numero + " eliminado");
+				alert.show();
+			} else {
+				alert = new Alert(Alert.AlertType.ERROR, "Ticket: " + numero + " no encontrado");
+				alert.show();
+			}
+			
+			closeConexion(conn);
+		} catch (SQLException e) {
+			System.out.println("ERROR al eliminar la Devolución: " + e.getMessage());
+			closeConexion(conn);
+		}
+	}
 }
