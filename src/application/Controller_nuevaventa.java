@@ -252,7 +252,7 @@ public class Controller_nuevaventa {
 		// Agrega el libro a la lista persistente
 		agregarLibro();
 		calcularTotal();
-		calcularTotaliva();
+		calcularTotaliva(); 
 	}
 
 	public void agregarLibro() {
