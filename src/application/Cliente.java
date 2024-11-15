@@ -6,7 +6,7 @@ package application;
  */
 public class Cliente {
 	private String Nombre;
-	private String Correo;
+	private String Correo; 
 	private String Numero_Telefonico;
     
 	public Cliente(String nombre) {
