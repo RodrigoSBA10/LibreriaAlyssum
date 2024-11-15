@@ -10,15 +10,11 @@
 
 package controladores;
 
-import java.awt.Font;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
-import javax.swing.text.Document;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -56,9 +52,6 @@ public class ControllerReseñaLibro {
     private TableView<Reseña> tabla;
     
     @FXML
-    private Button generarPDF;
-    
-    @FXML
     private Label titulo;
 
     private ObservableList<Reseña> lista = FXCollections.observableArrayList();
@@ -70,10 +63,6 @@ public class ControllerReseñaLibro {
        System.out.println("Tabla es null? " + (tabla == null));
        configurarColumnas();
     }
-    
-    public void agregar(Reseña res) {
-    	lista.add(res);
-    }
 
     public void configurarColumnas() {
         columnEstrellas.setCellValueFactory(data -> 
@@ -81,6 +70,10 @@ public class ControllerReseñaLibro {
 
         columnDescripcion.setCellValueFactory(data -> 
         new SimpleStringProperty(data.getValue().getDescripcion())); 
+    }
+    
+    public void agregar(Reseña res) {
+    	lista.add(res);
     }
 
     public void setLibro(Libro lib) {
@@ -158,6 +151,10 @@ public class ControllerReseñaLibro {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
+            
+            ControllerAgregarReseña nombre = loader.getController();
+            nombre.setLibro(lib);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -168,9 +165,5 @@ public class ControllerReseñaLibro {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
-    }
-    
-    @FXML
-    void generarReporte(ActionEvent event) {
     }
 }

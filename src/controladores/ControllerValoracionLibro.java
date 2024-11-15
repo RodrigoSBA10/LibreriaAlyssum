@@ -10,12 +10,25 @@
 
 package controladores;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -144,6 +157,12 @@ public class ControllerValoracionLibro extends Application {
   
   @FXML
   private ImageView marcoImagen;  //Espacio para ver las imagenes de las portadas de libros
+  
+  @FXML
+  private Button generarPDF;
+  
+  //Variable con el nombre del arhivo que guardará en pdf
+  private final String archivoPDF = "Reporte_Reseñas.pdf";
   
   //Lista de imagenes de las portadas de los libros
   private List<Image> listaImagenes = List.of(
@@ -1452,5 +1471,82 @@ public class ControllerValoracionLibro extends Application {
     stage.setTitle("Libros");
     stage.show();
     stage.setFullScreen(true);
+  }
+  
+  /*Metodo para generar un documento pdf en  
+   * */
+@FXML
+void generarReporte(ActionEvent event) {
+  	//Declaro variables para acceder a la base de datos
+  	String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
+    String usuario = "System";
+    String contraseña = "aurelio666";
+      
+    //Declaro una variable para hacer la consulta
+    String sql = "SELECT NOMBRE_USUARIO, TITULO, DESCRIPCION FROM RESENA " +
+                 "JOIN LIBRO ON RESENA.ID_LIBRO = LIBRO.ID_LIBRO";
+
+    //Crear un documento PDF
+    Document documento = new Document();
+      
+    try {
+     //Buscar el archivo
+     PdfWriter.getInstance(documento, new FileOutputStream(archivoPDF));
+     documento.open();
+			
+			//Agregar titulo al reporte con tipo y tamaño de letra
+			Font tipoTexto = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
+			Paragraph titulo = new Paragraph("Reporte de las reseñas del libro", tipoTexto);
+			titulo.setAlignment(Element.ALIGN_CENTER);
+			documento.add(titulo);
+			documento.add(new Paragraph("\n"));
+			
+			//Crea una tabla con tres columnas
+			PdfPTable tabla = new PdfPTable(3);
+			tabla.setWidthPercentage(100);
+			tabla.setSpacingBefore(10f);
+			tabla.setSpacingAfter(10f);
+			
+			//Agregar los titulos de las columnas con tipo de letra y tamaño
+			Font tipoTexto2 = FontFactory.getFont(FontFactory.COURIER_BOLD, 12);
+			
+			//Agregar cada uno de los, titulos
+			PdfPCell celdaEncabezado;
+			celdaEncabezado = new PdfPCell(new Phrase("Nombre de usuario", tipoTexto2));
+			tabla.addCell(celdaEncabezado);
+			
+			celdaEncabezado = new PdfPCell(new Phrase("Titulo del libro", tipoTexto2));
+			tabla.addCell(celdaEncabezado);
+			
+			celdaEncabezado = new PdfPCell(new Phrase("Ontenido de la reseña", tipoTexto2));
+			tabla.addCell(celdaEncabezado);
+			
+			//Conexion a la base de datos
+			try(Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+	                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	                 ResultSet resultSet = preparedStatement.executeQuery()) {
+				
+				while(resultSet.next()) {
+				tabla.addCell(resultSet.getString("NOMBRE_USUARIO"));
+				tabla.addCell(resultSet.getString("TITULO"));
+				tabla.addCell(resultSet.getString("DESCRIPCION"));
+				}	
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+			//Añadir informacion de la consulta a la tabla
+			documento.add(tabla);
+			
+			//Verificar que se realizó el reporte
+			System.out.println("Se realizo el documento exitosamente: " + archivoPDF);
+		} catch (DocumentException | java.io.IOException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		  //Finaliza el proceso y cierra el documento
+		} finally {
+			documento.close();
+		}
   }
 }

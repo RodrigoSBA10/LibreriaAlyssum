@@ -35,7 +35,7 @@
             <TableColumn fx:id="ColumnNumReseñas" prefWidth="152.0" text="Numero reseñas" />
         </columns>
       </TableView>
-      <MenuButton fx:id="miMenuButton" layoutX="99.0" layoutY="230.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="523.0" text="Genero">
+      <MenuButton fx:id="miMenuButton" layoutX="9.0" layoutY="230.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="523.0" text="Genero">
          <items>
             <MenuItem fx:id="itemNovela_Historica" mnemonicParsing="false" onAction="#itemNovela_HistoricaBuscar" text="Novela historica" />
             <MenuItem fx:id="itemNovela_Negra" mnemonicParsing="false" onAction="#itemNovela_NegraBuscar" text="Novela negra, thriller o suspense " />
@@ -66,5 +66,7 @@
       <ImageView fx:id="marcoImagen" fitHeight="140.0" fitWidth="104.0" layoutX="309.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="buttonIrAnterior" layoutX="236.0" layoutY="121.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="25.0" text="&lt;" />
       <Button fx:id="buttonIrSiguiente" layoutX="458.0" layoutY="120.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="25.0" text="&gt;" />
+      <Button layoutX="670.0" layoutY="230.0" mnemonicParsing="false" onAction="#generarReporte" styleClass="boton" stylesheets="@../../bin/css/application.css" text="PDF" />
+      <Button layoutX="578.0" layoutY="230.0" mnemonicParsing="false" text="Button" />
    </children>
 </AnchorPane>

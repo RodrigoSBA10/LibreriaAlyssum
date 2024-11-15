@@ -4,7 +4,7 @@
  * 
  * @autor Aurora Morales
  * 
- * Version: 9
+ * Version: 19
  * */
 
 package controladores;
@@ -15,6 +15,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -68,8 +69,7 @@ public class ControllerAgregarReseña {
   
   private ObservableList<Reseña> lista = FXCollections.observableArrayList();
   
-  int valoracion = 0; //Variable para 
-  int id;
+  int valoracion = 0; //Variable que inicializa la valoracion
   
   @FXML  
   private TextField nombreUsuario;
@@ -77,6 +77,11 @@ public class ControllerAgregarReseña {
   private String nombre; //Variable para cantener el nombre del usuario
   
   private Libro lib = new Libro();
+  
+  public void setLibro(Libro lib) {
+	this.lib = lib;
+	System.out.println("Titulo: " + lib.getTitulo());
+  }
   
   @FXML
   void ClickButton1(ActionEvent event) {
@@ -125,20 +130,27 @@ public class ControllerAgregarReseña {
 		  Alert alert = new Alert(AlertType.ERROR, "Debe ingresar el contenido de la reseña");
 	      alert.showAndWait();
 	  }
+	  
+	  // Establece el nombre del usuario como "Anónimo" si no se ingresó uno
 	  if(nombreUsuario.getText().isEmpty()) {
 		  nombre = "Anonimo";
 		  nombreUsuario.setText(nombre);
 	  }
 	  
+	  // Crea una reseña y la guarda en la base de datos
       Reseña res = new Reseña(nombreUsuario.getText(), valoracion, textArea.getText());
-      guardarEnBaseDeDatos(res);
+      System.out.println("Titulo 2 :" + lib.getTitulo());
+      guardarEnBaseDeDatos(res, lib.getTitulo());
       
+      // Confirma que la reseña se guardó
       Alert alert = new Alert(AlertType.CONFIRMATION, "Su reseña fue guardada");
       alert.showAndWait();
-      System.out.println(res.toString());
-      lib.setNumeroReseña(1);
-      ControllerReseñaLibro control =new ControllerReseñaLibro();
+      //System.out.println(res.toString());
+      //lib.setNumeroReseña(1);
+      
+      ControllerReseñaLibro control = new ControllerReseñaLibro();
       control.agregar(res);
+      //control.agregarTabla();
       
       //Cerrar ventana 
       Node source = (Node)event.getSource();
@@ -147,7 +159,7 @@ public class ControllerAgregarReseña {
 
   }
   
-  private void guardarEnBaseDeDatos(Reseña res) {
+  private void guardarEnBaseDeDatos(Reseña res, String titulo) {
         //Informacion para acceder a la base de datos
         String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
         String usuario = "System";
@@ -155,35 +167,27 @@ public class ControllerAgregarReseña {
 
         //Consultas
         
-        //Consulta para encontrar el libro seleccionado
-        String sql = "SELECT ID_LIBRO FROM LIBRO WHERE TITULO = ?";
         //Consulta para agregar reseñas
-        String sql2 = "INSERT INTO RESENA (NOMBRE_USUARIO, ID_LIBRO, VALORACION, DESCRIPCION) VALUES (?, ?, ?, ?)";
+        String sql2 = "INSERT INTO RESENA (NOMBRE_USUARIO, ID_LIBRO, VALORACION, DESCRIPCION) VALUES (?, (SELECT ID_LIBRO FROM LIBRO WHERE TITULO = ?), ?, ?)";
 
-        try (Connection connection = DriverManager.getConnection(url, usuario, contraseña)) {
-            // Obtener ID del libro a partir del título
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, lib.getTitulo());
-                ResultSet resultado = preparedStatement.executeQuery();
-
-                //Verifico si existe el libro
-                if (resultado.next()) {
-                    id = resultado.getInt("ID_LIBRO");
-       
-                } else {
-                    System.out.println("No se encontró el libro con el título: " + lib.getTitulo());
-                    return; // Salir si no se encuentra el libro
-                }
-            }
-
+        try (Connection connection = DriverManager.getConnection(url, usuario, contraseña)) { 
             // Insertar la reseña en la base de datos
             try (PreparedStatement insertStatement = connection.prepareStatement(sql2)) {
-                insertStatement.setString(1, res.getNombre()); // Nombre del usuario
-                insertStatement.setInt(2, id); // ID del libro
+                /*insertStatement.setString(1, res.getNombre()); // Nombre del usuario
+                insertStatement.setString(2, titulo); // ID del libro
                 insertStatement.setInt(3, res.getValoracion()); // Valoración
-                insertStatement.setString(4, res.getDescripcion()); // Descripción
+                insertStatement.setString(4, res.getDescripcion()); // Descripción*/
+            	
+                //Se guarda en la tabla
+                int resultado = insertStatement.executeUpdate();
                 
+                if(resultado > 0) {
+                	System.out.println("Se agrego: " + lib.getTitulo());
+                } else {
+                	System.out.println("No se agrego");
+                }
             }
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
