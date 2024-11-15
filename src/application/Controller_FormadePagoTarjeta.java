@@ -33,6 +33,7 @@ public class Controller_FormadePagoTarjeta {
 
     @FXML
     private TextField txtf_titular;
+    private Float totalVenta;
     
     void meses(){
     	for (int mes = 1; mes <= 12; mes++) {
@@ -51,23 +52,40 @@ public class Controller_FormadePagoTarjeta {
     public void initialize() {
     	meses();
     	años();
+    	
     }
     @FXML
     void Cambio_vistaEfectivo(ActionEvent event) {
-    	try {
-			Pane root = FXMLLoader.load(this.getClass().getResource("FormadePagoEfectivo.fxml"));
-			Scene scene = new Scene(root);
-			Stage stage = new Stage();
-			// scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			stage.setScene(scene);
-			stage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Stage currentStage = (Stage) txtf_codigoseguridad.getScene().getWindow();
-		currentStage.close();
+    	 try {
+    	        // Carga el archivo FXML de la nueva vista
+    	        FXMLLoader loader = new FXMLLoader(getClass().getResource("FormadePagoEfectivo.fxml"));
+    	        Pane root = loader.load();
+
+    	        // Obtén el controlador de la nueva vista
+    	        Controller_FormadePagoEfectivo controladorDestino = loader.getController();
+
+    	        // Pasa el dato del total al controlador de la nueva vista
+    	        float total = totalVenta;
+    	        controladorDestino.setTotal(total);
+
+    	        // Cambia de escena
+    	        Scene scene = new Scene(root);
+    	        Stage stage = new Stage();
+    	        stage.setScene(scene);
+    	        stage.show();
+
+    	        // Cierra la ventana actual
+    	        Stage currentStage = (Stage) txtf_titular.getScene().getWindow();
+    	        currentStage.close();
+    	    } catch (Exception e) {
+    	        e.printStackTrace();
+    	    }
 
 
+    }
+    public void setTotal(float total) {
+        this.totalVenta=total;;
+        System.out.println(totalVenta);
     }
 
 }

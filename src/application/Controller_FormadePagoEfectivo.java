@@ -28,18 +28,34 @@ public class Controller_FormadePagoEfectivo {
     @FXML
     void Cambio_vistaTarjeta(ActionEvent event) {
     	try {
-			Pane root = FXMLLoader.load(this.getClass().getResource("FormadePago.fxml"));
-			Scene scene = new Scene(root);
-			Stage stage = new Stage();
-			// scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			stage.setScene(scene);
-			stage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Stage currentStage = (Stage) txt_cambio.getScene().getWindow();
-		currentStage.close();
+	        // Carga el archivo FXML de la nueva vista
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("FormadePago.fxml"));
+	        Pane root = loader.load();
 
+	        // Obtén el controlador de la nueva vista
+	        Controller_FormadePagoTarjeta controladorDestino = loader.getController();
+
+	        // Pasa el dato del total al controlador de la nueva vista
+	        float total = Float.parseFloat(txt_total_pagar.getText());
+	        controladorDestino.setTotal(total);
+
+	        // Cambia de escena
+	        Scene scene = new Scene(root);
+	        Stage stage = new Stage();
+	        stage.setScene(scene);
+	        stage.show();
+
+	        // Cierra la ventana actual
+	        Stage currentStage = (Stage) txt_cambio.getScene().getWindow();
+	        currentStage.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+    }
+    
+    public void setTotal(float total) {
+        txt_total_pagar.setText(String.format("%.2f", total));
     }
 
 }

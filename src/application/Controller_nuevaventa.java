@@ -146,6 +146,7 @@ public class Controller_nuevaventa {
 	void Cambio_Vistanuevaventa(MouseEvent event) {
 		try {
 			Pane root = FXMLLoader.load(this.getClass().getResource("Vista_venta.fxml"));
+			
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
 			// scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -161,17 +162,29 @@ public class Controller_nuevaventa {
 	@FXML
 	void Forma_depago(ActionEvent event) {
 		try {
-			Pane root = FXMLLoader.load(this.getClass().getResource("FormadePago.fxml"));
-			Scene scene = new Scene(root);
-			Stage stage = new Stage();
-			// scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			stage.setScene(scene);
-			stage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
-		currentStage.close();
+	        // Carga el archivo FXML de la nueva vista
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("FormadePago.fxml"));
+	        Pane root = loader.load();
+
+	        // Obtén el controlador de la nueva vista
+	        Controller_FormadePagoTarjeta controladorDestino = loader.getController();
+
+	        // Pasa el dato del total al controlador de la nueva vista
+	        float total = Float.parseFloat(total_txtf.getText());
+	        controladorDestino.setTotal(total);
+
+	        // Cambia de escena
+	        Scene scene = new Scene(root);
+	        Stage stage = new Stage();
+	        stage.setScene(scene);
+	        stage.show();
+
+	        // Cierra la ventana actual
+	        Stage currentStage = (Stage) txtf_cantidad.getScene().getWindow();
+	        currentStage.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	@FXML
@@ -274,6 +287,7 @@ public class Controller_nuevaventa {
 	void cancelar_venta(ActionEvent event) {
 		tl_venta.clear();
 		calcularTotal();
+		calcularTotaliva(); 
 		tabla_venta.refresh();
 	}
 	
