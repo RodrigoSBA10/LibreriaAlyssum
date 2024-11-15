@@ -10,13 +10,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff4e3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff4e3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller_FormadePagoTarjeta">
    <children>
       <Pane layoutX="13.0" layoutY="59.0" prefHeight="327.0" prefWidth="570.0" style="-fx-background-color: #d0ffbe;">
          <children>
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Tarjeta" />
-            <Button layoutX="83.0" layoutY="14.0" mnemonicParsing="false" text="Efectivo" />
+            <Button fx:id="btn_tarjeta" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Tarjeta" />
+            <Button fx:id="btn_efectivo" layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#Cambio_vistaEfectivo" text="Efectivo" />
             <Label layoutX="12.0" layoutY="50.0" text="Pago seguro por tarjeta de crédito o debito" />
             <ImageView fitHeight="50.0" fitWidth="55.0" layoutX="12.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -38,26 +37,26 @@
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <TextField layoutX="14.0" layoutY="164.0" prefHeight="25.0" prefWidth="182.0" promptText="Titular" />
+            <TextField fx:id="txtf_titular" layoutX="14.0" layoutY="164.0" prefHeight="25.0" prefWidth="182.0" promptText="Titular" />
             <Label layoutX="14.0" layoutY="210.0" text="Numero de tarjeta">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <TextField layoutX="14.0" layoutY="242.0" prefHeight="25.0" prefWidth="182.0" promptText="No. tarjeta" />
+            <TextField fx:id="txtf_numerotarjeta" layoutX="14.0" layoutY="242.0" prefHeight="25.0" prefWidth="182.0" promptText="No. tarjeta" />
             <Label layoutX="308.0" layoutY="131.0" text="Fecha de vencimiento">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <ChoiceBox layoutX="338.0" layoutY="164.0" prefHeight="25.0" prefWidth="65.0" />
-            <ChoiceBox layoutX="429.0" layoutY="164.0" prefHeight="25.0" prefWidth="65.0" />
+            <ChoiceBox fx:id="choicebox_1" layoutX="338.0" layoutY="164.0" prefHeight="25.0" prefWidth="65.0" />
+            <ChoiceBox fx:id="choicebox_2" layoutX="429.0" layoutY="164.0" prefHeight="25.0" prefWidth="65.0" />
             <Label layoutX="301.0" layoutY="210.0" text="Codigo de seguridad">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <PasswordField layoutX="301.0" layoutY="242.0" prefHeight="25.0" prefWidth="203.0" promptText="Codigo" />
+            <PasswordField fx:id="txtf_codigoseguridad" layoutX="301.0" layoutY="242.0" prefHeight="25.0" prefWidth="203.0" promptText="Codigo" />
          </children>
       </Pane>
       <Label layoutX="13.0" layoutY="27.0" text="Seleciona una forma de pago">

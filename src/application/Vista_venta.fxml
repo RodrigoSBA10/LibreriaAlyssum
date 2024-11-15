@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="675.0" style="-fx-background-color: #fff4e3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller_nuevaventa">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="761.0" style="-fx-background-color: #fff4e3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller_nuevaventa">
    <children>
-      <HBox prefHeight="65.0" prefWidth="675.0" style="-fx-background-color: #99521c;">
+      <HBox prefHeight="65.0" prefWidth="761.0" style="-fx-background-color: #99521c;">
          <children>
             <ImageView fitHeight="45.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -75,7 +75,7 @@
       </HBox>
       <Label layoutX="21.0" layoutY="91.0" text="DATOS DEL CLIENTE" />
       <Label layoutX="21.0" layoutY="200.0" text="DATOS DEL PRODUCTO" />
-      <TableView fx:id="tabla_venta" layoutX="231.0" layoutY="87.0" prefHeight="260.0" prefWidth="441.0">
+      <TableView fx:id="tabla_venta" layoutX="231.0" layoutY="87.0" prefHeight="260.0" prefWidth="510.0">
         <columns>
           <TableColumn prefWidth="75.0" text="No" />
           <TableColumn fx:id="columna_libro" prefWidth="75.0" text="Producto" />
@@ -83,6 +83,7 @@
             <TableColumn fx:id="columna_precio" prefWidth="75.0" text="Precio" />
             <TableColumn fx:id="columna_cantidad" prefWidth="75.0" text="Cantidad" />
             <TableColumn fx:id="columna_total" prefWidth="75.0" text="SubTotal" />
+            <TableColumn fx:id="columna_iva" prefWidth="58.0" text="IVA" />
         </columns>
       </TableView>
       <TextField fx:id="txtf_nombrecliente" layoutX="21.0" layoutY="108.0" promptText="Nombre del cliente" />
@@ -92,12 +93,15 @@
       <TextField fx:id="txtf_precio" layoutX="21.0" layoutY="298.0" promptText="Precio" />
       <TextField fx:id="txtf_cantidad" layoutX="21.0" layoutY="335.0" promptText="Cantidad" />
       <Button fx:id="boton_agregarproducto" layoutX="40.0" layoutY="367.0" mnemonicParsing="false" onAction="#Agregar_libro_tabla" text="Agregar producto" />
-      <Button layoutX="361.0" layoutY="396.0" mnemonicParsing="false" onAction="#Forma_depago" text="Generar venta" />
-      <Button fx:id="btn_cancelarventa" layoutX="497.0" layoutY="396.0" mnemonicParsing="false" onAction="#cancelar_venta" text="Cancelar venta" />
+      <Button layoutX="360.0" layoutY="409.0" mnemonicParsing="false" onAction="#Forma_depago" text="Generar venta" />
+      <Button fx:id="btn_cancelarventa" layoutX="498.0" layoutY="409.0" mnemonicParsing="false" onAction="#cancelar_venta" text="Cancelar venta" />
       <Button fx:id="btn_buscacodigo" layoutX="170.0" layoutY="263.0" mnemonicParsing="false" onAction="#busca_libroid" text="Buscar" />
       <TextField layoutX="231.0" layoutY="348.0" prefHeight="25.0" prefWidth="90.0" promptText="Cupon" />
       <Button layoutX="321.0" layoutY="348.0" mnemonicParsing="false" text="Aplicar" />
-      <TextField fx:id="total_txtf" layoutX="601.0" layoutY="348.0" prefHeight="25.0" prefWidth="71.0" />
-      <Label layoutX="525.0" layoutY="352.0" text="Total a pagar: " />
+      <TextField fx:id="total_txtf" layoutX="670.0" layoutY="380.0" prefHeight="25.0" prefWidth="71.0" />
+      <Label layoutX="592.0" layoutY="384.0" text="Total a pagar: " />
+      <Button fx:id="btn_buscarcliente" layoutX="169.0" layoutY="150.0" mnemonicParsing="false" onAction="#busca_clienteid" text="Buscar" />
+      <Label layoutX="592.0" layoutY="359.0" text="Total de IVA :" />
+      <Label fx:id="label_iva" layoutX="692.0" layoutY="359.0" text="0.0" />
    </children>
 </Pane>
