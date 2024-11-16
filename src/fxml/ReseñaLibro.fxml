@@ -26,6 +26,5 @@
           <TableColumn fx:id="columnDescripcion" prefWidth="671.0" text="Descripcion" />
         </columns>
       </TableView>
-      <Button fx:id="generarPDF" layoutX="661.0" layoutY="90.0" mnemonicParsing="false" onAction="#generarReporte" text="Generar reporte " />
    </children>
 </AnchorPane>

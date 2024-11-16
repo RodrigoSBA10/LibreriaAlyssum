@@ -146,14 +146,15 @@ public class ControllerReseñaLibro {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AgregarReseña.fxml"));
             Parent root = loader.load();
+            
+            ControllerAgregarReseña controlados = loader.getController();
+            controlados.setLibro(lib);
+            
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
-            
-            ControllerAgregarReseña nombre = loader.getController();
-            nombre.setLibro(lib);
             
         } catch (IOException e) {
             e.printStackTrace();

@@ -313,10 +313,12 @@ public class ControllerValoracionLibro extends Application {
         try {
           FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ReseñaLibro.fxml"));
           Parent root = loader.load();
+          
           ControllerReseñaLibro controlador = loader.getController();
           Libro libroSeleccionado = tablaDeLibros.getSelectionModel().getSelectedItem();
           controlador.setLibro(libroSeleccionado);
           controlador.agregarTabla();
+          
           Scene scene = new Scene(root);
           Stage stage = new Stage();
           stage.initModality(Modality.APPLICATION_MODAL);
