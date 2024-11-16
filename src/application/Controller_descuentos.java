@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -45,10 +46,10 @@ public class Controller_descuentos {
 	private Label txt_historialcupones;
 
 	@FXML
-	private TextField txtf_fechadevalidezini;
+	private DatePicker Date_fechadevalidezini;
 
 	@FXML
-	private TextField txtf_fechavalidezfin;
+    private DatePicker Date_fechavalidezfin;
 
 	@FXML
 	private TextField txtf_porcentajedescuento;
@@ -146,8 +147,8 @@ public class Controller_descuentos {
 	void agregar_cupon(ActionEvent event) {
 		String codigo = textf_codigocupon.getText();
 		String descuento = txtf_porcentajedescuento.getText();
-		String fechaini = txtf_fechadevalidezini.getText();
-		String fechafin = txtf_fechavalidezfin.getText();
+		String fechaini = Date_fechadevalidezini.getValue().toString();
+		String fechafin = Date_fechavalidezfin.getValue().toString();
 		if (!codigo.isEmpty() && !descuento.isEmpty() && !fechaini.isEmpty() && !fechafin.isEmpty()) {
 			Descuento nuevo = new Descuento(codigo, descuento, fechaini, fechafin);
 			String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
@@ -198,8 +199,6 @@ public class Controller_descuentos {
 	@FXML
 	void Cancelar_cupon(ActionEvent event) {
 		textf_codigocupon.clear();
-		txtf_fechadevalidezini.clear();
-		txtf_fechavalidezfin.clear();
 		txtf_porcentajedescuento.clear();
 
 	}
