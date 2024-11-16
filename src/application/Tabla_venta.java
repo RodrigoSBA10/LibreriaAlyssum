@@ -2,23 +2,23 @@ package application;
 
 public class Tabla_venta {
 	private int no;
-	 private String producto;
-	 private String codigo;
-	 private float precioBase;
-	 private float iva;
-	 private float precioConIVA;
-	 private float subtotal;
-	 private int cantidad;
-	
-	 public Tabla_venta(String producto, String codigo, float precioConIVA, int cantidad) {
-	        this.producto = producto;
-	        this.codigo = codigo;
-	        this.precioConIVA = precioConIVA;
-	        this.cantidad = cantidad;
-	        this.precioBase = precioConIVA / 1.16f; // Calcula el precio base
-	        this.iva = this.precioConIVA - this.precioBase; // Calcula el IVA
-	        this.subtotal = this.precioConIVA * this.cantidad;
-	    }
+	private String producto;
+	private String codigo;
+	private float precioBase;
+	private float iva;
+	private float precioConIVA;
+	private float subtotal;
+	private int cantidad;
+
+	public Tabla_venta(String producto, String codigo, float precioConIVA, int cantidad) {
+		this.producto = producto;
+		this.codigo = codigo;
+		this.precioConIVA = precioConIVA;
+		this.cantidad = cantidad;
+		this.precioBase = precioConIVA / 1.16f; // Calcula el precio base
+		this.iva = this.precioConIVA - this.precioBase; // Calcula el IVA
+		this.subtotal = this.precioConIVA * this.cantidad;
+	}
 
 	public float getSubtotal() {
 		return subtotal;
@@ -83,9 +83,9 @@ public class Tabla_venta {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-	public float getTotal() {
-        return precioConIVA * cantidad; // Total con IVA
-    }
 
+	public float getTotal() {
+		return precioConIVA * cantidad; // Total con IVA
+	}
 
 }

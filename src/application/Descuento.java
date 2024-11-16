@@ -11,8 +11,7 @@ public class Descuento {
 		this.descuento = descuento;
 		this.fecha_Validesini = fechaini;
 		this.fecha_Validesfin = fechafin;
-		
-		
+
 	}
 
 	public String getCodigo() {

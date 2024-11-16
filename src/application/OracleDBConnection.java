@@ -25,7 +25,7 @@ public class OracleDBConnection {
 			} else {
 				System.out.println("Fallo en la conexión a la base de datos Oracle.");
 			}
-			
+
 		} catch (ClassNotFoundException e) {
 			System.out.println("No se encontró el controlador JDBC.");
 			e.printStackTrace();

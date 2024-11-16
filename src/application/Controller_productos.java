@@ -46,9 +46,10 @@ public class Controller_productos {
 		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
 		currentStage.close();
 	}
-    @FXML
-    void Cambio_Vistadescuentos(MouseEvent event) {
-    	try {
+
+	@FXML
+	void Cambio_Vistadescuentos(MouseEvent event) {
+		try {
 			Pane root = FXMLLoader.load(this.getClass().getResource("Vista_descuentos.fxml"));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
@@ -60,11 +61,11 @@ public class Controller_productos {
 		}
 		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
 		currentStage.close();
-    }
+	}
 
-    @FXML
-    void Cambio_Vistanuevaventa(MouseEvent event) {
-    	try {
+	@FXML
+	void Cambio_Vistanuevaventa(MouseEvent event) {
+		try {
 			Pane root = FXMLLoader.load(this.getClass().getResource("Vista_venta.fxml"));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
@@ -76,6 +77,6 @@ public class Controller_productos {
 		}
 		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
 		currentStage.close();
-    }
+	}
 
 }

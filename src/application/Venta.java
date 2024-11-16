@@ -6,8 +6,8 @@ public class Venta {
 	private List<Libro> lista_libros;
 	private int cantidad;
 	private float subtotal;
-	
-	public Venta(List<Libro> lista,int cantidad,float subtotal) {
+
+	public Venta(List<Libro> lista, int cantidad, float subtotal) {
 		this.cantidad = cantidad;
 		this.lista_libros = lista;
 		this.subtotal = subtotal;

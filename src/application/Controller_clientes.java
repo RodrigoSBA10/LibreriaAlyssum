@@ -20,47 +20,47 @@ import javafx.stage.Stage;
 
 public class Controller_clientes {
 
-    @FXML
-    private Label Etiqueta_descuentos;
+	@FXML
+	private Label Etiqueta_descuentos;
 
-    @FXML
-    private Label Etiqueta_nueva_venta;
+	@FXML
+	private Label Etiqueta_nueva_venta;
 
-    @FXML
-    private Label Etiqueta_productos;
+	@FXML
+	private Label Etiqueta_productos;
 
-    @FXML
-    private Label Etiqueta_usuarios;
+	@FXML
+	private Label Etiqueta_usuarios;
 
-    @FXML
-    private Button btn_agregar;
+	@FXML
+	private Button btn_agregar;
 
-    @FXML
-    private Button btn_cancelar;
+	@FXML
+	private Button btn_cancelar;
 
-    @FXML
-    private Label txt_listaclientes;
+	@FXML
+	private Label txt_listaclientes;
 
-    @FXML
-    private TextField txtf_correocliente;
+	@FXML
+	private TextField txtf_correocliente;
 
-    @FXML
-    private TextField txtf_nombrecliente;
+	@FXML
+	private TextField txtf_nombrecliente;
 
-    @FXML
-    private TextField txtf_telefonocliente;
+	@FXML
+	private TextField txtf_telefonocliente;
 
-    @FXML
-    void Cambiar_mouse(MouseEvent event) {
-    	Etiqueta_descuentos.setCursor(Cursor.HAND);
+	@FXML
+	void Cambiar_mouse(MouseEvent event) {
+		Etiqueta_descuentos.setCursor(Cursor.HAND);
 		Etiqueta_nueva_venta.setCursor(Cursor.HAND);
 		Etiqueta_productos.setCursor(Cursor.HAND);
 		Etiqueta_usuarios.setCursor(Cursor.HAND);
-    }
+	}
 
-    @FXML
-    void Cambio_Vistadescuentos(MouseEvent event) {
-    	try {
+	@FXML
+	void Cambio_Vistadescuentos(MouseEvent event) {
+		try {
 			Pane root = FXMLLoader.load(this.getClass().getResource("Vista_descuentos.fxml"));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
@@ -73,11 +73,11 @@ public class Controller_clientes {
 		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
 		currentStage.close();
 
-    }
+	}
 
-    @FXML
-    void Cambio_Vistanuevaventa(MouseEvent event) {
-    	try {
+	@FXML
+	void Cambio_Vistanuevaventa(MouseEvent event) {
+		try {
 			Pane root = FXMLLoader.load(this.getClass().getResource("Vista_venta.fxml"));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
@@ -90,11 +90,11 @@ public class Controller_clientes {
 		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
 		currentStage.close();
 
-    }
+	}
 
-    @FXML
-    void Cambio_Vistaproductos(MouseEvent event) {
-    	try {
+	@FXML
+	void Cambio_Vistaproductos(MouseEvent event) {
+		try {
 			Pane root = FXMLLoader.load(this.getClass().getResource("Vista_productos.fxml"));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
@@ -107,46 +107,45 @@ public class Controller_clientes {
 		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
 		currentStage.close();
 
-    }
-    
-    @FXML
+	}
+
+	@FXML
 	void agregar_cupon(ActionEvent event) {
 		String nombre = txtf_nombrecliente.getText();
 		String correo = txtf_correocliente.getText();
 		String numero = txtf_telefonocliente.getText();
-		
+
 		if (!nombre.isEmpty() && !correo.isEmpty() && !numero.isEmpty()) {
-			Cliente nuevo = new Cliente(nombre, correo,numero);
+			Cliente nuevo = new Cliente(nombre, correo, numero);
 			String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
-	        String username = "SYSTEM";
-	        String password = "Admin-2812";
-	        // Consulta SQL para insertar un registro
-	        String sql = "INSERT INTO CLIENTE (NOMBRE,CORREO,TELEFONO) VALUES (?, ?, ?)";
-	        try {
-	            // Establecer conexión con la base de datos
-	            Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
+			String username = "SYSTEM";
+			String password = "Admin-2812";
+			// Consulta SQL para insertar un registro
+			String sql = "INSERT INTO CLIENTE (NOMBRE,CORREO,TELEFONO) VALUES (?, ?, ?)";
+			try {
+				// Establecer conexión con la base de datos
+				Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
 
-	            // Preparar el statement
-	            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-	            
-	            // Asignar valores a los placeholders (los símbolos ? en el SQL)
-	            preparedStatement.setString(1, nuevo.getNombre()); // Valor para NOMBRE
-	            preparedStatement.setString(2, nuevo.getCorreo());       // Valor para CORREO
-	            preparedStatement.setString(3, nuevo.getNumero_Telefonico()); // Valor para TELEFONO
-	           
+				// Preparar el statement
+				PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-	            // Ejecutar la inserción
-	            int rowsInserted = preparedStatement.executeUpdate();
+				// Asignar valores a los placeholders (los símbolos ? en el SQL)
+				preparedStatement.setString(1, nuevo.getNombre()); // Valor para NOMBRE
+				preparedStatement.setString(2, nuevo.getCorreo()); // Valor para CORREO
+				preparedStatement.setString(3, nuevo.getNumero_Telefonico()); // Valor para TELEFONO
 
-	            if (rowsInserted > 0) {
-	                System.out.println("¡Inserción exitosa! Se ha agregado un nuevo cliente.");
-	            }
+				// Ejecutar la inserción
+				int rowsInserted = preparedStatement.executeUpdate();
 
-	            // Cerrar la conexión
-	            connection.close();
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
+				if (rowsInserted > 0) {
+					System.out.println("¡Inserción exitosa! Se ha agregado un nuevo cliente.");
+				}
+
+				// Cerrar la conexión
+				connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Alerta");
@@ -161,18 +160,18 @@ public class Controller_clientes {
 		alert.showAndWait();
 
 	}
-    
-    @FXML
-    void Cancelar_cupon(ActionEvent event) {
+
+	@FXML
+	void Cancelar_cupon(ActionEvent event) {
 		txtf_nombrecliente.clear();
 		txtf_correocliente.clear();
 		txtf_telefonocliente.clear();
-		
 
-    }
-    @FXML
-    void Cambio_vistaTablaclientes(MouseEvent event) {
-    	try {
+	}
+
+	@FXML
+	void Cambio_vistaTablaclientes(MouseEvent event) {
+		try {
 			Pane root = FXMLLoader.load(this.getClass().getResource("Vista_tablaclientes.fxml"));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
@@ -185,6 +184,6 @@ public class Controller_clientes {
 		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
 		currentStage.close();
 
-    }
+	}
 
 }

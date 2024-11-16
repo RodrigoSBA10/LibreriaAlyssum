@@ -1,14 +1,13 @@
 package application;
 
 /**
- * @author Jesus Alfredo
- * Esta es la clase cliente
+ * @author Jesus Alfredo Esta es la clase cliente
  */
 public class Cliente {
 	private String Nombre;
-	private String Correo; 
+	private String Correo;
 	private String Numero_Telefonico;
-    
+
 	public Cliente(String nombre) {
 		this.Nombre = nombre;
 		this.Correo = null;
@@ -24,7 +23,6 @@ public class Cliente {
 	public String getNombre() {
 		return Nombre;
 	}
-	
 
 	public void setNombre(String nombre) {
 		Nombre = nombre;

@@ -22,8 +22,8 @@ public class Controller_Sistema {
 
 	@FXML
 	private Label Etiqueta_usuarios;
-	
-	//Texto de prueba
+
+	// Texto de prueba
 
 	@FXML
 	void Cambiar_mouse(MouseEvent event) {
@@ -48,9 +48,10 @@ public class Controller_Sistema {
 		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
 		currentStage.close();
 	}
-    @FXML
-    void Cambio_Vistadescuentos(MouseEvent event) {
-    	try {
+
+	@FXML
+	void Cambio_Vistadescuentos(MouseEvent event) {
+		try {
 			Pane root = FXMLLoader.load(this.getClass().getResource("Vista_descuentos.fxml"));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
@@ -62,11 +63,11 @@ public class Controller_Sistema {
 		}
 		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
 		currentStage.close();
-    }
+	}
 
-    @FXML
-    void Cambio_Vistanuevaventa(MouseEvent event) {
-    	try {
+	@FXML
+	void Cambio_Vistanuevaventa(MouseEvent event) {
+		try {
 			Pane root = FXMLLoader.load(this.getClass().getResource("Vista_venta.fxml"));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
@@ -78,12 +79,11 @@ public class Controller_Sistema {
 		}
 		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
 		currentStage.close();
-    }
-    
-  
-    @FXML
-    void Cambio_viistacli(MouseEvent event) {
-    	try {
+	}
+
+	@FXML
+	void Cambio_viistacli(MouseEvent event) {
+		try {
 			Pane root = FXMLLoader.load(this.getClass().getResource("Vista_agregarClientes.fxml"));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
@@ -96,6 +96,6 @@ public class Controller_Sistema {
 		Stage currentStage = (Stage) Etiqueta_descuentos.getScene().getWindow();
 		currentStage.close();
 
-    }
+	}
 
 }

@@ -18,26 +18,26 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class Controller_tablaclientes{
+public class Controller_tablaclientes {
 
-    @FXML
-    private TableColumn<Cliente, String> Columna_correo;
+	@FXML
+	private TableColumn<Cliente, String> Columna_correo;
 
-    @FXML
-    private TableColumn<Cliente, String> Columna_nombre;
+	@FXML
+	private TableColumn<Cliente, String> Columna_nombre;
 
-    @FXML
-    private TableColumn<Cliente, String> Columna_telefono;
+	@FXML
+	private TableColumn<Cliente, String> Columna_telefono;
 
-    @FXML
-    private Button btn_atras;
+	@FXML
+	private Button btn_atras;
 
-    @FXML
-    private TableView<Cliente> tabla_cupones;
+	@FXML
+	private TableView<Cliente> tabla_cupones;
 
-    @FXML
-    void atras(ActionEvent event) {
-    	try {
+	@FXML
+	void atras(ActionEvent event) {
+		try {
 			Pane root = FXMLLoader.load(this.getClass().getResource("Vista_agregarClientes.fxml"));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
@@ -50,56 +50,52 @@ public class Controller_tablaclientes{
 		Stage currentStage = (Stage) tabla_cupones.getScene().getWindow();
 		currentStage.close();
 
-    }
-    
-    @FXML
-    public void initialize() {
-        // Enlazar las columnas con los atributos de la clase Descuento
-        Columna_nombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
-        Columna_correo.setCellValueFactory(new PropertyValueFactory<>("Correo"));
-        Columna_telefono.setCellValueFactory(new PropertyValueFactory<>("Numero_Telefonico"));
-     
+	}
 
-        // Obtener los datos de la base de datos y agregarlos al TableView
-        ObservableList<Cliente> cupones = getCuponesFromDatabase();
-        tabla_cupones.setItems(cupones);
-    }
-    
-public ObservableList<Cliente> getCuponesFromDatabase() {
-		
+	@FXML
+	public void initialize() {
+		// Enlazar las columnas con los atributos de la clase Descuento
+		Columna_nombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
+		Columna_correo.setCellValueFactory(new PropertyValueFactory<>("Correo"));
+		Columna_telefono.setCellValueFactory(new PropertyValueFactory<>("Numero_Telefonico"));
+
+		// Obtener los datos de la base de datos y agregarlos al TableView
+		ObservableList<Cliente> cupones = getCuponesFromDatabase();
+		tabla_cupones.setItems(cupones);
+	}
+
+	public ObservableList<Cliente> getCuponesFromDatabase() {
+
 		ObservableList<Cliente> cupones = FXCollections.observableArrayList();
 		String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
-        String username = "SYSTEM";
-        String password = "Admin-2812";
-        
-        try {
-            // Establecer conexión con la base de datos
-            Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
+		String username = "SYSTEM";
+		String password = "Admin-2812";
 
-            // Crear el statement y ejecutar la consulta
-            Statement statement = connection.createStatement();
-            String query = "SELECT NOMBRE, CORREO, TELEFONO FROM CLIENTE";  // Cambia por tu consulta real
-            ResultSet resultSet = statement.executeQuery(query);
-           
+		try {
+			// Establecer conexión con la base de datos
+			Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
 
-            // Recorrer los resultados y añadirlos a la lista
-            while (resultSet.next()) {
-                String nombre = resultSet.getString("NOMBRE");
-                String correo = resultSet.getString("CORREO");
-                String telefono = resultSet.getString("TELEFONO");
-                
+			// Crear el statement y ejecutar la consulta
+			Statement statement = connection.createStatement();
+			String query = "SELECT NOMBRE, CORREO, TELEFONO FROM CLIENTE"; // Cambia por tu consulta real
+			ResultSet resultSet = statement.executeQuery(query);
 
-                cupones.add(new Cliente(nombre,correo,telefono));
-            }
+			// Recorrer los resultados y añadirlos a la lista
+			while (resultSet.next()) {
+				String nombre = resultSet.getString("NOMBRE");
+				String correo = resultSet.getString("CORREO");
+				String telefono = resultSet.getString("TELEFONO");
 
-            // Cerrar la conexión
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+				cupones.add(new Cliente(nombre, correo, telefono));
+			}
 
-        return cupones;
-    }
+			// Cerrar la conexión
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return cupones;
+	}
 
 }
-

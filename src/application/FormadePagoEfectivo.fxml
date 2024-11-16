@@ -15,8 +15,8 @@
             <Label layoutX="45.0" layoutY="79.0" text="Total a pagar: " />
             <Label layoutX="45.0" layoutY="124.0" text="Recibo: " />
             <Label layoutX="44.0" layoutY="174.0" text="Cambio:" />
-            <TextField layoutX="88.0" layoutY="120.0" />
-            <Button fx:id="btn_finalizarCompra" layoutX="259.0" layoutY="275.0" mnemonicParsing="false" text="Finalizar" />
+            <TextField fx:id="txtf_direroRecibido" layoutX="88.0" layoutY="120.0" />
+            <Button fx:id="btn_finalizarCompra" layoutX="259.0" layoutY="275.0" mnemonicParsing="false" onAction="#finalizarYticket" text="Finalizar" />
             <Label fx:id="txt_total_pagar" layoutX="129.0" layoutY="79.0" text="0.00" />
             <Label fx:id="txt_cambio" layoutX="106.0" layoutY="174.0" text="0.00" />
             <Label layoutX="117.0" layoutY="79.0" text="\$" />
