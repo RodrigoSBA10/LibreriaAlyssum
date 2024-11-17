@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InicioPanelController">
+   <children>
+      <ImageView fx:id="lblTitulo" fitHeight="400.0" fitWidth="591.0" layoutX="107.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: .8;">
+         <image>
+            <Image url="@../image/LogoAlyssum.jpeg" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnIrGrafica" layoutX="430.0" layoutY="275.0" mnemonicParsing="false" onAction="#IrAGrafica" style="-fx-background-color: D0FFBE;" text="Ir a la Gráfica" />
+      <Button fx:id="btnGestionLibros" layoutX="118.0" layoutY="275.0" mnemonicParsing="false" onAction="#IrGestionLibros" style="-fx-background-color: D0FFBE;" text="Gestión de Libros" />
+      <Label layoutX="156.0" layoutY="28.0" text="Bienvenido al Sistema ">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

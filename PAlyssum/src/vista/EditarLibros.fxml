@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="370.0" style="-fx-background-color: E3C9BD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EditarLibroController">
+   <children>
+      <Label layoutX="44.0" layoutY="49.0" prefHeight="71.0" prefWidth="174.0" text="Editar Libro">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="117.0" fitWidth="140.0" layoutX="234.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/LogoAlyssum.jpeg" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnCancelar" layoutX="278.0" layoutY="519.0" mnemonicParsing="false" onAction="#Cancelar" style="-fx-background-color: D0FFBE;" text="Cancelar" />
+      <Button fx:id="btnGuardar" layoutX="24.0" layoutY="519.0" mnemonicParsing="false" onAction="#GuardarCambios" style="-fx-background-color: D0FFBE;" text="Guardar Cambios" />
+      <Button fx:id="btnLimpiar" layoutX="152.0" layoutY="519.0" mnemonicParsing="false" onAction="#LimpiarCampos" style="-fx-background-color: D0FFBE;" text="Limpiar campos" />
+      <Pane layoutX="24.0" layoutY="146.0" prefHeight="342.0" prefWidth="246.0">
+         <children>
+            <TextField fx:id="txtTituloE" layoutY="14.0" prefHeight="25.0" prefWidth="246.0" promptText="Titulo: " style="-fx-background-radius: 15px; -fx-background-color: ffeae1;">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtAutorE" layoutY="56.0" prefHeight="25.0" prefWidth="246.0" promptText="Autor:" style="-fx-background-radius: 15px; -fx-background-color: ffeae1;" />
+            <TextField fx:id="txtISBNE" layoutY="98.0" prefHeight="25.0" prefWidth="246.0" promptText="ISBN:" style="-fx-background-radius: 15px; -fx-background-color: ffeae1;" />
+            <TextField fx:id="txtEditorialE" layoutY="137.0" prefHeight="25.0" prefWidth="246.0" promptText="Editorial:" style="-fx-background-radius: 15px; -fx-background-color: ffeae1;" />
+            <TextField fx:id="txtPrecioE" layoutY="307.0" prefHeight="25.0" prefWidth="246.0" promptText="Precio:" style="-fx-background-radius: 15px; -fx-background-color: ffeae1;" />
+            <ComboBox fx:id="cbGeneroE" layoutY="223.0" prefHeight="25.0" prefWidth="246.0" promptText="Genero:" style="-fx-background-color: ffeae1; -fx-background-radius: 15px;" />
+            <ComboBox fx:id="cbCategoriaE" layoutY="182.0" prefHeight="25.0" prefWidth="246.0" promptText="Categoria:" style="-fx-background-color: ffeae1; -fx-background-radius: 15px;" />
+            <TextField fx:id="txtAnioE" layoutY="267.0" prefHeight="25.0" prefWidth="246.0" promptText="Año de Publicacion:" style="-fx-background-radius: 15px; -fx-background-color: ffeae1;">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

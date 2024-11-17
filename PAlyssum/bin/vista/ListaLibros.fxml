@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ListaLibroController">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="888.0">
+         <children>
+            <SplitPane dividerPositions="0.32333696837513626" prefHeight="644.0" prefWidth="888.0">
+               <items>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="215.0" style="-fx-background-color: E3C9BD;">
+                     <children>
+                        <Label layoutX="30.0" layoutY="14.0" text="Búsqueda" textAlignment="CENTER">
+                           <font>
+                              <Font name="Arial" size="29.0" />
+                           </font>
+                        </Label>
+                        <VBox layoutX="11.0" layoutY="76.0" prefHeight="424.0" prefWidth="246.0">
+                           <children>
+                              <Pane prefHeight="446.0" prefWidth="246.0">
+                                 <children>
+                                    <TextField fx:id="txtTitulo" layoutY="14.0" prefHeight="25.0" prefWidth="246.0" promptText="Titulo: " style="-fx-background-radius: 15px; -fx-background-color: ffeae1;">
+                                       <font>
+                                          <Font name="Arial" size="12.0" />
+                                       </font>
+                                    </TextField>
+                                    <TextField fx:id="txtAutor" layoutY="56.0" prefHeight="25.0" prefWidth="246.0" promptText="Autor:" style="-fx-background-radius: 15px; -fx-background-color: ffeae1;" />
+                                    <TextField fx:id="txtISBN" layoutY="98.0" prefHeight="25.0" prefWidth="246.0" promptText="ISBN:" style="-fx-background-radius: 15px; -fx-background-color: ffeae1;" />
+                                    <TextField fx:id="txtEditorial" layoutY="137.0" prefHeight="25.0" prefWidth="246.0" promptText="Editorial:" style="-fx-background-radius: 15px; -fx-background-color: ffeae1;" />
+                                    <TextField fx:id="txtPrecio" layoutY="307.0" prefHeight="25.0" prefWidth="246.0" promptText="Precio:" style="-fx-background-radius: 15px; -fx-background-color: ffeae1;" />
+                                    <Slider fx:id="sldPrecio" blockIncrement="100.0" layoutY="359.0" max="5000.0" prefHeight="34.0" prefWidth="246.0" showTickLabels="true" />
+                                    <ComboBox fx:id="cbGenero" layoutY="223.0" prefHeight="25.0" prefWidth="246.0" promptText="Genero:" style="-fx-background-color: ffeae1; -fx-background-radius: 15px;" />
+                                    <ComboBox fx:id="cbCategoria" layoutY="182.0" prefHeight="25.0" prefWidth="246.0" promptText="Categoria:" style="-fx-background-color: ffeae1; -fx-background-radius: 15px;" />
+                                    <TextField fx:id="txtAnio" layoutY="267.0" prefHeight="25.0" prefWidth="246.0" promptText="Año de Publicacion:" style="-fx-background-radius: 15px; -fx-background-color: ffeae1;">
+                                       <font>
+                                          <Font name="Arial" size="12.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </VBox>
+                        <Button fx:id="btnAgregar" layoutX="133.0" layoutY="514.0" mnemonicParsing="false" onAction="#agregarLibro" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: D0FFBE;" text="Agregar" />
+                        <Button fx:id="btnBuscar" layoutX="14.0" layoutY="514.0" mnemonicParsing="false" onAction="#buscarLibros" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: D0FFBE;" text="Buscar" />
+                        <Button fx:id="btnEditar" layoutX="14.0" layoutY="586.0" mnemonicParsing="false" onAction="#editarLibro" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: D0FFBE;" text="Editar" />
+                        <Button fx:id="btnBorrar" layoutX="133.0" layoutY="586.0" mnemonicParsing="false" onAction="#borrarLibro" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: D0FFBE;" text="Borrar" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="604.0" prefWidth="576.0" style="-fx-background-color: #99521C;">
+                     <children>
+                        <Label layoutX="70.0" layoutY="31.0" text="Alyssum" textFill="WHITE">
+                           <font>
+                              <Font name="Arial" size="60.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="jtTablaLibros" layoutX="3.0" layoutY="146.0" prefHeight="486.0" prefWidth="590.0" style="-fx-background-color: E3C9BD;">
+                           <columns>
+                              <TableColumn fx:id="colTitulo" prefWidth="75.0" style="-fx-background-color: D0FFBE;" text="Titulo" />
+                              <TableColumn fx:id="colAutor" prefWidth="75.0" style="-fx-background-color: D0FFBE;" text="Autor" />
+                              <TableColumn fx:id="colIsbn" prefWidth="75.0" style="-fx-background-color: D0FFBE;" text="ISBN" />
+                              <TableColumn fx:id="colEditorial" prefWidth="75.0" style="-fx-background-color: D0FFBE;" text="Editorial" />
+                              <TableColumn fx:id="colCategoria" prefWidth="75.0" style="-fx-background-color: D0FFBE;" text="Categoria" />
+                              <TableColumn fx:id="colGenero" prefWidth="75.0" style="-fx-background-color: D0FFBE;" text="Genero" />
+                              <TableColumn fx:id="colAnioPublicacion" prefWidth="75.0" style="-fx-background-color: D0FFBE;" text="Año" />
+                              <TableColumn fx:id="colPrecio" prefWidth="75.0" style="-fx-background-color: D0FFBE;" text="Precio" />
+                           </columns>
+                        </TableView>
+                        <ImageView fitHeight="124.0" fitWidth="162.0" layoutX="431.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/LogoAlyssum.jpeg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </items>
+            </SplitPane>
+            <AnchorPane />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
