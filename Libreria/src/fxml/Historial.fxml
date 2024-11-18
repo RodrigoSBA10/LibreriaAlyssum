@@ -38,9 +38,9 @@
       <Label layoutX="15.0" layoutY="290.0" text="Buscar:" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="640.0" AnchorPane.topAnchor="290.0" />
       <ComboBox fx:id="comboBoxMotivo" layoutX="20.0" layoutY="350.0" prefHeight="26.0" prefWidth="175.0" promptText="Motivo" />
       <DatePicker fx:id="fechaInicio" editable="false" layoutX="220.0" layoutY="315.0" promptText="Fecha inicial" />
-      <DatePicker fx:id="fehcaFinal" editable="false" layoutX="220.0" layoutY="350.0" promptText="Fecha final" />
+      <DatePicker fx:id="fechaFinal" editable="false" layoutX="220.0" layoutY="350.0" promptText="Fecha final" />
       <Label layoutX="220.0" layoutY="290.0" text="Entre fecha:" />
-      <RadioButton fx:id="radioSi" layoutX="420.0" layoutY="320.0" mnemonicParsing="false" text="SI">
+      <RadioButton fx:id="radioSi" layoutX="420.0" layoutY="320.0" mnemonicParsing="false" text="SÍ">
          <toggleGroup>
             <ToggleGroup fx:id="Cambio" />
          </toggleGroup>
@@ -51,5 +51,6 @@
       <Separator blendMode="COLOR_DODGE" layoutX="400.0" layoutY="300.0" orientation="VERTICAL" prefHeight="85.0" prefWidth="20.0" />
       <Separator blendMode="COLOR_DODGE" layoutX="490.0" layoutY="284.0" orientation="VERTICAL" prefHeight="102.0" prefWidth="20.0" />
       <Button fx:id="btnReporte" layoutX="535.0" layoutY="345.0" mnemonicParsing="false" onAction="#btnGenerarReporte" styleClass="boton" text="Generar Reporte" />
+      <Button fx:id="btnRefrescar" layoutX="615.0" layoutY="95.0" mnemonicParsing="false" onAction="#btnRefrescar_OnClick" text="Refrescar" />
    </children>
 </AnchorPane>

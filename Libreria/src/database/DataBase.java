@@ -60,6 +60,7 @@ public class DataBase {
 						resultD.getInt(2),
 						resultD.getString(3),
 						resultD.getString(4),
+						resultD.getDate(5),
 						formato.format(resultD.getDate(5)),
 						resultD.getString(6),
 						resultD.getString(7),
@@ -177,9 +178,9 @@ public class DataBase {
 	}
 	
 	// Método que elimina una Devolución
-	public void eliminarDevolucion(Devolucion devolucion) {
-		int numero = devolucion.getNumTicket();
-		String query = "DELETE FROM DEVOLUCION WHERE NUMERO = ?";
+	public static void eliminarDevolucion(Devolucion devolucion) {
+		int numero = devolucion.getId();
+		String query = "DELETE FROM DEVOLUCION WHERE IDDEVOLUCION = ?";
 		Alert alert;
 		Connection conn = getConexion();
 		

@@ -6,7 +6,6 @@ package controladores;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import database.DataBase;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
