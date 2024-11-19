@@ -5,6 +5,7 @@ module Libreria {
 	requires javafx.base;
 	requires java.sql;
 	requires java.sql.rowset;
+	requires transitive itextpdf;
 	
 	opens application to javafx.graphics, javafx.fxml, javafx.base;
 	opens controladores to javafx.graphics, javafx.fxml, javafx.base;

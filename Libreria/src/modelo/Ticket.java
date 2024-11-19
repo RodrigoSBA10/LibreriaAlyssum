@@ -10,7 +10,6 @@ public class Ticket {
 	private double monto;
 	
 	public Ticket(int idTicket, int idLibro, int idCliente, int numero, int cantidad, String fecha, double monto) {
-		super();
 		this.idTicket = idTicket;
 		this.idLibro = idLibro;
 		this.idCliente = idCliente;

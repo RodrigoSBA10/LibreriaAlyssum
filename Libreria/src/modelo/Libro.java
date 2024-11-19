@@ -10,7 +10,6 @@ public class Libro {
 	private int cantidad;
 
 	public Libro(int idLibro, int idAutor, int idEditorial, int idGenero, String titulo, double precio, int cantidad) {
-		super();
 		this.idLibro = idLibro;
 		this.idAutor = idAutor;
 		this.idEditorial = idEditorial;
