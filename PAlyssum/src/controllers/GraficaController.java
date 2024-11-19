@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import conexion.BusquedaBD;
 import javafx.collections.ObservableList;
@@ -38,51 +40,54 @@ public class GraficaController {
         // Cargar los libros desde la base de datos
         ObservableList<Libro> listaLibros = cargar.cargarLibros(); // Método que carga los libros desde la base de datos
         
-        // Crear las series para las categorías y los géneros
-        XYChart.Series<String, Number> serieCategorias = new XYChart.Series<>();
-        XYChart.Series<String, Number> serieGeneros = new XYChart.Series<>();
-        
-        // Definir los colores para categoría y género
-        String colorCategoria = "Red";  // Color Rojo
-        String colorGenero = "Orange";  // Color Cyan
+        // Mapas para contar los libros por categoría y género
+        Map<String, Integer> conteoPorCategoria = new HashMap<>();
+        Map<String, Integer> conteoPorGenero = new HashMap<>();
 
-        // Añadir nombre a las series para identificación en el gráfico
-        serieCategorias.setName("Categoría");
-        serieGeneros.setName("Género");
-
-        // Recorremos los libros y agregamos los datos a las series
+        // Recorremos los libros y contamos cuántos hay por categoría y por género
         for (Libro libro : listaLibros) {
-            String titulo = libro.getTitulo();
-            int stock = libro.getStock();
             String categoria = libro.getCategoria();
             String genero = libro.getGenero();
 
-            // Añadir datos a la serie de categorías
-            XYChart.Data<String, Number> dataCategoria = new XYChart.Data<>(titulo, stock);
+            // Contamos los libros por categoría
+            conteoPorCategoria.put(categoria, conteoPorCategoria.getOrDefault(categoria, 0) + 1);
+
+            // Contamos los libros por género
+            conteoPorGenero.put(genero, conteoPorGenero.getOrDefault(genero, 0) + 1);
+        }
+
+        // Crear las series para las categorías y los géneros
+        XYChart.Series<String, Number> serieCategorias = new XYChart.Series<>();
+        XYChart.Series<String, Number> serieGeneros = new XYChart.Series<>();
+
+        // Añadir nombre a las series para identificación en el gráfico
+        serieCategorias.setName("Categorías");
+        serieGeneros.setName("Géneros");
+
+        // Añadir los totales de libros por categoría al gráfico
+        for (Map.Entry<String, Integer> entry : conteoPorCategoria.entrySet()) {
+            String categoria = entry.getKey();
+            int totalPorCategoria = entry.getValue();
+
+            // Crear un dato para la categoría con el total de libros
+            XYChart.Data<String, Number> dataCategoria = new XYChart.Data<>(categoria, totalPorCategoria);
             serieCategorias.getData().add(dataCategoria);
-            
-            // Añadir datos a la serie de géneros
-            XYChart.Data<String, Number> dataGenero = new XYChart.Data<>(titulo, stock);
+        }
+
+        // Añadir los totales de libros por género al gráfico
+        for (Map.Entry<String, Integer> entry : conteoPorGenero.entrySet()) {
+            String genero = entry.getKey();
+            int totalPorGenero = entry.getValue();
+
+            // Crear un dato para el género con el total de libros
+            XYChart.Data<String, Number> dataGenero = new XYChart.Data<>(genero, totalPorGenero);
             serieGeneros.getData().add(dataGenero);
-
-            // Listener para asegurar que el nodo está disponible
-            dataCategoria.nodeProperty().addListener((observable, oldNode, newNode) -> {
-                if (newNode != null) {
-                    newNode.setStyle("-fx-bar-fill:" +colorCategoria+ ";" );
-                }
-            });
-
-            // Listener para asegurar que el nodo está disponible
-            dataGenero.nodeProperty().addListener((observable, oldNode, newNode) -> {
-                if (newNode != null) {
-                    newNode.setStyle("-fx-bar-fill:" +colorGenero + ";" );
-                }
-            });
         }
 
         // Añadir las series al gráfico
         GraficoStock.getData().addAll(serieCategorias, serieGeneros);
     }
+
     
     @FXML
     void RegresarPanelPrincipal(ActionEvent event) throws IOException {
