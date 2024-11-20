@@ -5,7 +5,7 @@
  * 
  * @autor Aurora Morales
  * 
- * Version: 12
+ * Version: 37
  * */
 
 package controladores;
@@ -17,8 +17,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -29,7 +30,6 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -40,6 +40,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -53,10 +55,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import modelo.Libro;
 
-
-/*Cuerpo de la clase ControllerValoracionLibro
- * */
-
+/**
+ * Representa las acciones de la ventana principal. Trae los datos de la base de datos.
+ */
 public class ControllerValoracionLibro extends Application {
 
   @FXML
@@ -159,10 +160,13 @@ public class ControllerValoracionLibro extends Application {
   private ImageView marcoImagen;  //Espacio para ver las imagenes de las portadas de libros
   
   @FXML
-  private Button generarPDF;
+  private Button generarpdf;
+
+  @FXML
+  private Button regenerar;
   
   //Variable con el nombre del arhivo que guardará en pdf
-  private final String archivoPDF = "Reporte_Reseñas.pdf";
+  private final String archivo = "Reporte_Reseñas.pdf";
   
   //Lista de imagenes de las portadas de los libros
   private List<Image> listaImagenes = List.of(
@@ -204,8 +208,9 @@ public class ControllerValoracionLibro extends Application {
     cargarImagen(indice);
   }
   
-  /*Metodo que inicializa las funciones de toda la ventana
-   * */
+  /**
+   * Inicializa las columnas de la tabla y las acciones de las acciones de colado por genero.
+   */
   public void initialize() {
     //Carga la primera imagen
     cargarImagen(indice);
@@ -228,7 +233,7 @@ public class ControllerValoracionLibro extends Application {
     //Liga la propiedad numero de reseñas de la clase Libro
     ColumnNumReseñas.setCellValueFactory(new PropertyValueFactory<>("NumeroReseña"));
 
-    ObservableList<Libro> colum = agregarLibroBD();
+    ObservableList<Libro> colum = agregarLibro();
 	
     tablaDeLibros.setItems(colum); //Inserta la lista de los libros a la tabla
 
@@ -304,7 +309,7 @@ public class ControllerValoracionLibro extends Application {
       tablaDeLibros.setItems(itemViajesBuscar(event));
     });
     itemFantasia.setOnAction(event -> {
-    	tablaDeLibros.setItems(itemFantasiaBuscar(event));
+      tablaDeLibros.setItems(itemFantasiaBuscar(event));
     });
 
     //Evento para seleccionar un libro
@@ -334,39 +339,42 @@ public class ControllerValoracionLibro extends Application {
     });
   }
 
-  /*Metodo para agregar las columanas de la tabla 
-   * */
-  public ObservableList<Libro> agregarLibroBD() {
+  /**
+   * Agrega libros a la base de datos.
+   * 
+   * @return ObservableList lista de los libros que se agrega a la tabla.
+   */
+  public ObservableList<Libro> agregarLibro() {
     //Crea una lista observable de listas de libros
     ObservableList<Libro> columnas = FXCollections.observableArrayList();
 
     //Informacion de mi base de datos
     String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
     String usuario = "System";
-    String contraseña = "aurelio666";
+    String contrasena = "aurelio666";
 
     try {
       // Establecer conexión con la base de datos
-      Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+      Connection connection = DriverManager.getConnection(url, usuario, contrasena);
 
       // Crear el statement y ejecutar la consulta
       Statement statement = connection.createStatement();
-      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
-                    "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-                    "FROM LIBRO L " +
-                    "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +
-                    "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +
-                    "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +
-                    "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE";
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, "
+                  + "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS "
+                  + "FROM LIBRO L "
+                  + "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR "
+                  + "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO "
+                  + "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO "
+                  + "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE";
       ResultSet resultado = statement.executeQuery(sql);
       // Recorrer los resultados y añadirlos a la lista
       while (resultado.next()) {
         String titulo = resultado.getString("TITULO");
         String autor = resultado.getString("AUTOR");
         String genero = resultado.getString("GENERO");
-        int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+        int numResena = resultado.getInt("NUMERO_RESEÑAS");
 
-        columnas.add(new Libro(titulo, autor, genero, numReseña));
+        columnas.add(new Libro(titulo, autor, genero, numResena));
       }
 
       // Cerrar la conexión
@@ -387,22 +395,22 @@ public class ControllerValoracionLibro extends Application {
     //Informacion de mi base de datos
     String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
     String usuario = "System";
-    String contraseña = "aurelio666";
+    String contrasena = "aurelio666";
 
     try {
       // Establecer conexión con la base de datos
-      Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+      Connection connection = DriverManager.getConnection(url, usuario, contrasena);
 
       // Crear el statement y ejecutar la consulta
       Statement statement = connection.createStatement();
-      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
-                  "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-                  "FROM LIBRO L " +
-                  "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +
-                  "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +
-                  "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +
-                  "WHERE G.NOMBRE = 'Arte' " +
-                  "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, "
+                +  "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " 
+                +  "FROM LIBRO L " 
+                +  "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " 
+                +  "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " 
+                +  "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " 
+                +  "WHERE G.NOMBRE = 'Arte' " 
+                +  "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
       ResultSet resultado = statement.executeQuery(sql);
 
       // Recorrer los resultados y añadirlos a la lista
@@ -410,9 +418,9 @@ public class ControllerValoracionLibro extends Application {
         String titulo = resultado.getString("TITULO");
         String autor = resultado.getString("AUTOR");
         String genero = resultado.getString("GENERO");
-        int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+        int numResena = resultado.getInt("NUMERO_RESEÑAS");
 
-        columnas.add(new Libro(titulo, autor, genero, numReseña));
+        columnas.add(new Libro(titulo, autor, genero, numResena));
       }
 
       // Cerrar la conexión
@@ -432,31 +440,31 @@ public class ControllerValoracionLibro extends Application {
     //Informacion de mi base de datos
     String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
     String usuario = "System";
-    String contraseña = "aurelio666";
+    String contrasena = "aurelio666";
 
     try {
       // Establecer conexión con la base de datos
-      Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+      Connection connection = DriverManager.getConnection(url, usuario, contrasena);
 
       // Crear el statement y ejecutar la consulta
       Statement statement = connection.createStatement();
-      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
-                    "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-                    "FROM LIBRO L " + 
-                    "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
-                    "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
-                    "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
-                    "WHERE G.NOMBRE = 'Autoayuda y superación' " +  
-                    "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " 
+                 + "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " 
+                 + "FROM LIBRO L "
+                 + "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " 
+                 + "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " 
+                 + "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO "
+                 + "WHERE G.NOMBRE = 'Autoayuda y superación' " 
+                 + "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
       ResultSet resultado = statement.executeQuery(sql);
       // Recorrer los resultados y añadirlos a la lista
       while (resultado.next()) {
         String titulo = resultado.getString("TITULO");
         String autor = resultado.getString("AUTOR");
         String genero = resultado.getString("GENERO");
-        int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+        int numResena = resultado.getInt("NUMERO_RESEÑAS");
 
-        columnas.add(new Libro(titulo, autor, genero, numReseña));
+        columnas.add(new Libro(titulo, autor, genero, numResena));
       }
 
       // Cerrar la conexión
@@ -475,31 +483,31 @@ public class ControllerValoracionLibro extends Application {
     //Informacion de mi base de datos
     String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
     String usuario = "System";
-    String contraseña = "aurelio666";
+    String contrasena = "aurelio666";
 
     try {
       // Establecer conexión con la base de datos
-      Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+      Connection connection = DriverManager.getConnection(url, usuario, contrasena);
 
       // Crear el statement y ejecutar la consulta
       Statement statement = connection.createStatement();
-      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
-                   "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-                   "FROM LIBRO L " + 
-                   "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
-                   "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
-                   "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
-                   "WHERE G.NOMBRE = 'Aventuras' " +  
-                   "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, "
+                 + "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS "
+                 + "FROM LIBRO L "
+                 + "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR "
+                 + "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO "
+                 + "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO "
+                 + "WHERE G.NOMBRE = 'Aventuras' "
+                 + "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
       ResultSet resultado = statement.executeQuery(sql);
       // Recorrer los resultados y añadirlos a la lista
       while (resultado.next()) {
         String titulo = resultado.getString("TITULO");
         String autor = resultado.getString("AUTOR");
         String genero = resultado.getString("GENERO");
-        int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+        int numResena = resultado.getInt("NUMERO_RESEÑAS");
 
-        columnas.add(new Libro(titulo, autor, genero, numReseña));
+        columnas.add(new Libro(titulo, autor, genero, numResena));
       }
 
       // Cerrar la conexión
@@ -514,36 +522,36 @@ public class ControllerValoracionLibro extends Application {
   ObservableList<Libro> itemBiografiasBuscar(ActionEvent event) {
     miMenuButton.setText(this.itemBiografias.getText());
     
-	ObservableList<Libro> columnas = FXCollections.observableArrayList();
+    ObservableList<Libro> columnas = FXCollections.observableArrayList();
 
     //Informacion de mi base de datos
     String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
     String usuario = "System";
-    String contraseña = "aurelio666";
+    String contrasena = "aurelio666";
 
     try {
       // Establecer conexión con la base de datos
-      Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+      Connection connection = DriverManager.getConnection(url, usuario, contrasena);
 
       // Crear el statement y ejecutar la consulta
       Statement statement = connection.createStatement();
-      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
-                   "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-                   "FROM LIBRO L " + 
-                   "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
-                   "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
-                   "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
-                   "WHERE G.NOMBRE = 'Biografías' " +  
-                   "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, "
+                 + "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS "
+                 + "FROM LIBRO L "
+                 + "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR "
+                 + "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO "
+                 + "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO "
+                 + "WHERE G.NOMBRE = 'Biografías' "
+                 + "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
       ResultSet resultado = statement.executeQuery(sql);
       // Recorrer los resultados y añadirlos a la lista
       while (resultado.next()) {
         String titulo = resultado.getString("TITULO");
         String autor = resultado.getString("AUTOR");
         String genero = resultado.getString("GENERO");
-        int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+        int numResena = resultado.getInt("NUMERO_RESEÑAS");
 
-        columnas.add(new Libro(titulo, autor, genero, numReseña));
+        columnas.add(new Libro(titulo, autor, genero, numResena));
       }
 
       //Cerrar la conexión
@@ -563,22 +571,22 @@ public class ControllerValoracionLibro extends Application {
     //Informacion de mi base de datos
     String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
     String usuario = "System";
-    String contraseña = "aurelio666";
+    String contrasena = "aurelio666";
 
     try {
       // Establecer conexión con la base de datos
-      Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+      Connection connection = DriverManager.getConnection(url, usuario, contrasena);
 
       // Crear el statement y ejecutar la consulta
       Statement statement = connection.createStatement();
-      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
-                   "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-                   "FROM LIBRO L " + 
-                   "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
-                   "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
-                   "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
-                   "WHERE G.NOMBRE = 'Ciencia Ficción' " +  
-                   "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, "
+                 + "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS "
+                 + "FROM LIBRO L "
+                 + "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR "
+                 + "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO "
+                 + "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO "
+                 + "WHERE G.NOMBRE = 'Ciencia Ficción' "
+                 + "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
       ResultSet resultado = statement.executeQuery(sql);
 
       // Recorrer los resultados y añadirlos a la lista
@@ -586,9 +594,9 @@ public class ControllerValoracionLibro extends Application {
         String titulo = resultado.getString("TITULO");
         String autor = resultado.getString("AUTOR");
         String genero = resultado.getString("GENERO");
-        int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+        int numResena = resultado.getInt("NUMERO_RESEÑAS");
 
-        columnas.add(new Libro(titulo, autor, genero, numReseña));
+        columnas.add(new Libro(titulo, autor, genero, numResena));
       }
 
       // Cerrar la conexión
@@ -608,22 +616,22 @@ public class ControllerValoracionLibro extends Application {
     //Informacion de mi base de datos
     String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
     String usuario = "System";
-    String contraseña = "aurelio666";
+    String contrasena = "aurelio666";
     
     try {
       // Establecer conexión con la base de datos
-      Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+      Connection connection = DriverManager.getConnection(url, usuario, contrasena);
 
       // Crear el statement y ejecutar la consulta
       Statement statement = connection.createStatement();
-      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
-                   "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-                   "FROM LIBRO L " + 
-                   "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
-                   "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
-                   "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
-                   "WHERE G.NOMBRE = 'Cocina' " +  
-                   "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, "
+                 + "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS "
+                 + "FROM LIBRO L "
+                 + "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR "
+                 + "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO "
+                 + "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO "
+                 + "WHERE G.NOMBRE = 'Cocina' "
+                 + "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
       ResultSet resultado = statement.executeQuery(sql);
         
       // Recorrer los resultados y añadirlos a la lista
@@ -631,9 +639,9 @@ public class ControllerValoracionLibro extends Application {
         String titulo = resultado.getString("TITULO");
         String autor = resultado.getString("AUTOR");
         String genero = resultado.getString("GENERO");
-        int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+        int numResena = resultado.getInt("NUMERO_RESEÑAS");
 
-        columnas.add(new Libro(titulo, autor, genero, numReseña));
+        columnas.add(new Libro(titulo, autor, genero, numResena));
       }
 
       // Cerrar la conexión
@@ -646,134 +654,138 @@ public class ControllerValoracionLibro extends Application {
 
   @FXML
   ObservableList<Libro> itemConsulta_ReferenciaBuscar(ActionEvent event) {
-	  miMenuButton.setText(this.itemConsulta_Referencia.getText());
-	  
-	  ObservableList<Libro> columnas = FXCollections.observableArrayList();
-	  
-		//Informacion de mi base de datos
-		    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
-			String usuario = "System";
-			String contraseña = "aurelio666";
-			
-			try {
-	          // Establecer conexión con la base de datos
-	          Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+    miMenuButton.setText(this.itemConsulta_Referencia.getText());
+    
+    ObservableList<Libro> columnas = FXCollections.observableArrayList();
 
-	          // Crear el statement y ejecutar la consulta
-	          Statement statement = connection.createStatement();
-	          String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
-	                  "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-	                  "FROM LIBRO L " + 
-	                  "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
-	                  "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
-	                  "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
-	                  "WHERE G.NOMBRE = 'De consulta y referencia' " +  
-	                  "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
-	          ResultSet resultado = statement.executeQuery(sql);
-	          // Recorrer los resultados y añadirlos a la lista
-	          while (resultado.next()) {
-	              String titulo = resultado.getString("TITULO");
-	              String autor = resultado.getString("AUTOR");
-	              String genero = resultado.getString("GENERO");
-	              int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+    //Informacion de mi base de datos
+    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
+    String usuario = "System";
+    String contrasena = "aurelio666";
 
-	              columnas.add(new Libro(titulo, autor,genero,numReseña));
-	          }
+    try {
+      // Establecer conexión con la base de datos
+      Connection connection = DriverManager.getConnection(url, usuario, contrasena);
 
-	       // Cerrar la conexión
-	          connection.close();
-	      } catch (Exception e) {
-	          e.printStackTrace();
-	      }
-			return columnas;  
+      // Crear el statement y ejecutar la consulta
+      Statement statement = connection.createStatement();
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, "
+                 + "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS "
+                 + "FROM LIBRO L " 
+                 + "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " 
+                 + "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO "
+                 + "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO "  
+                 + "WHERE G.NOMBRE = 'De consulta y referencia' "
+                 + "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
+      ResultSet resultado = statement.executeQuery(sql);
+      
+      // Recorrer los resultados y añadirlos a la lista
+      while (resultado.next()) {
+        String titulo = resultado.getString("TITULO");
+        String autor = resultado.getString("AUTOR");
+        String genero = resultado.getString("GENERO");
+        int numResena = resultado.getInt("NUMERO_RESEÑAS");
+
+        columnas.add(new Libro(titulo, autor, genero, numResena));
+      }
+
+      // Cerrar la conexión
+      connection.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return columnas;  
   }
 
   @FXML
   ObservableList<Libro> itemContemporaneoBuscar(ActionEvent event) {
-	  miMenuButton.setText(this.itemContemporaneo.getText());
-	  
-	  ObservableList<Libro> columnas = FXCollections.observableArrayList();
-	  
-		//Informacion de mi base de datos
-		    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
-			String usuario = "System";
-			String contraseña = "aurelio666";
-			
-			try {
-	          // Establecer conexión con la base de datos
-	          Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+    miMenuButton.setText(this.itemContemporaneo.getText());
 
-	          // Crear el statement y ejecutar la consulta
-	          Statement statement = connection.createStatement();
-	          String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
-	                  "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-	                  "FROM LIBRO L " + 
-	                  "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
-	                  "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
-	                  "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
-	                  "WHERE G.NOMBRE = 'Contemporáneo' " +  
-	                  "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
-	          ResultSet resultado = statement.executeQuery(sql);
-	          // Recorrer los resultados y añadirlos a la lista
-	          while (resultado.next()) {
-	              String titulo = resultado.getString("TITULO");
-	              String autor = resultado.getString("AUTOR");
-	              String genero = resultado.getString("GENERO");
-	              int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+    ObservableList<Libro> columnas = FXCollections.observableArrayList();
+    
+    //Informacion de mi base de datos
+    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
+    String usuario = "System";
+    String contrasena = "aurelio666";
 
-	              columnas.add(new Libro(titulo, autor,genero,numReseña));
-	          }
+    try {
+      // Establecer conexión con la base de datos
+      Connection connection = DriverManager.getConnection(url, usuario, contrasena);
 
-	       // Cerrar la conexión
-	          connection.close();
-	      } catch (Exception e) {
-	          e.printStackTrace();
-	      }
-			return columnas;
+      // Crear el statement y ejecutar la consulta
+      Statement statement = connection.createStatement();
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, "
+                 + "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS "
+                 + "FROM LIBRO L "
+                 + "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR "
+                 + "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO "
+                 + "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO "
+                 +  "WHERE G.NOMBRE = 'Contemporáneo' "
+                 +  "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
+      ResultSet resultado = statement.executeQuery(sql);
+      
+      // Recorrer los resultados y añadirlos a la lista
+      while (resultado.next()) {
+        String titulo = resultado.getString("TITULO");
+        String autor = resultado.getString("AUTOR");
+        String genero = resultado.getString("GENERO");
+        int numResena = resultado.getInt("NUMERO_RESEÑAS");
+
+        columnas.add(new Libro(titulo, autor, genero, numResena));
+      }
+
+      // Cerrar la conexión
+      connection.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return columnas;
   }
 
   @FXML
   ObservableList<Libro> itemDistopiaBuscar(ActionEvent event) {
-	  miMenuButton.setText(this.itemDistopia.getText());
-	  
-	  ObservableList<Libro> columnas = FXCollections.observableArrayList();
-	  
-		//Informacion de mi base de datos
-		    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
-			String usuario = "System";
-			String contraseña = "aurelio666";
-			
-			try {
-	          // Establecer conexión con la base de datos
-	          Connection connection = DriverManager.getConnection(url, usuario, contraseña);
+    miMenuButton.setText(this.itemDistopia.getText());
+    
+    ObservableList<Libro> columnas = FXCollections.observableArrayList();
+    
+    //Informacion de mi base de datos
+    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
+    String usuario = "System";
+    String contrasena = "aurelio666";
 
-	          // Crear el statement y ejecutar la consulta
-	          Statement statement = connection.createStatement();
-	          String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, " +
-	                  "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " +
-	                  "FROM LIBRO L " + 
-	                  "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR " +  
-	                  "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " +  
-	                  "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " +  
-	                  "WHERE G.NOMBRE = 'Distopía' " +  
-	                  "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
-	          ResultSet resultado = statement.executeQuery(sql);
-	          // Recorrer los resultados y añadirlos a la lista
-	          while (resultado.next()) {
-	              String titulo = resultado.getString("TITULO");
-	              String autor = resultado.getString("AUTOR");
-	              String genero = resultado.getString("GENERO");
-	              int numReseña = resultado.getInt("NUMERO_RESEÑAS");
+    try {
+      // Establecer conexión con la base de datos
+      Connection connection = DriverManager.getConnection(url, usuario, contrasena);
 
-	              columnas.add(new Libro(titulo, autor,genero,numReseña));
-	          }
+      // Crear el statement y ejecutar la consulta
+      Statement statement = connection.createStatement();
+      String sql = "SELECT L.TITULO, A.NOMBRE AS AUTOR, G.NOMBRE AS GENERO, "
+                 + "COUNT(R.ID_RESENA) AS NUMERO_RESEÑAS " 
+                 + "FROM LIBRO L " 
+                 + "JOIN AUTOR A ON L.ID_AUTOR = A.ID_AUTOR "
+                 + "JOIN GENERO G ON L.ID_GENERO = G.ID_GENERO " 
+                 + "LEFT JOIN RESENA R ON L.ID_LIBRO = R.ID_LIBRO " 
+                 + "WHERE G.NOMBRE = 'Distopía' " 
+                 + "GROUP BY L.TITULO, A.NOMBRE, G.NOMBRE"; 
+      ResultSet resultado = statement.executeQuery(sql);
 
-	       // Cerrar la conexión
-	          connection.close();
-	      } catch (Exception e) {
-	          e.printStackTrace();
-	      }
-			return columnas;
+      // Recorrer los resultados y añadirlos a la lista
+      while (resultado.next()) {
+        String titulo = resultado.getString("TITULO");
+        String autor = resultado.getString("AUTOR");
+        String genero = resultado.getString("GENERO");
+        int numResena = resultado.getInt("NUMERO_RESEÑAS");
+
+        columnas.add(new Libro(titulo, autor, genero, numResena));
+      }
+
+      // Cerrar la conexión
+      connection.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    return columnas;
   }
 
   @FXML
@@ -1436,32 +1448,30 @@ public class ControllerValoracionLibro extends Application {
 			return columnas;
   }
   
+  /**
+   * Representa cuando sellecciona con dos click un libro en la tabla
+   * y se abre otra ventana.
+   */
   public void loadLibro() {
-	  tablaDeLibros.getItems();
-	  
-	  tablaDeLibros.setOnMouseClicked(evento -> {
-	  		
-	  		if(evento.getClickCount() == 2) {
-	  			try {
-	  		      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ReseñaLibro.fxml"));
-	  		      Parent root = loader.load();
-	  		      Scene scene = new Scene(root);
-	  		      Stage stage = new Stage();
-	  		      stage.initModality(Modality.APPLICATION_MODAL);
-	  		      stage.setScene(scene);
-	  		      stage.showAndWait();
-	  		    } catch (IOException e) {
-	  		      // TODO Auto-generated catch block
-	  		      e.printStackTrace();
-	  		    }
-	  		}
-	  	});
-  }
-  
-  public void Imprimir(ObservableList<Libro> dato) {
-	  for (Libro libro : dato) {
-		System.out.println(libro.toString());
-	}
+    tablaDeLibros.getItems();
+
+    tablaDeLibros.setOnMouseClicked(evento -> {
+
+      if (evento.getClickCount() == 2) {
+        try {
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ReseñaLibro.fxml"));
+          Parent root = loader.load();
+          Scene scene = new Scene(root);
+          Stage stage = new Stage();
+          stage.initModality(Modality.APPLICATION_MODAL);
+          stage.setScene(scene);
+          stage.showAndWait();
+        } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      }
+    });
   }
   
   @Override
@@ -1475,80 +1485,106 @@ public class ControllerValoracionLibro extends Application {
     stage.setFullScreen(true);
   }
   
-  /*Metodo para generar un documento pdf en  
-   * */
-@FXML
-void generarReporte(ActionEvent event) {
-  	//Declaro variables para acceder a la base de datos
-  	String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
+  @FXML
+  void generarReporte(ActionEvent event) {
+    //Declaro variables para acceder a la base de datos
+    String url = "jdbc:oracle:thin:@//localhost:1521/ORCL";
     String usuario = "System";
-    String contraseña = "aurelio666";
+    String contrasena = "aurelio666";
       
     //Declaro una variable para hacer la consulta
-    String sql = "SELECT NOMBRE_USUARIO, TITULO, DESCRIPCION FROM RESENA " +
-                 "JOIN LIBRO ON RESENA.ID_LIBRO = LIBRO.ID_LIBRO";
+    String sql = "SELECT NOMBRE_USUARIO, TITULO, DESCRIPCION FROM RESENA "
+              +  "JOIN LIBRO ON RESENA.ID_LIBRO = LIBRO.ID_LIBRO";
 
     //Crear un documento PDF
     Document documento = new Document();
       
     try {
-     //Buscar el archivo
-     PdfWriter.getInstance(documento, new FileOutputStream(archivoPDF));
-     documento.open();
-			
-			//Agregar titulo al reporte con tipo y tamaño de letra
-			Font tipoTexto = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
-			Paragraph titulo = new Paragraph("Reporte de las reseñas del libro", tipoTexto);
-			titulo.setAlignment(Element.ALIGN_CENTER);
-			documento.add(titulo);
-			documento.add(new Paragraph("\n"));
-			
-			//Crea una tabla con tres columnas
-			PdfPTable tabla = new PdfPTable(3);
-			tabla.setWidthPercentage(100);
-			tabla.setSpacingBefore(10f);
-			tabla.setSpacingAfter(10f);
-			
-			//Agregar los titulos de las columnas con tipo de letra y tamaño
-			Font tipoTexto2 = FontFactory.getFont(FontFactory.COURIER_BOLD, 12);
-			
-			//Agregar cada uno de los, titulos
-			PdfPCell celdaEncabezado;
-			celdaEncabezado = new PdfPCell(new Phrase("Nombre de usuario", tipoTexto2));
-			tabla.addCell(celdaEncabezado);
-			
-			celdaEncabezado = new PdfPCell(new Phrase("Titulo del libro", tipoTexto2));
-			tabla.addCell(celdaEncabezado);
-			
-			celdaEncabezado = new PdfPCell(new Phrase("Ontenido de la reseña", tipoTexto2));
-			tabla.addCell(celdaEncabezado);
-			
-			//Conexion a la base de datos
-			try(Connection connection = DriverManager.getConnection(url, usuario, contraseña);
-	                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
-	                 ResultSet resultSet = preparedStatement.executeQuery()) {
-				
-				while(resultSet.next()) {
-				tabla.addCell(resultSet.getString("NOMBRE_USUARIO"));
-				tabla.addCell(resultSet.getString("TITULO"));
-				tabla.addCell(resultSet.getString("DESCRIPCION"));
-				}	
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
-			
-			//Añadir informacion de la consulta a la tabla
-			documento.add(tabla);
-			
-			//Verificar que se realizó el reporte
-			System.out.println("Se realizo el documento exitosamente: " + archivoPDF);
-		} catch (DocumentException | java.io.IOException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		  //Finaliza el proceso y cierra el documento
-		} finally {
-			documento.close();
-		}
+      //Buscar el archivo
+      PdfWriter.getInstance(documento, new FileOutputStream(archivo));
+      documento.open();
+      
+      //Agregar fecha actual y hora con tipo y tamaño de letra
+      Font tipoFecha = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10);
+      LocalDateTime hora = LocalDateTime.now();
+      DateTimeFormatter formatear = DateTimeFormatter.ofPattern("dd-MM-yyyy | HH:mm:ss");
+      String fechaHoraForamteada = hora.format(formatear);
+      Paragraph fechaHora = new Paragraph("Fecha: " + fechaHoraForamteada, tipoFecha);
+      fechaHora.setAlignment(Element.ALIGN_RIGHT);
+      documento.add(fechaHora);
+      documento.add(new Paragraph("\n"));
+
+      //Agregar titulo al reporte con tipo y tamaño de letra
+      Font tipoTexto = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
+      Paragraph titulo = new Paragraph("Reporte de las reseñas del libro", tipoTexto);
+      titulo.setAlignment(Element.ALIGN_CENTER);
+      documento.add(titulo);
+      documento.add(new Paragraph("\n"));
+      
+      //Agregar nombre de la consultoria
+      Font tipoTexto2 = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+      Paragraph texto = new Paragraph("El dato de inventario físico, es conforme "
+          + "al sistema de control de reseñas que la referida sociedad InnovaSLT Software "
+          + "Solution lleva a esa fecha", tipoTexto2);
+      documento.add(texto);
+      documento.add(new Paragraph("\n"));
+      
+
+      //Crea una tabla con tres columnas
+      PdfPTable tabla = new PdfPTable(3);
+      tabla.setWidthPercentage(100);
+      tabla.setSpacingBefore(10f);
+      tabla.setSpacingAfter(10f);
+
+      //Agregar los titulos de las columnas con tipo de letra y tamaño
+      Font tipoTexto3 = FontFactory.getFont(FontFactory.COURIER_BOLD, 12);
+
+      //Agregar cada uno de los, titulos
+      PdfPCell celdaEncabezado;
+      celdaEncabezado = new PdfPCell(new Phrase("Nombre de usuario", tipoTexto3));
+      tabla.addCell(celdaEncabezado);
+
+      celdaEncabezado = new PdfPCell(new Phrase("Titulo del libro", tipoTexto3));
+      tabla.addCell(celdaEncabezado);
+
+      celdaEncabezado = new PdfPCell(new Phrase("Ontenido de la reseña", tipoTexto3));
+      tabla.addCell(celdaEncabezado);
+
+      //Conexion a la base de datos
+      try (Connection connection = DriverManager.getConnection(url, usuario, contrasena);
+          PreparedStatement preparedStatement = connection.prepareStatement(sql);
+          ResultSet resultSet = preparedStatement.executeQuery()) {
+
+        while (resultSet.next()) {
+          tabla.addCell(resultSet.getString("NOMBRE_USUARIO"));
+          tabla.addCell(resultSet.getString("TITULO"));
+          tabla.addCell(resultSet.getString("DESCRIPCION"));
+        }
+
+      } catch (Exception e) {
+        // TODO: handle exception
+        e.printStackTrace();
+      }
+
+      //Añadir informacion de la consulta a la tabla
+      documento.add(tabla);
+
+    } catch (DocumentException | java.io.IOException e) {
+      // TODO: handle exception
+      e.printStackTrace();
+      //Finaliza el proceso y cierra el documento
+    } finally {
+
+      //Muestra un mensaje de alerta 
+      Alert alert = new Alert(AlertType.CONFIRMATION, "Se generó el reporte exitosamente");
+      alert.showAndWait();
+
+      documento.close();
+    }
+  }
+  
+  @FXML
+  void regrenerarTabla(ActionEvent event) {
+    initialize();
   }
 }
