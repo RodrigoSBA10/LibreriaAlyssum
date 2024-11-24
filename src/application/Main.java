@@ -16,12 +16,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-/*
-* Metodo main con la extencion Appication
-* 
-* @param primaryStage paramtro del argumento
-* */
-
+/**
+ * Representa el método inicial que llama a la primera ventana
+ */
 public class Main extends Application {
   @Override
 public void start(Stage primaryStage) {

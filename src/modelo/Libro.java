@@ -11,8 +11,9 @@
 
 package modelo;
 
-/*Libro class
- * Return nada*/
+/**
+ * Representa la clase libro que se encarga de crear libros
+ */
 public class Libro {
   //Constantes
   String titulo;
@@ -22,7 +23,6 @@ public class Libro {
   
   
   public Libro() {
-	  
   }
 
   /*

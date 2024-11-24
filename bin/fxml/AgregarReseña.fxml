@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="559.0" prefWidth="563.0" styleClass="capa1" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.ControllerAgregarReseña">
+   <children>
+      <TextArea fx:id="textArea" layoutX="15.0" layoutY="115.0" prefHeight="143.0" prefWidth="540.0" promptText="¿Qué te pareció el libro?" styleClass="texto" stylesheets="@../css/application.css" />
+      <Button fx:id="agregar" layoutX="106.0" layoutY="515.0" mnemonicParsing="false" onAction="#agregarReseña" styleClass="boton" stylesheets="@../css/application.css" text="Agregar" />
+      <Button fx:id="cancelar" layoutX="404.0" layoutY="515.0" mnemonicParsing="false" onAction="#regresarBoton" styleClass="botonRojo" stylesheets="@../css/application.css" text="Cancelar" />
+      <Text layoutX="168.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Button fx:id="btn1" layoutX="41.0" layoutY="74.0" mnemonicParsing="false" onAction="#ClickButton1" prefHeight="33.0" prefWidth="42.0" styleClass="botonEstrella" stylesheets="@../css/application.css" />
+      <Button fx:id="btn2" layoutX="106.0" layoutY="74.0" mnemonicParsing="false" onAction="#ClickButton2" prefHeight="33.0" prefWidth="42.0" styleClass="botonEstrella" stylesheets="@../css/application.css" />
+      <Button fx:id="btn3" layoutX="168.0" layoutY="74.0" mnemonicParsing="false" onAction="#ClickButton3" prefHeight="33.0" prefWidth="42.0" styleClass="botonEstrella" stylesheets="@../css/application.css" />
+      <Button fx:id="btn4" layoutX="228.0" layoutY="74.0" mnemonicParsing="false" onAction="#ClickButton4" prefHeight="33.0" prefWidth="42.0" styleClass="botonEstrella" stylesheets="@../css/application.css" />
+      <Button fx:id="btn5" layoutX="291.0" layoutY="74.0" mnemonicParsing="false" onAction="#ClickButton5" prefHeight="33.0" prefWidth="42.0" styleClass="botonEstrella" stylesheets="@../css/application.css" />
+      <Text layoutX="15.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calificación de estrellas:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Button fx:id="agregarLiga" layoutX="230.0" layoutY="515.0" mnemonicParsing="false" onAction="#agregarMultimedia" styleClass="boton" stylesheets="@../css/application.css" text="Agregar multimedia" />
+      <AnchorPane layoutX="15.0" layoutY="270.0" prefHeight="216.0" prefWidth="540.0" stylesheets="@../css/application.css">
+         <styleClass>
+            <String fx:value="cuerpo" />
+            <String fx:value="bordered-pane" />
+         </styleClass>
+         <children>
+            <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" layoutX="33.0" layoutY="11.0" />
+            <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="288.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+      <TextField fx:id="nombreUsuario" layoutX="392.0" layoutY="78.0" promptText="Nombre opcional" />
+      <Text layoutX="392.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre usuario: " />
+   </children>
+</AnchorPane>
