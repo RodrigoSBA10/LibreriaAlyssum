@@ -190,10 +190,10 @@ public class DataBase {
 			int fAfectada = pstm.executeUpdate();
 			
 			if(fAfectada > 0) {
-				alert = new Alert(Alert.AlertType.INFORMATION, "Ticket: " + numero + " eliminado");
+				alert = new Alert(Alert.AlertType.INFORMATION, "Ticket: " + devolucion.getNumTicket() + " eliminado");
 				alert.show();
 			} else {
-				alert = new Alert(Alert.AlertType.ERROR, "Ticket: " + numero + " no encontrado");
+				alert = new Alert(Alert.AlertType.ERROR, "Ticket: " + devolucion.getNumTicket() + " no encontrado");
 				alert.show();
 			}
 			
